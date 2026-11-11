@@ -774,7 +774,28 @@ function bLavoro(){
   const net=new THREE.LineSegments(geo(lp),new THREE.LineBasicMaterial({color:0x7fa6ff,transparent:true,opacity:.45,blending:ADD,depthWrite:false}));s.add(net);
   const pp=new Float32Array(pairs.length*3),pg=new THREE.BufferGeometry();pg.setAttribute("position",new THREE.BufferAttribute(pp,3));
   const pulses=new THREE.Points(pg,pm(.3,0xffc35c));pulses.frustumCulled=false;s.add(pulses);
+  // PAGHE E CONTRATTI scritto dai puntini di luce che salgono dalle persone
+  const TZ=-12,TY=3.2,TX=(()=>{const W=1200,H=420,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");x.fillStyle="#fff";x.textAlign="center";x.textBaseline="middle";
+    const lines=["PAGHE","E CONTRATTI"];let fs=130;x.font=`${fs}px Michroma, 'Arial Black', sans-serif`;const w=Math.max(...lines.map(l=>x.measureText(l).width));if(w>1140){fs*=1140/w;x.font=`${fs}px Michroma, 'Arial Black', sans-serif`}
+    const lh=fs*1.3;lines.forEach((l,i)=>x.fillText(l,W/2,H/2+(i-.5)*lh));
+    const d=x.getImageData(0,0,W,H).data,pts=[];for(let y=0;y<H;y+=2)for(let X=0;X<W;X+=2)if(d[(y*W+X)*4+3]>130)pts.push([X,y]);
+    const visW=2*15*Math.tan(cam.fov*Math.PI/360)*cam.aspect,sc=Math.min(13,visW*.85)/W;
+    return pts.map(([X,y])=>new THREE.Vector3((X-W/2)*sc,-(y-H/2)*sc+TY,TZ))})();
+  const NW=mob?4000:8000,wp=new Float32Array(NW*3),wd=[];
+  for(let i=0;i<NW;i++){const pe=people[(rnd()*people.length)|0].position;wd.push({st:new THREE.Vector3(pe.x+(rnd()-.5)*.6,-.3+rnd()*.4,pe.z+(rnd()-.5)*.6),tg:TX[(rnd()*TX.length)|0],
+    cv:new THREE.Vector3((rnd()-.5)*4,3+rnd()*4,(rnd()-.5)*3),ln:new THREE.Vector3(0,(rnd()-.5)*16,TZ),r:rnd(),ph:rnd()*6})}
+  const wg=new THREE.BufferGeometry();wg.setAttribute("position",new THREE.BufferAttribute(wp,3));
+  const words=new THREE.Points(wg,pm(mob?.1:.08,0xffc35c));words.frustumCulled=false;s.add(words);
+  const wbeam=new THREE.Mesh(new THREE.BoxGeometry(.05,34,.05),new THREE.MeshBasicMaterial({color:0xffd27a,transparent:true,opacity:0}));wbeam.position.set(0,0,TZ);s.add(wbeam);
+  const wt=new THREE.Vector3(),wm=new THREE.Vector3();
   return {scene:s,bloom:.9,update(u,t){const k=ease(u);cam.position.set(Math.sin(t*.2)*.4,1.2,lerp(12,3,k));look.set(0,.6,cam.position.z-12);cam.lookAt(look);
+    const cv=sm(clamp((u-.86)/.1));wbeam.scale.y=Math.max(.001,cv);wbeam.material.opacity=cv;
+    for(let i=0;i<NW;i++){const q=wd[i],a=sm(clamp((u-.06-q.r*.22)/.24));if(a<=0){wp[i*3+1]=-999;continue}
+      const c=sm(clamp((u-.86-q.r*.04)/.08));
+      if(c<=0){wm.copy(q.st).lerp(q.tg,.5).add(q.cv);bez(q.st,wm,q.tg,a,wt);if(a>=1){wt.x+=Math.sin(t*1.6+q.ph)*.015;wt.y+=Math.cos(t*1.2+q.ph)*.015}}
+      else wt.copy(q.tg).lerp(q.ln,c);
+      wp[i*3]=wt.x;wp[i*3+1]=wt.y;wp[i*3+2]=wt.z}
+    wg.attributes.position.needsUpdate=true;
     pairs.forEach(([a,b],i)=>{const v=(t*.4+i*.137)%1;pp[i*3]=lerp(a.position.x,b.position.x,v);pp[i*3+1]=-.6;pp[i*3+2]=lerp(a.position.z,b.position.z,v)});
     pg.attributes.position.needsUpdate=true;net.material.opacity=.35+.12*Math.sin(t*2)}};
 }
