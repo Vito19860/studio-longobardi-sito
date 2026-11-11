@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       headers: { ...headers, Prefer: "resolution=ignore-duplicates,return=minimal" },
       body: JSON.stringify(row),
     });
-    if (!r.ok) { console.error("Supabase", r.status, await r.text()); return res.status(502).json({ error: "Salvataggio non riuscito" }); }
+    if (!r.ok) { const txt = await r.text(); console.error("Supabase", r.status, txt); return res.status(502).json({ error: "Salvataggio non riuscito", code: "db", detail: txt.slice(0, 200) }); }
   } catch (e) {
     console.error(e);
     return res.status(502).json({ error: "Salvataggio non riuscito" });
@@ -58,5 +58,6 @@ export default async function handler(req, res) {
     } else console.error("Storage", s.status, await s.text());
   } catch (e) { console.error(e); }
 
-  return res.status(200).json({ ok: true, url: link });
+  // se il PDF non è su Supabase Storage, si usa la copia pubblicata con il sito (cartella download/)
+  return res.status(200).json({ ok: true, url: link || "/download/intelligenza-fiscale.pdf" });
 }

@@ -610,11 +610,11 @@ sheetBody.addEventListener("submit",async e=>{if(e.target.id!=="bform")return;e.
   if(!d.privacy)return bad("Serve il consenso privacy per inviarti il libro.");
   const live=/^(www\.)?(vitolongobardi|studiolongobardi)\.it$|vercel\.app$|localhost$/.test(location.hostname);
   btn.disabled=true;btn.textContent="Invio in corso…";
-  try{let link=null;if(!live)await new Promise(r=>setTimeout(r,700));else{const r=await fetch("/api/libro",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});if(!r.ok)throw 0;link=(await r.json()).url||null}
+  try{let link=null;if(!live)await new Promise(r=>setTimeout(r,700));else{const r=await fetch("/api/libro",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});const j=await r.json().catch(()=>({}));if(!r.ok)throw (j.code==="db"?"db":"net");link=j.url||null}
     f.reset();out.className="fmsg ok";
-    if(link){out.innerHTML='Grazie! <a class="dl" href="'+link+'" target="_blank" rel="noopener">Scarica Intelligenza Fiscale (PDF)</a>';try{window.open(link,"_blank")}catch(_){}}
+    if(link){out.innerHTML='Grazie! <a class="dl" href="'+link+'" target="_blank" rel="noopener" download>Scarica Intelligenza Fiscale (PDF)</a>'}
     else out.textContent=live?"Richiesta ricevuta. Ti invieremo il libro all'indirizzo email indicato.":"Anteprima: nel sito online qui comparirà il link per scaricare il libro."}
-  catch(_){bad("Invio non riuscito. Riprova tra poco.")}finally{btn.disabled=false;btn.textContent="Scarica il libro gratis"}});sheetBg.addEventListener("click",closeSheet);
+  catch(err){bad(err==="db"?"Invio non riuscito: il database non accetta la richiesta (manca l'aggiornamento su Supabase).":"Invio non riuscito. Riprova tra poco.")}finally{btn.disabled=false;btn.textContent="Scarica il libro gratis"}});sheetBg.addEventListener("click",closeSheet);
 addEventListener("keydown",e=>{if(e.key==="Escape"){closeSheet();setDD(false);setMenu(false)}});
 sheetBody.addEventListener("click",e=>{const b=e.target.closest("button[data-act]");if(!b)return;const d=SCHEDE[curKey];closeSheet();
   if(b.dataset.act==="ride")setTimeout(()=>goFloor(d.f),60);
