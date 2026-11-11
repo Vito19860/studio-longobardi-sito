@@ -44,5 +44,4 @@ poi aggiorna i DNS dal tuo registrar come indicato da Vercel.
 - Indirizzo, telefono, email, PEC, orari (sezione Contatti)
 - Partita IVA nel footer
 - Pagine Privacy policy e Cookie policy
-- Link d'acquisto di Cammino verso Dio (`LINK_CAMMINO` in index.html)
 - Foto reale della copertina di Intelligenza Fiscale
