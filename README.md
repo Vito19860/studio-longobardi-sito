@@ -9,7 +9,7 @@ Sito di **www.studiolongobardi.it**.
 ## Struttura
 
 ```
-index.html            il sito: la torre a piani in 3D (three.js) + galleria Elevate + contatti
+index.html            il sito: la torre a piani con immagini AI fotorealistiche e scritte a pallini di luce + galleria Elevate + contatti
 img/                  foto di Elevate (e1…e12)
 api/richiesta.js      funzione Vercel: form contatti → tabella "richieste"
 api/libro.js          funzione Vercel: copia omaggio di Intelligenza Fiscale → tabella "richieste_libro"
