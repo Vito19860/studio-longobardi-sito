@@ -820,15 +820,35 @@ function bConsulenza(){
   const tip=new THREE.Sprite(new THREE.SpriteMaterial({map:DOT,color:0xffe6a8,transparent:true,blending:ADD,depthWrite:false}));s.add(tip);
   const kpis=[["KPI","#e8e2d4",-4.6,3.4,-.6],["+18% margine","#ffc35c",3.6,3.9,.4],["Cash flow","#b5ccff",-3,4.4,1.2],["Break-even","#e8e2d4",4.4,2.4,-1.2],["Deleghe","#b5ccff",0,5,-1.6]].map(([w,c,x,y,z])=>{
     const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:textTex(w,c),transparent:true,depthWrite:false,opacity:0}));sp.scale.set(3,.75,1);sp.position.set(x,y,z);s.add(sp);return sp});
-  const title=new THREE.Sprite(new THREE.SpriteMaterial({transparent:true,depthWrite:false,opacity:0,map:ctex(1600,200,(x,w,h)=>{x.textAlign="center";x.textBaseline="middle";x.font="92px Michroma, 'Arial Black', sans-serif";
-    x.shadowColor="#f2a51f";x.shadowBlur=26;x.fillStyle="#ffd27a";x.fillText("CONTROLLO DI GESTIONE",w/2,h/2)})}));title.scale.set(10,1.25,1);title.position.set(0,4.7,0);s.add(title);
+  // CONTROLLO DI GESTIONE scritto dai puntini di luce che salgono dal tavolo (il gruppo guarda sempre la camera)
+  const tg=new THREE.Group();tg.position.set(0,4.4,0);s.add(tg);
+  const CT=(()=>{const W=1400,H=400,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");x.fillStyle="#fff";x.textAlign="center";x.textBaseline="middle";
+    const lines=mob?["CONTROLLO","DI GESTIONE"]:["CONTROLLO DI GESTIONE"];let fs=130;x.font=`${fs}px Michroma, 'Arial Black', sans-serif`;const w=Math.max(...lines.map(l=>x.measureText(l).width));if(w>1340){fs*=1340/w;x.font=`${fs}px Michroma, 'Arial Black', sans-serif`}
+    const lh=fs*1.3;lines.forEach((l,i)=>x.fillText(l,W/2,H/2+(i-(lines.length-1)/2)*lh));
+    const d=x.getImageData(0,0,W,H).data,pts=[];for(let y=0;y<H;y+=2)for(let X=0;X<W;X+=2)if(d[(y*W+X)*4+3]>130)pts.push([X,y]);
+    const visW=2*8*Math.tan(cam.fov*Math.PI/360)*cam.aspect,sc=Math.min(8.5,visW*.85)/W;
+    return pts.map(([X,y])=>new THREE.Vector3((X-W/2)*sc,-(y-H/2)*sc,0))})();
+  const NC=mob?3500:7000,cp=new Float32Array(NC*3),cd=[];
+  for(let i=0;i<NC;i++){const a=rnd()*Math.PI*2,r=rnd()*3.5;cd.push({st:new THREE.Vector3(Math.cos(a)*r,-4.2+rnd()*.6,Math.sin(a)*r*.5),tg:CT[(rnd()*CT.length)|0],
+    cv:new THREE.Vector3((rnd()-.5)*3,1+rnd()*2,(rnd()-.5)*2),ln:new THREE.Vector3(0,(rnd()-.5)*12,0),r:rnd(),ph:rnd()*6})}
+  const cgeo=new THREE.BufferGeometry();cgeo.setAttribute("position",new THREE.BufferAttribute(cp,3));
+  const cpts=new THREE.Points(cgeo,pm(mob?.07:.055,0xffc35c));cpts.frustumCulled=false;tg.add(cpts);
+  const cbeam=new THREE.Mesh(new THREE.BoxGeometry(.04,24,.04),new THREE.MeshBasicMaterial({color:0xffd27a,transparent:true,opacity:0}));tg.add(cbeam);
+  const ct=new THREE.Vector3(),cm=new THREE.Vector3(),camFlat=new THREE.Vector3();
   return {scene:s,bloom:.95,update(u,t){
-    title.material.opacity=sm(clamp((u-.04)/.14));title.position.y=4.7+Math.sin(t*.8)*.05;
     const k=ease(u),ang=lerp(-.9,.35,k),rad=lerp(10,7.2,k);cam.position.set(Math.sin(ang)*rad,lerp(4.2,3,k)+Math.sin(t*.3)*.08,Math.cos(ang)*rad);look.set(0,1.3,0);cam.lookAt(look);
     const g=ease(clamp((u-.08)/.45));bars.forEach((b,i)=>{const h=Math.max(.01,barH[i]*sm(clamp(g*1.6-i*.06)));b.scale.y=h;b.position.y=.1+h/2});
     const n=Math.max(0,Math.round(clamp((u-.35)/.35)*CL));chart.geometry.setDrawRange(0,n);
     if(n>1){tip.visible=true;tip.position.set(clPos[(n-1)*3],clPos[(n-1)*3+1],0);tip.scale.setScalar(.6+Math.sin(t*4)*.1)}else tip.visible=false;
-    kpis.forEach((sp,i)=>{sp.material.opacity=sm(clamp((u-.3-i*.07)/.1))*.95*(sp.position.y>4.3?0:1)});cone.material.opacity=.04+.02*Math.sin(t*3)}};
+    kpis.forEach((sp,i)=>{sp.material.opacity=sm(clamp((u-.3-i*.07)/.1))*.95*(sp.position.y>4.1?0:1)});
+    camFlat.set(cam.position.x,tg.position.y,cam.position.z);tg.lookAt(camFlat);
+    const cv=sm(clamp((u-.86)/.1));cbeam.scale.y=Math.max(.001,cv);cbeam.material.opacity=cv;
+    for(let i=0;i<NC;i++){const q=cd[i],a=sm(clamp((u-.03-q.r*.2)/.22));if(a<=0){cp[i*3+1]=-999;continue}
+      const c=sm(clamp((u-.86-q.r*.04)/.08));
+      if(c<=0){cm.copy(q.st).lerp(q.tg,.5).add(q.cv);bez(q.st,cm,q.tg,a,ct);if(a>=1){ct.x+=Math.sin(t*1.6+q.ph)*.01;ct.y+=Math.cos(t*1.2+q.ph)*.01}}
+      else ct.copy(q.tg).lerp(q.ln,c);
+      cp[i*3]=ct.x;cp[i*3+1]=ct.y;cp[i*3+2]=ct.z}
+    cgeo.attributes.position.needsUpdate=true;cone.material.opacity=.04+.02*Math.sin(t*3)}};
 }
 
 /* ================= P4 · CORSI ================= */
