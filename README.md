@@ -13,6 +13,7 @@ index.html            il sito: la torre a piani con immagini AI fotorealistiche 
 img/                  foto di Elevate (e1…e12)
 api/richiesta.js      funzione Vercel: form contatti → tabella "richieste"
 api/libro.js          funzione Vercel: download gratuito di Intelligenza Fiscale → tabella "richieste_libro" + link temporaneo al PDF (Supabase Storage, bucket privato "libri")
+download/             PDF di Intelligenza Fiscale (copia di riserva se non è su Supabase Storage)
 privacy.html          informativa privacy (/privacy)
 cookie.html           cookie policy (/cookie)
 supabase/schema.sql   tabella "richieste" da creare su Supabase
