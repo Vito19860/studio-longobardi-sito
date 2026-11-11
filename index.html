@@ -357,8 +357,9 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
     <h2>Holding: conosci le regole? <em>Dai struttura alla crescita.</em></h2>
   </div></div>
   <div class="beat" data-f="6" data-in=".46" data-out=".7"><div class="glass">
-    <div class="big">95%</div>
-    <p>dei dividendi incassati dalla holding esclusi dal reddito imponibile, alle condizioni previste dalla legge.</p>
+    <div class="eyebrow">Accedi alla tassazione agevolata</div>
+    <div class="big">5%</div>
+    <p>I dividendi incassati dalla holding sono tassati solo sul 5% del loro importo, alle condizioni previste dalla legge.</p>
   </div></div>
   <div class="beat" data-f="6" data-in=".76" data-out=".97"><div class="glass">
     <h2>La holding conviene <em>alla tua impresa?</em></h2>
@@ -524,7 +525,7 @@ const SCHEDE={
     note:"Vuoi fare il test o farlo fare al tuo team? Richiedilo qui sotto."},
   "holding":{f:6,area:"Holding",eyebrow:"P6 · Holding",title:"Holding: conosci le regole? Dai struttura alla crescita.",
     lead:"Una holding ben costruita separa il patrimonio dal rischio d'impresa, ordina le partecipazioni e rende più efficiente la circolazione degli utili. Ti aiutiamo a capire se conviene alla tua impresa e a costruirla nel modo giusto.",
-    cosa:[["Esclusione del 95%","I dividendi incassati dalla holding sono esclusi dal reddito imponibile per il 95%, alle condizioni previste dalla normativa."],["Governance","Ruoli, poteri e regole tra soci chiari e scritti."],["Controllo","Partecipazioni ordinate sotto un'unica regia."],["Strategia","Utili reinvestiti dove servono, nuove iniziative e passaggio generazionale."],["Protezione del patrimonio","Separazione tra patrimonio e rischio operativo."],["Valutazione di convenienza","Numeri alla mano: conviene davvero nel tuo caso?"]],
+    cosa:[["Tassazione agevolata al 5%","I dividendi incassati dalla holding concorrono al reddito imponibile solo per il 5% del loro importo, alle condizioni previste dalla normativa."],["Governance","Ruoli, poteri e regole tra soci chiari e scritti."],["Controllo","Partecipazioni ordinate sotto un'unica regia."],["Strategia","Utili reinvestiti dove servono, nuove iniziative e passaggio generazionale."],["Protezione del patrimonio","Separazione tra patrimonio e rischio operativo."],["Valutazione di convenienza","Numeri alla mano: conviene davvero nel tuo caso?"]],
     chi:["Imprenditori con più società","Soci di società di capitali","Famiglie imprenditoriali","Chi pianifica il passaggio generazionale"],
     come:[["Analisi","Struttura societaria, utili e obiettivi."],["Simulazione","Confronto tra situazione attuale e scenario con holding."],["Progetto","Disegno della struttura e delle regole di governance."],["Costituzione","Accompagnamento in tutti i passaggi."]],
     ricevi:["Una risposta chiara: la holding conviene o no","Una simulazione dei numeri","Il progetto della struttura","Assistenza nella costituzione e nella gestione"],
@@ -910,11 +911,31 @@ function bHolding(){
   const hub=new THREE.Vector3(0,7,0),links=[];
   tops.slice().sort(()=>rnd()-.5).slice(0,12).forEach(tp=>{const c=hub.clone().lerp(tp,.5);c.y+=3;const P=[];const v=new THREE.Vector3();for(let k=0;k<40;k++){bez(hub,c,tp,k/39,v);P.push(v.x,v.y,v.z)}
     const l=new THREE.Line(geo(P),new THREE.LineBasicMaterial({color:0xffc35c,transparent:true,opacity:.7,blending:ADD,depthWrite:false}));l.geometry.setDrawRange(0,0);s.add(l);links.push(l)});
-  const pct=new THREE.Sprite(new THREE.SpriteMaterial({transparent:true,depthWrite:false,opacity:0,map:ctex(512,256,(x,w,h)=>{x.textAlign="center";x.textBaseline="middle";x.font="150px Michroma, 'Arial Black', sans-serif";
-    x.shadowColor="#f2a51f";x.shadowBlur=30;x.fillStyle="#ffd27a";x.fillText("95%",w/2,h/2)})}));pct.scale.set(6,3,1);pct.position.set(0,10,0);s.add(pct);
+  // HOLDING scritto dai puntini di luce che salgono dalle aziende del plastico
+  const hgp=new THREE.Group();hgp.position.set(0,8.2,0);s.add(hgp);
+  const HT=(()=>{const W=1200,H=260,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");x.fillStyle="#fff";x.textAlign="center";x.textBaseline="middle";
+    let fs=180;x.font=`${fs}px Michroma, 'Arial Black', sans-serif`;const w=x.measureText("HOLDING").width;if(w>1140){fs*=1140/w;x.font=`${fs}px Michroma, 'Arial Black', sans-serif`}
+    x.fillText("HOLDING",W/2,H/2);const d=x.getImageData(0,0,W,H).data,pts=[];for(let y=0;y<H;y+=2)for(let X=0;X<W;X+=2)if(d[(y*W+X)*4+3]>130)pts.push([X,y]);
+    const visW=2*15*Math.tan(cam.fov*Math.PI/360)*cam.aspect,sc=Math.min(10,visW*.8)/W;
+    return pts.map(([X,y])=>new THREE.Vector3((X-W/2)*sc,-(y-H/2)*sc,0))})();
+  const NH=mob?3500:7000,hp=new Float32Array(NH*3),hd=[];
+  for(let i=0;i<NH;i++){const tp=tops[(rnd()*tops.length)|0];hd.push({st:new THREE.Vector3(tp.x,tp.y-8.2,tp.z),tg:HT[(rnd()*HT.length)|0],
+    cv:new THREE.Vector3((rnd()-.5)*4,2+rnd()*3,(rnd()-.5)*4),ln:new THREE.Vector3(0,(rnd()-.5)*14,0),r:rnd()})}
+  const hgeo=new THREE.BufferGeometry();hgeo.setAttribute("position",new THREE.BufferAttribute(hp,3));
+  const hpts=new THREE.Points(hgeo,pm(mob?.1:.08,0xffc35c));hpts.frustumCulled=false;hgp.add(hpts);
+  const hbeam=new THREE.Mesh(new THREE.BoxGeometry(.05,28,.05),new THREE.MeshBasicMaterial({color:0xffd27a,transparent:true,opacity:0}));hgp.add(hbeam);
+  const ht=new THREE.Vector3(),hm=new THREE.Vector3(),hs0=new THREE.Vector3(),hq=new THREE.Quaternion();
   return {scene:s,bloom:1,update(u,t){
-    pct.material.opacity=sm(clamp((u-.44)/.1))*(1-sm(clamp((u-.72)/.08)));pct.position.y=10+Math.sin(t*.7)*.15;
     const k=ease(u),ang=lerp(.5,2.1,k),rad=lerp(21,13,k);cam.position.set(Math.sin(ang)*rad,lerp(12,6.5,k),Math.cos(ang)*rad);look.set(0,2.5,0);cam.lookAt(look);
+    hgp.quaternion.copy(cam.quaternion);hgp.position.y=8.2+Math.sin(t*.6)*.08;
+    const hcv=sm(clamp((u-.86)/.1));hbeam.scale.y=Math.max(.001,hcv);hbeam.material.opacity=hcv;
+    hq.copy(hgp.quaternion).invert();
+    for(let i=0;i<NH;i++){const q=hd[i],a=sm(clamp((u-.04-q.r*.2)/.24));if(a<=0){hp[i*3+1]=-999;continue}
+      const c=sm(clamp((u-.86-q.r*.04)/.08));
+      if(c<=0){hs0.copy(q.st).applyQuaternion(hq);hm.copy(hs0).lerp(q.tg,.5).add(q.cv);bez(hs0,hm,q.tg,a,ht)}
+      else ht.copy(q.tg).lerp(q.ln,c);
+      hp[i*3]=ht.x;hp[i*3+1]=ht.y;hp[i*3+2]=ht.z}
+    hgeo.attributes.position.needsUpdate=true;
     const oo=sm(clamp((u-.15)/.25));
     orbits.forEach((o,i)=>{o.g.children[0].material.opacity=.55*sm(clamp((u-.12-i*.08)/.15));o.sats.forEach((sp,j)=>{const a=t*o.sp+j*Math.PI;sp.position.set(Math.cos(a)*o.r,Math.sin(a)*o.r,0);sp.material.opacity=oo})});
     links.forEach((l,i)=>l.geometry.setDrawRange(0,Math.round(40*sm(clamp((u-.4-i*.025)/.15)))))}};
