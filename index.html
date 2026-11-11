@@ -34,12 +34,14 @@ a{color:inherit}
 
 /* pozzo dell'ascensore: indice dei piani */
 .shaft{position:fixed;z-index:30;right:max(22px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);list-style:none;margin:0;padding:0;display:flex;flex-direction:column-reverse;gap:10px}
-.shaft button{all:unset;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:transparent;transition:color .3s}
-.shaft button span{display:inline-block;min-width:3ch;text-align:right;color:var(--muted)}
-.shaft button::after{content:"";width:10px;height:1px;background:var(--muted);transition:all .35s}
-.shaft button:hover,.shaft button.on{color:var(--fg)}
+.shaft li{display:flex;justify-content:flex-end}
+.shaft button{all:unset;cursor:pointer;position:relative;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase}
+.shaft button .lbl{position:absolute;right:calc(100% + 12px);top:50%;transform:translateY(-50%);white-space:nowrap;font-style:normal;color:var(--fg);opacity:0;transition:opacity .3s;pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.shaft button span{display:inline-block;width:3ch;text-align:right;color:var(--muted)}
+.shaft button i{display:block;width:28px;height:1px;background:var(--muted);transform:scaleX(.36);transform-origin:right center;transition:transform .35s,background .35s}
+.shaft button:hover .lbl,.shaft button.on .lbl{opacity:1}
 .shaft button.on span{color:var(--gold)}
-.shaft button.on::after{width:28px;background:var(--gold)}
+.shaft button.on i{transform:scaleX(1);background:var(--gold)}
 .shaft button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
 @media(max-width:900px){.shaft{display:none}}
 
@@ -488,7 +490,7 @@ const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),ease=t=>t<.5?4*t*t*t:1-Math.p
 // indice dei piani
 const shaft=document.getElementById("shaft"),shaftBtns=[];
 const scrollToUnit=u=>{const max=track.offsetHeight-innerHeight;scrollTo({top:track.offsetTop+u/TOTAL*max,behavior:"smooth"})};
-FLOORS.forEach((f,i)=>{const li=document.createElement("li"),b=document.createElement("button");b.type="button";b.innerHTML=`${f[1]} <span>${f[0]}</span>`;
+FLOORS.forEach((f,i)=>{const li=document.createElement("li"),b=document.createElement("button");b.type="button";b.innerHTML=`<em class="lbl">${f[1]}</em><span>${f[0]}</span><i></i>`;b.setAttribute("aria-label",`${f[0]} ${f[1]}`);
   b.addEventListener("click",()=>scrollToUnit(SEGS.find(s=>s.type==="f"&&s.i===i).start+.02));li.appendChild(b);shaft.appendChild(li);shaftBtns.push(b)});
 document.getElementById("again").addEventListener("click",e=>{e.preventDefault();scrollTo({top:0,behavior:"smooth"})});
 
