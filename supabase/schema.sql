@@ -38,3 +38,15 @@ create table if not exists public.richieste_libro (
   stato            text not null default 'da_spedire' check (stato in ('da_spedire','spedito','annullato'))
 );
 alter table public.richieste_libro enable row level security;
+
+-- Aggiornamento 11/11/2026: il libro si scarica in PDF, non si spedisce più.
+-- I campi dell'indirizzo diventano facoltativi e si aggiunge lo stato "scaricato".
+alter table public.richieste_libro alter column indirizzo drop not null;
+alter table public.richieste_libro alter column cap drop not null;
+alter table public.richieste_libro alter column citta drop not null;
+alter table public.richieste_libro alter column provincia drop not null;
+alter table public.richieste_libro drop constraint if exists richieste_libro_stato_check;
+alter table public.richieste_libro add constraint richieste_libro_stato_check check (stato in ('da_spedire','spedito','scaricato','annullato'));
+
+-- Bucket privato per il PDF del libro (il file si carica da Storage → libri)
+insert into storage.buckets (id, name, public) values ('libri', 'libri', false) on conflict (id) do nothing;

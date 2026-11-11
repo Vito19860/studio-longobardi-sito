@@ -182,6 +182,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
 .bk1{background:linear-gradient(160deg,#14203f,#060a16);color:#f1f3f7;border:1px solid rgba(242,165,31,.4)}.bk1 b{color:#f2a51f}
 .bk2{background:radial-gradient(ellipse at 50% 0%,#fff4dc,#d9cdb6);color:#2a2118}
 .badge{display:inline-block;background:#f2a51f;color:#140c00;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:6px}
+.fmsg .dl{display:inline-block;margin-top:8px;background:var(--gold);color:#140c00;font-weight:700;padding:11px 16px;border-radius:9px;text-decoration:none}
+.cform .check a{color:var(--gold-2)}
 .sheet .bform{margin-top:22px;background:#0b0f18}
 .three{display:grid;grid-template-columns:110px 1fr 80px;gap:12px}@media(max-width:480px){.three{grid-template-columns:1fr 1fr}}
 .sheet .acts a{font-weight:600;font-size:15px;padding:12px 18px;border-radius:10px;text-decoration:none}
@@ -395,13 +397,13 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
   </div></div>
   <div class="beat" data-f="7" data-in=".36" data-out=".6"><div class="glass">
     <div class="eyebrow">Intelligenza Fiscale · Best seller Amazon</div>
-    <h2>Prendi la tua copia. <em>In omaggio.</em></h2>
-    <button type="button" class="more" data-s="libri">Richiedila in omaggio →</button>
+    <h2>Scarica la tua copia. <em>In omaggio.</em></h2>
+    <button type="button" class="more" data-s="libri">Scaricalo gratis →</button>
   </div></div>
   <div class="beat" data-f="7" data-in=".7" data-out=".97"><div class="glass">
     <div class="eyebrow">Cammino verso Dio</div>
     <h2>21 tappe di fede e imprenditoriali <em>per crescere.</em></h2>
-    <button type="button" class="more" data-s="libri">Acquista il libro →</button>
+    <a class="more" href="https://link.amazon/B0c6dFw5w" target="_blank" rel="noopener">Acquista su Amazon →</a>
   </div></div>
 
   <!-- P8 -->
@@ -442,10 +444,8 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
       <h3>Qual è il tuo <span style="color:var(--gold-2)">prossimo passo?</span></h3>
       <p class="lead">Ricevo su appuntamento. Scrivi in quale area ti serve una mano e lo studio ti ricontatta per fissare l'incontro.</p>
       <div class="channels" style="margin-top:28px">
-        <div><span>Indirizzo</span><b class="ph">da inserire</b></div>
-        <div><span>Telefono</span><b class="ph">da inserire</b></div>
-        <div><span>Email</span><b class="ph">da inserire</b></div>
-        <div><span>PEC</span><b class="ph">da inserire</b></div>
+        <div><span>Indirizzo</span><a>Via Castellammare 71, 80054 Gragnano (NA)</a></div>
+        <div><span>Email</span><a href="mailto:vito@studiolongobardi.it">vito@studiolongobardi.it</a></div>
         <div><span>Studio</span><a href="https://www.instagram.com/studiolongobardi/" target="_blank" rel="noopener">@studiolongobardi</a></div>
         <div><span>Vito</span><a href="https://www.instagram.com/ilconsulente.it/" target="_blank" rel="noopener">@ilconsulente.it</a></div>
       </div>
@@ -465,12 +465,12 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
       </label>
       <label for="c-msg">Messaggio<textarea id="c-msg" name="messaggio" rows="4" placeholder="Raccontaci in due righe la tua situazione"></textarea></label>
       <div class="hp" aria-hidden="true"><label for="c-sito">Sito<input id="c-sito" name="sito" tabindex="-1" autocomplete="off"></label></div>
-      <label class="check" for="c-privacy"><input id="c-privacy" name="privacy" type="checkbox" required> Ho letto l'informativa privacy e acconsento al trattamento dei dati per essere ricontattato.</label>
+      <label class="check" for="c-privacy"><input id="c-privacy" name="privacy" type="checkbox" required> Ho letto l'<a href="/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per essere ricontattato.</label>
       <button class="btn" type="submit" id="c-send">Invia la richiesta</button>
       <p class="fmsg" id="c-out" role="status" aria-live="polite"></p>
     </form>
   </div>
-  <footer><span>© 2026 Vito Longobardi · Studio Longobardi · P.IVA <b class="ph">da inserire</b></span><span><a href="#">Privacy policy</a> · <a href="#">Cookie policy</a></span></footer>
+  <footer><span>© 2026 Vito Longobardi · Studio Longobardi · Via Castellammare 71, 80054 Gragnano (NA) · P.IVA 06957591214</span><span><a href="/privacy">Privacy policy</a> · <a href="/cookie">Cookie policy</a></span></footer>
 
 </div></section>
 
@@ -556,16 +556,14 @@ const libriHTML=()=>`<div class="hd"><div class="eyebrow">P7 · Autore</div><div
   <div class="book">
     <img class="bk-img" src="img/libri/intelligenza-fiscale.jpg" alt="Copertina di Intelligenza Fiscale di Vito Longobardi" loading="lazy">
     <div><div class="badge">Best seller Amazon</div><h3 style="margin-top:12px">Intelligenza Fiscale</h3>
-      <p class="lead" style="font-size:16px">Prendi la tua copia: richiedila in omaggio. Inserisci i tuoi dati e te la spediamo noi.</p></div>
+      <p class="lead" style="font-size:16px">Scarica gratis la tua copia in PDF: inserisci i tuoi dati e il download parte subito.</p></div>
   </div>
   <form class="cform bform" id="bform" novalidate>
     <div class="two"><label for="b-nome">Nome<input id="b-nome" name="nome" autocomplete="given-name" required></label><label for="b-cognome">Cognome<input id="b-cognome" name="cognome" autocomplete="family-name" required></label></div>
     <div class="two"><label for="b-email">Email<input id="b-email" name="email" type="email" autocomplete="email" required></label><label for="b-tel">Telefono<input id="b-tel" name="telefono" type="tel" autocomplete="tel"></label></div>
-    <label for="b-ind">Indirizzo di spedizione<input id="b-ind" name="indirizzo" autocomplete="street-address" placeholder="Via e numero civico" required></label>
-    <div class="three"><label for="b-cap">CAP<input id="b-cap" name="cap" inputmode="numeric" autocomplete="postal-code" maxlength="5" required></label><label for="b-citta">Città<input id="b-citta" name="citta" autocomplete="address-level2" required></label><label for="b-prov">Prov.<input id="b-prov" name="provincia" maxlength="2" autocomplete="address-level1" required></label></div>
     <div class="hp" aria-hidden="true"><label for="b-sito">Sito<input id="b-sito" name="sito" tabindex="-1" autocomplete="off"></label></div>
-    <label class="check" for="b-privacy"><input id="b-privacy" name="privacy" type="checkbox" required> Acconsento al trattamento dei dati per la spedizione del libro e per essere ricontattato dallo studio.</label>
-    <button class="btn" type="submit" id="b-send">Richiedi la copia omaggio</button>
+    <label class="check" for="b-privacy"><input id="b-privacy" name="privacy" type="checkbox" required> Ho letto l'<a href="/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per ricevere il libro.</label>
+    <button class="btn" type="submit" id="b-send">Scarica il libro gratis</button>
     <p class="fmsg" id="b-out" role="status" aria-live="polite"></p>
   </form>
   <div class="book" style="margin-top:38px">
@@ -603,19 +601,18 @@ function closeSheet(){if(!document.body.classList.contains("sheet-open"))return;
   try{history.replaceState(null,"",location.pathname+location.search)}catch(_){}if(lastFocus&&lastFocus.focus)lastFocus.focus()}
 document.getElementById("sheet-x").addEventListener("click",closeSheet);
 sheetBody.addEventListener("submit",async e=>{if(e.target.id!=="bform")return;e.preventDefault();const f=e.target,out=f.querySelector("#b-out"),btn=f.querySelector("#b-send");
-  const d=Object.fromEntries(new FormData(f));d.privacy=f.privacy.checked;d.provincia=(d.provincia||"").toUpperCase();out.className="fmsg";
+  const d=Object.fromEntries(new FormData(f));d.privacy=f.privacy.checked;out.className="fmsg";
   const bad=(m,el)=>{out.className="fmsg err";out.textContent=m;if(el)el.focus()};
   if(!d.nome.trim()||!d.cognome.trim())return bad("Inserisci nome e cognome.",f.nome);
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email))return bad("Controlla l'indirizzo email.",f.email);
-  if(!d.indirizzo.trim()||!d.citta.trim())return bad("Completa l'indirizzo di spedizione.",f.indirizzo);
-  if(!/^\d{5}$/.test(d.cap))return bad("Il CAP deve avere 5 cifre.",f.cap);
-  if(!/^[A-Z]{2}$/.test(d.provincia))return bad("Scrivi la provincia con due lettere, es. NA.",f.provincia);
-  if(!d.privacy)return bad("Serve il consenso per spedirti il libro.");
+  if(!d.privacy)return bad("Serve il consenso privacy per inviarti il libro.");
   const live=/^(www\.)?(vitolongobardi|studiolongobardi)\.it$|vercel\.app$|localhost$/.test(location.hostname);
   btn.disabled=true;btn.textContent="Invio in corso…";
-  try{if(!live)await new Promise(r=>setTimeout(r,700));else{const r=await fetch("/api/libro",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});if(!r.ok)throw 0}
-    f.reset();out.className="fmsg ok";out.textContent=live?"Richiesta ricevuta. Ti spediremo la tua copia di Intelligenza Fiscale.":"Anteprima: nel sito online la richiesta arriverà allo studio per la spedizione."}
-  catch(_){bad("Invio non riuscito. Riprova tra poco.")}finally{btn.disabled=false;btn.textContent="Richiedi la copia omaggio"}});sheetBg.addEventListener("click",closeSheet);
+  try{let link=null;if(!live)await new Promise(r=>setTimeout(r,700));else{const r=await fetch("/api/libro",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});if(!r.ok)throw 0;link=(await r.json()).url||null}
+    f.reset();out.className="fmsg ok";
+    if(link){out.innerHTML='Grazie! <a class="dl" href="'+link+'" target="_blank" rel="noopener">Scarica Intelligenza Fiscale (PDF)</a>';try{window.open(link,"_blank")}catch(_){}}
+    else out.textContent=live?"Richiesta ricevuta. Ti invieremo il libro all'indirizzo email indicato.":"Anteprima: nel sito online qui comparirà il link per scaricare il libro."}
+  catch(_){bad("Invio non riuscito. Riprova tra poco.")}finally{btn.disabled=false;btn.textContent="Scarica il libro gratis"}});sheetBg.addEventListener("click",closeSheet);
 addEventListener("keydown",e=>{if(e.key==="Escape"){closeSheet();setDD(false);setMenu(false)}});
 sheetBody.addEventListener("click",e=>{const b=e.target.closest("button[data-act]");if(!b)return;const d=SCHEDE[curKey];closeSheet();
   if(b.dataset.act==="ride")setTimeout(()=>goFloor(d.f),60);

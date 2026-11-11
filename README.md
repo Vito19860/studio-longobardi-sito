@@ -12,7 +12,9 @@ Sito personale di **www.vitolongobardi.it** (in futuro il marketing curerà a pa
 index.html            il sito: la torre a piani con immagini AI fotorealistiche e scritte a pallini di luce + galleria Elevate + contatti
 img/                  foto di Elevate (e1…e12)
 api/richiesta.js      funzione Vercel: form contatti → tabella "richieste"
-api/libro.js          funzione Vercel: copia omaggio di Intelligenza Fiscale → tabella "richieste_libro"
+api/libro.js          funzione Vercel: download gratuito di Intelligenza Fiscale → tabella "richieste_libro" + link temporaneo al PDF (Supabase Storage, bucket privato "libri")
+privacy.html          informativa privacy (/privacy)
+cookie.html           cookie policy (/cookie)
 supabase/schema.sql   tabella "richieste" da creare su Supabase
 vercel.json           impostazioni di pubblicazione
 ```
