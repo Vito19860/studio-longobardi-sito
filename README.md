@@ -11,7 +11,8 @@ Sito di **www.studiolongobardi.it**.
 ```
 index.html            il sito: la torre a piani in 3D (three.js) + galleria Elevate + contatti
 img/                  foto di Elevate (e1…e12)
-api/richiesta.js      funzione Vercel: riceve il form e salva su Supabase
+api/richiesta.js      funzione Vercel: form contatti → tabella "richieste"
+api/libro.js          funzione Vercel: copia omaggio di Intelligenza Fiscale → tabella "richieste_libro"
 supabase/schema.sql   tabella "richieste" da creare su Supabase
 vercel.json           impostazioni di pubblicazione
 ```
@@ -36,10 +37,12 @@ Su Vercel: **Settings → Domains → Add** `studiolongobardi.it` e `www.studiol
 poi aggiorna i DNS dal tuo registrar come indicato da Vercel.
 
 ## Dove leggere le richieste
-Supabase → **Table Editor → richieste**. La colonna `stato` serve per segnare
-`nuova`, `in_lavorazione`, `chiusa`.
+- Contatti: Supabase → **Table Editor → richieste** (`stato`: nuova, in_lavorazione, chiusa)
+- Libri omaggio: **Table Editor → richieste_libro** (`stato`: da_spedire, spedito, annullato). Una richiesta per email.
 
 ## Da completare
 - Indirizzo, telefono, email, PEC, orari (sezione Contatti)
 - Partita IVA nel footer
 - Pagine Privacy policy e Cookie policy
+- Link d'acquisto di Cammino verso Dio (`LINK_CAMMINO` in index.html)
+- Foto reale della copertina di Intelligenza Fiscale

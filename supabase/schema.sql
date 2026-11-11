@@ -20,3 +20,21 @@ create index if not exists richieste_creata_il_idx on public.richieste (creata_i
 -- Sicurezza: nessun accesso pubblico. Scrive solo la funzione del sito (chiave service_role),
 -- e voi leggete le richieste dalla dashboard di Supabase (Table Editor → richieste).
 alter table public.richieste enable row level security;
+
+-- Richieste della copia omaggio di "Intelligenza Fiscale"
+create table if not exists public.richieste_libro (
+  id               bigint generated always as identity primary key,
+  creata_il        timestamptz not null default now(),
+  nome             text not null,
+  cognome          text not null,
+  email            text not null unique,
+  telefono         text,
+  indirizzo        text not null,
+  cap              text not null,
+  citta            text not null,
+  provincia        text not null,
+  libro            text not null default 'Intelligenza Fiscale',
+  consenso_privacy boolean not null default false,
+  stato            text not null default 'da_spedire' check (stato in ('da_spedire','spedito','annullato'))
+);
+alter table public.richieste_libro enable row level security;

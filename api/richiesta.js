@@ -3,7 +3,7 @@
 //   SUPABASE_URL               es. https://xxxx.supabase.co
 //   SUPABASE_SERVICE_ROLE_KEY  chiave "service_role" (solo lato server, mai nel browser)
 
-const AREE = ["Pianificazione fiscale", "Contabilità e bilanci", "Paghe e consulenza del lavoro", "Consulenza aziendale", "Corsi", "Human OS", "Holding e investimenti", "Elevate", "Altro"];
+const AREE = ["Pianificazione fiscale", "Contabilità e bilanci", "Paghe e consulenza del lavoro", "Controllo di gestione", "Holding", "Corsi", "Human OS", "Elevate", "Altro"];
 const clip = (v, n) => (typeof v === "string" ? v.trim().slice(0, n) : "");
 
 export default async function handler(req, res) {
