@@ -37,7 +37,7 @@ export default async function handler(req, res) {
   try {
     const r = await fetch(`${url}/rest/v1/richieste_libro?on_conflict=email`, {
       method: "POST",
-      headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "resolution=ignore-duplicates,return=minimal" },
+      headers: { apikey: key, ...(key.startsWith("eyJ") ? { Authorization: `Bearer ${key}` } : {}), "Content-Type": "application/json", Prefer: "resolution=ignore-duplicates,return=minimal" },
       body: JSON.stringify(row),
     });
     if (!r.ok) { console.error("Supabase", r.status, await r.text()); return res.status(502).json({ error: "Salvataggio non riuscito" }); }

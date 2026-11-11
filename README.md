@@ -22,7 +22,7 @@ vercel.json           impostazioni di pubblicazione
 ### 1. Supabase
 1. Crea un progetto su supabase.com (regione: Europe).
 2. **SQL Editor → New query**: incolla `supabase/schema.sql` e premi **Run**.
-3. **Project Settings → API**: copia **Project URL** e la chiave **service_role**.
+3. Copia il **Project URL** (pulsante **Connect** in alto, oppure `https://<id-progetto>.supabase.co`, dove l'id è nell'indirizzo della dashboard) e la chiave segreta: **Project Settings → API Keys**, la `secret` (sb_secret_…) oppure, nella scheda Legacy, la `service_role`.
 
 ### 2. Vercel
 1. **Add New → Project** e importa questo repository da GitHub.

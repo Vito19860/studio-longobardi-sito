@@ -43,7 +43,8 @@ export default async function handler(req, res) {
       method: "POST",
       headers: {
         apikey: key,
-        Authorization: `Bearer ${key}`,
+        // le chiavi "legacy" (JWT, iniziano con eyJ) vanno anche in Authorization; le nuove sb_secret_ solo in apikey
+        ...(key.startsWith("eyJ") ? { Authorization: `Bearer ${key}` } : {}),
         "Content-Type": "application/json",
         Prefer: "return=minimal",
       },
