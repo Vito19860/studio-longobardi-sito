@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const key = (process.env.SUPABASE_SERVICE_ROLE_KEY || "").trim();
   const out = {
     variabili: {
-      SUPABASE_URL: url ? (/^https:\/\/[a-z0-9]+\.supabase\.co\/?$/.test(url) ? "presente, formato corretto" : "presente, formato insolito: " + url.replace(/\/\/([a-z0-9]{4})[a-z0-9]+/, "//$1…")) : "MANCANTE",
+      SUPABASE_URL: url ? (/^https:\/\/[a-z0-9]+\.supabase\.co\/?$/.test(url) ? "presente, formato corretto" : (url.startsWith("sb_") ? "SBAGLIATA: contiene una chiave, non l'indirizzo https://….supabase.co" : "presente, ma non è un indirizzo https://….supabase.co")) : "MANCANTE",
       SUPABASE_SERVICE_ROLE_KEY: !key ? "MANCANTE" : key.startsWith("eyJ") ? "presente (chiave legacy JWT)" : key.startsWith("sb_secret_") ? "presente (chiave secret)" : key.startsWith("sb_publishable_") ? "SBAGLIATA: è la chiave publishable, serve la secret" : "presente, tipo non riconosciuto",
     },
   };
