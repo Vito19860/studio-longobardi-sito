@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Studio Longobardi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Studio Longobardi: pianificazione fiscale, contabilità, paghe e consulenza aziendale per imprese e professionisti.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sito istituzionale a una pagina. Hero con scadenzario, servizi, metodo in 3 fasi, fondatore, contatti con form */
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --ink:#0d1626; --muted:#5a6477; --line:#dde1e8;
+  --navy:#0d1b3a; --gold:#b97b0c; --gold-soft:#f6e6c4; --ok:#1c7c4d;
+  --display:"Michroma","Eurostile","Arial Black",sans-serif;
+  --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070b14;--surface:#0e1420;--ink:#eef1f6;--muted:#97a1b3;--line:#1e2635;--navy:#0b1630;--gold:#f2a51f;--gold-soft:#2a1f0a;--ok:#5fd38d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#070b14;--surface:#0e1420;--ink:#eef1f6;--muted:#97a1b3;--line:#1e2635;--navy:#0b1630;--gold:#f2a51f;--gold-soft:#2a1f0a;--ok:#5fd38d;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{text-wrap:balance}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,3.4vw,40px);line-height:1.15;margin:12px 0 16px}
+.lead{color:var(--muted);max-width:60ch;margin:0}
+.ph{background:var(--gold-soft);color:var(--gold);border-radius:4px;padding:0 6px;font-family:var(--mono);font-size:.82em}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.mark{width:34px;height:34px;border-radius:6px;background:var(--navy);display:grid;place-items:center}
+.mark svg{width:18px;height:18px}
+.brand b{font-family:var(--display);font-weight:400;font-size:13px;letter-spacing:.16em;display:block;line-height:1.2}
+.brand small{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+nav.menu{display:flex;gap:26px;font-size:15px}
+nav.menu a{text-decoration:none;color:var(--muted);transition:color .2s}
+nav.menu a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:15px;text-decoration:none;border:0;cursor:pointer;background:var(--navy);color:#fff;padding:12px 20px;border-radius:8px;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn.gold{background:var(--gold);color:#140c00}
+.btn.line{background:transparent;color:var(--ink);border:1px solid var(--line)}
+:root[data-theme="dark"] .btn:not(.gold):not(.line){background:#1b2a4d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.gold):not(.line){background:#1b2a4d}}
+@media(max-width:860px){nav.menu{display:none}header .btn{padding:10px 14px;font-size:14px}}
+
+/* hero */
+.hero{padding-block:clamp(56px,9vw,110px) clamp(56px,8vw,96px)}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+@media(max-width:920px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,4.6vw,56px);line-height:1.08;margin:16px 0 22px;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.proof{display:flex;flex-wrap:wrap;gap:28px;margin-top:44px;padding-top:24px;border-top:1px solid var(--line)}
+.proof div{min-width:0}
+.proof strong{font-family:var(--display);font-weight:400;font-size:26px;display:block;font-variant-numeric:tabular-nums}
+.proof span{font-size:14px;color:var(--muted)}
+/* scadenzario */
+.board{background:var(--navy);color:#e9edf5;border-radius:14px;padding:22px;box-shadow:0 30px 80px -30px rgba(13,27,58,.55);min-width:0}
+.board .top{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#9fb0cf;margin-bottom:16px}
+.board .live{display:flex;align-items:center;gap:8px;color:#9fe3bc}
+.board .live::before{content:"";width:7px;height:7px;border-radius:50%;background:#5fd38d;box-shadow:0 0 10px #5fd38d}
+.row{display:grid;grid-template-columns:62px 1fr auto;gap:14px;align-items:center;padding:13px 0;border-top:1px solid rgba(255,255,255,.08)}
+.row .d{font-family:var(--mono);font-size:12px;color:#f2c56b;line-height:1.3}
+.row .t{font-size:15px;min-width:0}
+.row .t small{display:block;color:#8e9bb6;font-size:12.5px}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:20px;white-space:nowrap}
+.chip.ok{background:rgba(95,211,141,.14);color:#8fe7b3}
+.chip.wip{background:rgba(242,165,31,.16);color:#f6c66a}
+.chip.plan{background:rgba(127,166,255,.14);color:#a9c2ff}
+.board .foot{margin-top:14px;display:flex;justify-content:space-between;font-size:13px;color:#9fb0cf}
+.board .bar{height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:8px}
+.board .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#f2a51f,#ffd27a);border-radius:6px;transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
+
+/* sezioni */
+section.block{padding-block:clamp(64px,9vw,110px);border-top:1px solid var(--line)}
+.services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:44px}
+@media(max-width:760px){.services{grid-template-columns:1fr}}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:12px;min-width:0;transition:border-color .25s,transform .25s}
+.svc:hover{border-color:var(--gold);transform:translateY(-2px)}
+.svc .ico{width:42px;height:42px;border-radius:10px;background:var(--gold-soft);display:grid;place-items:center;color:var(--gold)}
+.svc .ico svg{width:22px;height:22px}
+.svc h3{font-size:20px;margin:6px 0 0}
+.svc p{margin:0;color:var(--muted)}
+.svc ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.svc li{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:4px 10px}
+.svc.key{grid-column:1/-1;background:var(--navy);border-color:var(--navy);color:#eef1f6}
+.svc.key p{color:#c3cbdb}.svc.key li{color:#c3cbdb;border-color:rgba(255,255,255,.16)}
+.svc.key .ico{background:rgba(242,165,31,.15);color:#f2a51f}
+.svc.key h3{font-family:var(--display);font-weight:400;font-size:clamp(20px,2.4vw,28px)}
+
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:44px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+.step{padding:28px;border-right:1px solid var(--line);min-width:0}
+.step:last-child{border-right:0}
+@media(max-width:760px){.step{border-right:0;border-bottom:1px solid var(--line)}.step:last-child{border-bottom:0}}
+.step .n{font-family:var(--display);font-size:13px;color:var(--gold)}
+.step h3{margin:12px 0 8px;font-size:19px}
+.step p{margin:0;color:var(--muted);font-size:16px}
+
+.founder{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+@media(max-width:860px){.founder{grid-template-columns:1fr}}
+.founder figure{margin:0;border-radius:14px;overflow:hidden;position:relative;aspect-ratio:4/3;max-width:100%}
+.founder figure img{width:100%;height:100%;object-fit:cover;object-position:60% 40%}
+.founder figure figcaption{position:absolute;left:14px;bottom:14px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(7,11,20,.6);backdrop-filter:blur(6px);padding:6px 10px;border-radius:6px}
+.facts{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:10px}
+.facts li{display:flex;gap:12px;align-items:baseline}
+.facts li::before{content:"";flex:none;width:8px;height:8px;border-radius:2px;background:var(--gold);transform:translateY(-1px)}
+
+/* contatti */
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px}
+@media(max-width:860px){.contact{grid-template-columns:1fr}}
+.info{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:28px}
+.info div{background:var(--surface);padding:15px 18px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.info span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.info a{text-decoration:none;color:var(--ink)}
+form{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;display:grid;gap:16px;min-width:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.two{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-size:14px;font-weight:600}
+input,select,textarea{font:inherit;font-weight:400;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 22%,transparent)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px;color:var(--muted)}
+.check input{width:18px;height:18px;margin-top:2px;flex:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.msg{font-size:14px;margin:0}
+.msg.ok{color:var(--ok)}.msg.err{color:#c43d3d}
+footer{border-top:1px solid var(--line);padding-block:30px;font-size:13.5px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{text-decoration:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="brand" href="#top" aria-label="Studio Longobardi, torna all'inizio">
+    <span class="mark"><svg viewBox="0 0 20 20" fill="none"><path d="M3 4h4.2L10 12.6 12.8 4H17l-5.3 13H8.3z" fill="#f2a51f"/></svg></span>
+    <span><b>STUDIO LONGOBARDI</b><small>Fisco · Lavoro · Impresa</small></span>
+  </a>
+  <nav class="menu" aria-label="Menu principale"><a href="#servizi">Servizi</a><a href="#metodo">Metodo</a><a href="#studio">Lo studio</a><a href="#contatti">Contatti</a></nav>
+  <a class="btn" href="#contatti">Prenota una consulenza</a>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+  <div>
+    <div class="eyebrow">Studio di consulenza fiscale e del lavoro</div>
+    <h1>Pianificazione fiscale, contabilità e paghe. <em>Con un metodo che si misura.</em></h1>
+    <p class="lead">Seguiamo imprese e professionisti in tutto ciò che riguarda fisco, personale e gestione. Applichiamo le leve di riduzione della tassazione previste dalla legge e teniamo sotto controllo ogni scadenza.</p>
+    <div class="ctas">
+      <a class="btn gold" href="#contatti">Richiedi un primo incontro</a>
+      <a class="btn line" href="#servizi">Scopri i servizi</a>
+    </div>
+    <div class="proof">
+      <div><strong>500+</strong><span>clienti seguiti</span></div>
+      <div><strong>4</strong><span>aree di servizio</span></div>
+      <div><strong>KPI</strong><span>monitorati ogni settimana</span></div>
+    </div>
+  </div>
+
+  <aside class="board" aria-label="Esempio di scadenzario di un cliente">
+    <div class="top"><span>Scadenzario cliente · esempio</span><span class="live">attivo</span></div>
+    <div class="row"><div class="d">16<br>del mese</div><div class="t">Versamenti F24<small>Ritenute, IVA, contributi</small></div><span class="chip ok">Pagato</span></div>
+    <div class="row"><div class="d">Mensile</div><div class="t">Elaborazione cedolini<small>Libro Unico del Lavoro</small></div><span class="chip wip">In corso</span></div>
+    <div class="row"><div class="d">Trim.</div><div class="t">Liquidazione IVA<small>Comunicazione periodica</small></div><span class="chip ok">Inviata</span></div>
+    <div class="row"><div class="d">Annuale</div><div class="t">Pianificazione fiscale<small>Analisi delle leve di riduzione</small></div><span class="chip plan">Pianificata</span></div>
+    <div class="foot"><span>Adempimenti dell'anno</span><span id="pct">0%</span></div>
+    <div class="bar"><i id="bar"></i></div>
+  </aside>
+</div></section>
+
+<section class="block" id="servizi"><div class="wrap">
+  <div class="eyebrow">Servizi</div>
+  <h2>Tutto quello che serve alla tua impresa, in un solo studio.</h2>
+  <p class="lead">Un unico interlocutore per fisco, contabilità, personale e gestione. Meno passaggi, meno errori, più tempo per il tuo lavoro.</p>
+  <div class="services">
+    <article class="svc key">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></div>
+      <h3>Pianificazione e ottimizzazione fiscale</h3>
+      <p>Analizziamo la tua posizione e applichiamo le leve di riduzione della tassazione previste dalla normativa. Una strategia costruita sulla tua impresa, aggiornata ogni anno e seguita nel tempo.</p>
+      <ul><li>Analisi della posizione fiscale</li><li>Leve di riduzione</li><li>Scelta del regime</li><li>Dichiarativi</li></ul>
+    </article>
+    <article class="svc">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+      <h3>Contabilità e bilanci</h3>
+      <p>Tenuta della contabilità, registrazioni, liquidazioni IVA e bilancio d'esercizio, con numeri sempre aggiornati e leggibili.</p>
+      <ul><li>Contabilità ordinaria e semplificata</li><li>IVA</li><li>Bilancio</li></ul>
+    </article>
+    <article class="svc">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.5a3 3 0 0 1 0 6M18 14c2 .8 3 2.8 3 6"/></svg></div>
+      <h3>Paghe e consulenza del lavoro</h3>
+      <p>Cedolini, contratti, contributi e adempimenti del personale. Il costo del lavoro gestito con precisione.</p>
+      <ul><li>Cedolini</li><li>Contratti</li><li>Costo del lavoro</li></ul>
+    </article>
+    <article class="svc">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/></svg></div>
+      <h3>Consulenza aziendale</h3>
+      <p>Controllo di gestione, KPI, organizzazione e deleghe. Lo stesso modello con cui gestiamo il nostro studio.</p>
+      <ul><li>KPI</li><li>Controllo di gestione</li><li>Organizzazione</li></ul>
+    </article>
+    <article class="svc">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
+      <h3>Adempimenti e scadenze</h3>
+      <p>F24, comunicazioni periodiche, dichiarazioni. Ogni scadenza è pianificata e tracciata, così non devi pensarci tu.</p>
+      <ul><li>F24</li><li>Comunicazioni</li><li>Dichiarazioni</li></ul>
+    </article>
+  </div>
+</div></section>
+
+<section class="block" id="metodo"><div class="wrap">
+  <div class="eyebrow">Metodo</div>
+  <h2>Come lavoriamo.</h2>
+  <p class="lead">Ogni cliente segue lo stesso percorso, perché un risultato fiscale si costruisce con ordine.</p>
+  <div class="steps">
+    <div class="step"><div class="n">01</div><h3>Analisi</h3><p>Partiamo dai numeri: bilanci, dichiarazioni, costo del personale. Capiamo dove sei e dove si può intervenire.</p></div>
+    <div class="step"><div class="n">02</div><h3>Strategia</h3><p>Definiamo le leve da applicare e un calendario chiaro di adempimenti e decisioni, condiviso con te.</p></div>
+    <div class="step"><div class="n">03</div><h3>Monitoraggio</h3><p>Seguiamo l'andamento nel tempo con indicatori precisi e interveniamo quando qualcosa cambia.</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="studio"><div class="wrap founder">
+  <figure><img src="img/fondatore.jpg" alt="Vito Longobardi sul palco di Elevate"><figcaption>Vito Longobardi · Elevate</figcaption></figure>
+  <div>
+    <div class="eyebrow">Lo studio</div>
+    <h2>Guidato da Vito Longobardi.</h2>
+    <p class="lead">Consulente fiscale, autore e formatore. Ha costruito uno studio organizzato come un'impresa: deleghe chiare, processi definiti e risultati misurati ogni settimana.</p>
+    <ul class="facts">
+      <li>Oltre 500 clienti tra imprese e professionisti</li>
+      <li>Autore del libro <i>Intelligenza Fiscale</i></li>
+      <li>Ideatore di Elevate, l'evento che cambia il modo di fare impresa</li>
+      <li>Fondatore di Human OS</li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="block" id="contatti"><div class="wrap contact">
+  <div>
+    <div class="eyebrow">Contatti</div>
+    <h2>Parliamo della tua impresa.</h2>
+    <p class="lead">Lasciaci i tuoi dati e l'area che ti interessa. Ti ricontattiamo per fissare un primo incontro.</p>
+    <div class="info">
+      <div><span>Indirizzo</span><b class="ph">da inserire</b></div>
+      <div><span>Telefono</span><b class="ph">da inserire</b></div>
+      <div><span>Email</span><b class="ph">da inserire</b></div>
+      <div><span>PEC</span><b class="ph">da inserire</b></div>
+      <div><span>Orari</span><b class="ph">da inserire</b></div>
+      <div><span>Instagram</span><a href="https://www.instagram.com/studiolongobardi/" target="_blank" rel="noopener">@studiolongobardi</a></div>
+    </div>
+  </div>
+  <form id="form" novalidate>
+    <div class="two">
+      <label for="nome">Nome e cognome<input id="nome" name="nome" autocomplete="name" required></label>
+      <label for="azienda">Azienda<input id="azienda" name="azienda" autocomplete="organization"></label>
+    </div>
+    <div class="two">
+      <label for="email">Email<input id="email" name="email" type="email" autocomplete="email" required></label>
+      <label for="telefono">Telefono<input id="telefono" name="telefono" type="tel" autocomplete="tel"></label>
+    </div>
+    <label for="area">Di cosa hai bisogno?
+      <select id="area" name="area">
+        <option>Pianificazione fiscale</option><option>Contabilità e bilanci</option><option>Paghe e consulenza del lavoro</option><option>Consulenza aziendale</option><option>Altro</option>
+      </select>
+    </label>
+    <label for="messaggio">Messaggio<textarea id="messaggio" name="messaggio" rows="4" placeholder="Raccontaci in due righe la tua situazione"></textarea></label>
+    <div class="hp" aria-hidden="true"><label for="sito">Sito<input id="sito" name="sito" tabindex="-1" autocomplete="off"></label></div>
+    <label class="check" for="privacy"><input id="privacy" name="privacy" type="checkbox" required> Ho letto l'informativa privacy e acconsento al trattamento dei dati per essere ricontattato.</label>
+    <button class="btn gold" type="submit" id="send">Invia la richiesta</button>
+    <p class="msg" id="msg" role="status" aria-live="polite"></p>
+  </form>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© <span id="yr">2026</span> Studio Longobardi · P.IVA <b class="ph">da inserire</b></span>
+  <span><a href="#">Privacy policy</a> · <a href="#">Cookie policy</a></span>
+</div></footer>
+
+<script>
+document.getElementById("yr").textContent=new Date().getFullYear();
+// barra di avanzamento dello scadenzario
+const bar=document.getElementById("bar"),pct=document.getElementById("pct"),target=82;
+const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){bar.style.width=target+"%";let v=0;const tk=setInterval(()=>{v+=2;pct.textContent=Math.min(v,target)+"%";if(v>=target)clearInterval(tk)},30);io.disconnect()}});
+io.observe(bar);
+
+// form contatti: invia a /api/richiesta (funzione Vercel che salva su Supabase)
+const form=document.getElementById("form"),msg=document.getElementById("msg"),send=document.getElementById("send");
+const preview=!/^(www\.)?studiolongobardi\.it$|vercel\.app$|localhost$/.test(location.hostname);
+form.addEventListener("submit",async e=>{
+  e.preventDefault();msg.className="msg";msg.textContent="";
+  const d=Object.fromEntries(new FormData(form));d.privacy=form.privacy.checked;
+  if(!d.nome||!d.nome.trim()){msg.className="msg err";msg.textContent="Inserisci nome e cognome.";form.nome.focus();return}
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email||"")){msg.className="msg err";msg.textContent="Controlla l'indirizzo email.";form.email.focus();return}
+  if(!d.privacy){msg.className="msg err";msg.textContent="Serve il consenso privacy per poterti ricontattare.";return}
+  send.disabled=true;send.textContent="Invio in corso…";
+  try{
+    if(preview){await new Promise(r=>setTimeout(r,700))}
+    else{const r=await fetch("/api/richiesta",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});if(!r.ok)throw new Error((await r.json().catch(()=>({}))).error||"Invio non riuscito")}
+    form.reset();msg.className="msg ok";msg.textContent=preview?"Anteprima: nel sito online la richiesta arriverà allo studio.":"Richiesta inviata. Ti ricontatteremo a breve.";
+  }catch(err){msg.className="msg err";msg.textContent="Non siamo riusciti a inviare la richiesta. Riprova tra poco o scrivici su Instagram."}
+  finally{send.disabled=false;send.textContent="Invia la richiesta"}
+});
+</script>
+</body>
+</html>

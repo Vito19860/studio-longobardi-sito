@@ -1,0 +1,8 @@
+{
+  "name": "studio-longobardi-sito",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sito www.studiolongobardi.it",
+  "type": "module",
+  "engines": { "node": ">=18" }
+}
