@@ -129,13 +129,121 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
 .beat.hero{justify-content:center}
 @media(max-width:900px){.hero-portrait{width:100%;background-position:42% 18%;opacity:.42;-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 85%);mask-image:linear-gradient(180deg,#000 30%,transparent 85%)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* barra di navigazione e menu a tendina */
+.topbar{position:fixed;z-index:45;left:0;right:0;top:0;padding-top:env(safe-area-inset-top,0px);background:linear-gradient(180deg,rgba(4,5,10,.82),rgba(4,5,10,.0));}
+.topbar .in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px))}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--fg)}
+.brand .mk{width:32px;height:32px;border-radius:7px;background:#0d1b3a;border:1px solid rgba(242,165,31,.45);display:grid;place-items:center}
+.brand .mk svg{width:17px;height:17px}
+.brand b{font-family:var(--display);font-weight:400;font-size:12px;letter-spacing:.18em}
+.nav{display:flex;align-items:center;gap:6px}
+.nav>a,.nav>.dd>button{all:unset;cursor:pointer;font-size:15px;color:#cfd5e0;padding:9px 13px;border-radius:8px;display:flex;align-items:center;gap:7px;transition:background .2s,color .2s}
+.nav>a:hover,.nav>.dd>button:hover,.nav>.dd.open>button{background:rgba(255,255,255,.07);color:#fff}
+.nav>a:focus-visible,.nav>.dd>button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.dd{position:relative}
+.dd>button svg{width:11px;height:11px;transition:transform .25s}
+.dd.open>button svg{transform:rotate(180deg)}
+.drop{position:absolute;top:calc(100% + 10px);right:0;width:min(640px,92vw);display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;padding:18px;border:1px solid var(--line);border-radius:14px;background:rgba(10,13,21,.94);backdrop-filter:blur(20px);box-shadow:0 30px 80px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility .2s}
+.dd.open .drop{opacity:1;visibility:visible;transform:none}
+.drop h4{grid-column:span 1;margin:4px 10px 6px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.drop .col{display:flex;flex-direction:column;gap:2px;min-width:0}
+.drop button{all:unset;cursor:pointer;display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;padding:10px;border-radius:10px;transition:background .2s}
+.drop button:hover,.drop button:focus-visible{background:rgba(255,255,255,.06)}
+.drop button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.drop .pn{font-family:var(--display);font-size:11px;color:var(--gold);border:1px solid rgba(242,165,31,.4);border-radius:6px;height:26px;display:grid;place-items:center}
+.drop .tx b{display:block;font-size:15px;font-weight:600;color:#fff}
+.drop .tx small{display:block;font-size:13px;color:var(--muted);line-height:1.4}
+.nav .cta{background:var(--gold);color:#140c00;font-weight:600;margin-left:6px}
+.nav .cta:hover{background:var(--gold-2);color:#140c00}
+.burger{all:unset;cursor:pointer;display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);place-items:center;background:rgba(10,13,21,.6)}
+.burger span{display:block;width:18px;height:2px;background:#fff;box-shadow:0 6px 0 #fff,0 -6px 0 #fff}
+@media(max-width:900px){
+  .nav{position:fixed;inset:0;padding:calc(env(safe-area-inset-top,0px) + 76px) max(20px,env(safe-area-inset-right,0px)) 30px max(20px,env(safe-area-inset-left,0px));flex-direction:column;align-items:stretch;gap:4px;background:#04050a;overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;z-index:-1}
+  .topbar.menu-open .nav{opacity:1;visibility:visible}
+  .burger{display:grid}
+  .dd{position:static}.dd>button{justify-content:space-between}
+  .drop{position:static;width:auto;grid-template-columns:1fr;opacity:1;visibility:visible;transform:none;display:none;background:transparent;border:0;box-shadow:none;padding:4px 0 12px}
+  .dd.open .drop{display:grid}
+  .nav .cta{margin:12px 0 0;justify-content:center}
+}
+.floor{top:calc(env(safe-area-inset-top,0px) + 74px)!important}
+.topbar.menu-open ~ .floor,body.sheet-open .floor{visibility:hidden}
+.beat .more{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);border:1px solid rgba(242,165,31,.45);padding:9px 14px;border-radius:30px;pointer-events:none;transition:background .2s}
+.beat.on .more{pointer-events:auto}
+.beat .more:hover{background:rgba(242,165,31,.12)}
+.beat .more:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* scheda di approfondimento */
+.sheet-bg{position:fixed;inset:0;z-index:70;background:rgba(2,3,7,.6);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.sheet{position:fixed;z-index:71;top:0;right:0;bottom:0;width:min(680px,100%);background:#080b12;border-left:1px solid var(--line);overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.7,.2,1);padding:calc(env(safe-area-inset-top,0px) + 22px) max(24px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 40px) 28px}
+body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibility:visible}
+.sheet .x{all:unset;cursor:pointer;position:sticky;top:0;float:right;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;background:#0d1119;font-size:20px;color:#fff;z-index:2}
+.sheet .x:focus-visible{outline:2px solid var(--gold)}
+.sheet .hd{padding:6px 0 26px;border-bottom:1px solid var(--line)}
+.sheet .pnum{font-family:var(--display);font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1px var(--gold);margin:6px 0 10px}
+.sheet h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,3.4vw,34px);line-height:1.15;margin:4px 0 14px;text-wrap:balance}
+.sheet .lead{color:#c9d0dc;margin:0;font-size:17px}
+.sheet h3{font-family:var(--mono);font-weight:400;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:34px 0 14px}
+.sheet .cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.sheet .cards{grid-template-columns:1fr}}
+.sheet .card{border:1px solid var(--line);border-radius:12px;padding:16px;background:#0b0f18;min-width:0}
+.sheet .card b{display:block;font-size:16px;margin-bottom:4px}
+.sheet .card p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.5}
+.sheet .who{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
+.sheet .who li{border:1px solid var(--line);border-radius:30px;padding:7px 13px;font-size:14px;color:#d6dbe5}
+.sheet ol{list-style:none;padding:0;margin:0;display:grid;gap:12px;counter-reset:s}
+.sheet ol li{display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start;counter-increment:s}
+.sheet ol li::before{content:counter(s,decimal-leading-zero);font-family:var(--display);font-size:12px;color:var(--gold);border:1px solid rgba(242,165,31,.4);border-radius:8px;height:30px;display:grid;place-items:center}
+.sheet ol li b{display:block}.sheet ol li span{color:var(--muted);font-size:14.5px}
+.sheet .get{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.sheet .get li{display:flex;gap:12px;align-items:baseline;color:#d6dbe5}
+.sheet .get li::before{content:"";flex:none;width:7px;height:7px;border-radius:2px;background:var(--gold);transform:translateY(-1px)}
+.sheet .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
+.sheet .acts button{all:unset;cursor:pointer;font-weight:600;font-size:15px;padding:13px 20px;border-radius:10px}
+.sheet .acts .go{background:var(--gold);color:#140c00}
+.sheet .acts .ride{border:1px solid var(--line);color:#fff}
+.sheet .acts button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.sheet .note{margin-top:16px;font-size:13px;color:var(--muted)}
+
 </style>
 </head>
 <body>
 
 
+<header class="topbar" id="topbar"><div class="in">
+  <a class="brand" href="#" id="home"><span class="mk"><svg viewBox="0 0 20 20" fill="none"><path d="M3 4h4.2L10 12.6 12.8 4H17l-5.3 13H8.3z" fill="#f2a51f"/></svg></span><b>STUDIO LONGOBARDI</b></a>
+  <nav class="nav" id="nav" aria-label="Menu principale">
+    <div class="dd" id="dd-serv">
+      <button type="button" aria-expanded="false" aria-controls="drop-serv">Servizi <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4l4 4 4-4"/></svg></button>
+      <div class="drop" id="drop-serv">
+        <div class="col"><h4>Lo studio</h4>
+          <button type="button" data-s="fiscale"><span class="pn">P1</span><span class="tx"><b>Fiscale e pianificazione</b><small>Leve di riduzione della tassazione</small></span></button>
+          <button type="button" data-s="lavoro"><span class="pn">P2</span><span class="tx"><b>Lavoro e paghe</b><small>Cedolini, contratti, costo del lavoro</small></span></button>
+          <button type="button" data-s="consulenza"><span class="pn">P3</span><span class="tx"><b>Consulenza aziendale</b><small>KPI, controllo di gestione, organizzazione</small></span></button>
+          <button type="button" data-s="corsi"><span class="pn">P4</span><span class="tx"><b>Corsi e formazione</b><small>Fisco, impresa e mercati</small></span></button>
+        </div>
+        <div class="col"><h4>Oltre lo studio</h4>
+          <button type="button" data-s="human-os"><span class="pn">P5</span><span class="tx"><b>Human OS</b><small>Comprendere le persone, migliorare le performance</small></span></button>
+          <button type="button" data-s="holding"><span class="pn">P6</span><span class="tx"><b>Holding</b><small>Partecipazioni e investimenti</small></span></button>
+          <button type="button" data-s="libri"><span class="pn">P7</span><span class="tx"><b>Libri</b><small>Intelligenza Fiscale, Cammino verso Dio</small></span></button>
+          <button type="button" data-s="elevate"><span class="pn">P8</span><span class="tx"><b>Elevate</b><small>L'evento che cambia il modo di fare impresa</small></span></button>
+        </div>
+      </div>
+    </div>
+    <a href="#" data-floor="0">La torre</a>
+    <a href="#contatti" id="nav-contatti">Contatti</a>
+    <a href="#contatti" class="cta" id="nav-cta">Prenota una consulenza</a>
+  </nav>
+  <button class="burger" id="burger" type="button" aria-label="Apri il menu" aria-expanded="false"><span></span></button>
+</div></header>
 <div class="floor" id="floor"><i>▲</i><b id="fl">PT</b><span id="fn">Arrivo</span></div>
-<a class="cta-top" href="#contatti">Prenota</a>
+
+<div class="sheet-bg" id="sheet-bg"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" aria-hidden="true">
+  <button class="x" id="sheet-x" type="button" aria-label="Chiudi la scheda">×</button>
+  <div id="sheet-body"></div>
+</aside>
+
 <ul class="shaft" id="shaft"></ul>
 
 <div class="track" id="track"><div class="stage">
@@ -164,6 +272,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
   <div class="beat" data-f="1" data-in="0" data-out=".24"><div class="glass">
     <div class="eyebrow">P1 · Fiscale</div>
     <h2>Fogli, scadenze, cartelle. <em>Il caos che conosci.</em></h2>
+  
+    <button type="button" class="more" data-s="fiscale">Approfondisci →</button>
   </div></div>
   <div class="beat" data-f="1" data-in=".7" data-out=".84"><div class="glass">
     <div class="eyebrow">Ottimizzazione fiscale</div>
@@ -179,12 +289,16 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
     <div class="eyebrow">P2 · Lavoro</div>
     <h2>Le persone sono il costo. <em>E il valore.</em></h2>
     <p>Paghe, contratti e costo del lavoro, gestiti con precisione.</p>
+  
+    <button type="button" class="more" data-s="lavoro">Approfondisci →</button>
   </div></div>
 
   <!-- P3 -->
   <div class="beat" data-f="3" data-in=".06" data-out=".45"><div class="glass">
     <div class="eyebrow">P3 · Consulenza aziendale</div>
     <h2>Un'azienda si guida <em>con i numeri.</em></h2>
+  
+    <button type="button" class="more" data-s="consulenza">Approfondisci →</button>
   </div></div>
   <div class="beat" data-f="3" data-in=".55" data-out=".97"><div class="glass">
     <h2>KPI settimanali. Deleghe chiare. <em>Crescita misurabile.</em></h2>
@@ -195,6 +309,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
   <div class="beat" data-f="4" data-in=".08" data-out=".45"><div class="glass">
     <div class="eyebrow">P4 · Corsi</div>
     <h2>Idee che si usano <em>il giorno dopo.</em></h2>
+  
+    <button type="button" class="more" data-s="corsi">Approfondisci →</button>
   </div></div>
   <div class="beat" data-f="4" data-in=".58" data-out=".96"><div class="glass">
     <h2>Fisco, impresa e mercati. <em>Spiegati bene.</em></h2>
@@ -206,6 +322,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
     <div class="eyebrow">P5 · Human OS</div>
     <h2>Il sistema operativo <em>della persona.</em></h2>
     <p>Le aziende hanno processi, numeri e revisioni. Le persone quasi mai.</p>
+  
+    <button type="button" class="more" data-s="human-os">Approfondisci →</button>
   </div></div>
   <div class="beat top hos" data-f="5" data-in=".62" data-out=".8"><div class="glass">
     <div class="eyebrow">Human OS®</div>
@@ -224,6 +342,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
   <div class="beat blue" data-f="6" data-in=".06" data-out=".45"><div class="glass">
     <div class="eyebrow">P6 · Holding</div>
     <h2>Un centro. <em>Tante orbite.</em></h2>
+  
+    <button type="button" class="more" data-s="holding">Approfondisci →</button>
   </div></div>
   <div class="beat" data-f="6" data-in=".55" data-out=".96"><div class="glass">
     <h2>Capitale che lavora <em>con metodo.</em></h2>
@@ -234,6 +354,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
   <div class="beat" data-f="7" data-in=".04" data-out=".3"><div class="glass">
     <div class="eyebrow">P7 · Autore</div>
     <h2>Due libri. <em>Due anime.</em></h2>
+  
+    <button type="button" class="more" data-s="libri">Approfondisci →</button>
   </div></div>
   <div class="beat" data-f="7" data-in=".38" data-out=".58"><div class="glass">
     <div class="eyebrow">Intelligenza Fiscale</div>
@@ -266,6 +388,8 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
   <div class="beat" data-f="8" data-in=".89" data-out="2"><div class="glass">
     <h2>Questo è solo <em>l'inizio.</em></h2>
     <p>Vito Longobardi, sul palco di Elevate.</p>
+  
+    <button type="button" class="more" data-s="elevate">Approfondisci →</button>
   </div></div>
 </div></div>
 
@@ -300,7 +424,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
         <label for="c-tel">Telefono<input id="c-tel" name="telefono" type="tel" autocomplete="tel"></label>
       </div>
       <label for="c-area">Di cosa hai bisogno?
-        <select id="c-area" name="area"><option>Pianificazione fiscale</option><option>Contabilità e bilanci</option><option>Paghe e consulenza del lavoro</option><option>Consulenza aziendale</option><option>Altro</option></select>
+        <select id="c-area" name="area"><option>Pianificazione fiscale</option><option>Contabilità e bilanci</option><option>Paghe e consulenza del lavoro</option><option>Consulenza aziendale</option><option>Corsi</option><option>Human OS</option><option>Holding e investimenti</option><option>Elevate</option><option>Altro</option></select>
       </label>
       <label for="c-msg">Messaggio<textarea id="c-msg" name="messaggio" rows="4" placeholder="Raccontaci in due righe la tua situazione"></textarea></label>
       <div class="hp" aria-hidden="true"><label for="c-sito">Sito<input id="c-sito" name="sito" tabindex="-1" autocomplete="off"></label></div>
@@ -347,6 +471,99 @@ const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const roles=["consulente fiscale","consulente del lavoro","consulente aziendale","formatore","fondatore di una holding","creatore di Human OS","autore di due libri","speaker di Elevate"];
 const roleEl=document.getElementById("role");let ri=0;
 if(!reduce)setInterval(()=>{ri=(ri+1)%roles.length;const t=roles[ri];let i=0;const tk=setInterval(()=>{roleEl.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(tk)},36)},2800);
+
+/* ================= menu a tendina e schede dei servizi ================= */
+const SCHEDE={
+  "fiscale":{f:1,area:"Pianificazione fiscale",eyebrow:"P1 · Fiscale e pianificazione",title:"Pianificazione fiscale. Ottimizzazione costruita sulla tua impresa.",
+    lead:"Analizziamo la tua posizione e applichiamo le leve di riduzione della tassazione previste dalla normativa. Non un intervento una tantum: una strategia aggiornata ogni anno e seguita nel tempo.",
+    cosa:[["Analisi della posizione fiscale","Bilanci, dichiarazioni e struttura dell'attività: capiamo quanto paghi oggi e perché."],["Leve di riduzione della tassazione","Applichiamo gli strumenti che la legge mette a disposizione della tua impresa."],["Scelta del regime e della forma","Valutiamo regime fiscale e forma giuridica più adatti ai tuoi numeri."],["Dichiarativi e adempimenti","Dichiarazioni, F24 e comunicazioni gestiti con un calendario chiaro."],["Contabilità e bilancio","Numeri aggiornati e leggibili, base di ogni decisione fiscale."],["Assistenza continuativa","Un riferimento fisso per ogni dubbio, prima che diventi un problema."]],
+    chi:["Imprese individuali","Società di persone","Società di capitali","Professionisti","Start-up"],
+    come:[["Analisi","Partiamo dai numeri reali dell'ultimo anno."],["Piano fiscale","Definiamo le leve da applicare e le tempistiche."],["Applicazione","Mettiamo in pratica il piano insieme a te."],["Monitoraggio","Verifichiamo i risultati e aggiorniamo il piano ogni anno."]],
+    ricevi:["Un piano fiscale scritto, con le leve applicate","Il calendario delle scadenze della tua impresa","Un referente dello studio sempre raggiungibile","Una revisione periodica dei risultati"]},
+  "lavoro":{f:2,area:"Paghe e consulenza del lavoro",eyebrow:"P2 · Lavoro e paghe",title:"Paghe e consulenza del lavoro. Il personale gestito con precisione.",
+    lead:"Le persone sono il primo costo e il primo valore di un'impresa. Gestiamo cedolini, contratti e adempimenti, e ti aiutiamo a capire quanto costa davvero ogni scelta sul personale.",
+    cosa:[["Elaborazione cedolini","Buste paga mensili e Libro Unico del Lavoro, puntuali ogni mese."],["Assunzioni e contratti","Scelta del contratto, assunzioni, proroghe e cessazioni."],["Contributi e versamenti","Calcolo e versamento di contributi e ritenute tramite F24."],["Costo del lavoro","Simulazioni del costo reale prima di assumere o riorganizzare."],["Agevolazioni","Verifichiamo gli incentivi disponibili per le tue assunzioni."],["Assistenza al datore di lavoro","Risposte rapide su ferie, permessi, malattie e gestione quotidiana."]],
+    chi:["Aziende con dipendenti","Datori di lavoro domestico","Studi professionali","Attività stagionali"],
+    come:[["Raccolta dati","Presenze e variazioni del mese, con un flusso semplice."],["Elaborazione","Cedolini e adempimenti nei tempi previsti."],["Controllo","Verifica di costi e scadenze contributive."],["Report","Un quadro chiaro del costo del personale."]],
+    ricevi:["Cedolini e LUL ogni mese","Il costo del lavoro sempre sotto controllo","Simulazioni prima di ogni assunzione","Un consulente dedicato al personale"]},
+  "consulenza":{f:3,area:"Consulenza aziendale",eyebrow:"P3 · Consulenza aziendale",title:"Un'azienda si guida con i numeri.",
+    lead:"KPI, controllo di gestione e organizzazione. È il modello con cui abbiamo costruito il nostro studio: deleghe chiare, processi definiti e risultati misurati ogni settimana. Lo portiamo nella tua impresa.",
+    cosa:[["Cruscotto KPI","Pochi indicatori, scelti bene, da guardare ogni settimana."],["Controllo di gestione","Margini per prodotto, cliente o reparto: dove guadagni davvero."],["Budget e cash flow","Previsioni di cassa per decidere prima, non dopo."],["Break-even","Quanto devi fatturare per coprire i costi, mese per mese."],["Organizzazione e deleghe","Ruoli, responsabilità e processi che funzionano anche senza di te."],["Affiancamento","Riunioni periodiche per leggere i numeri e decidere insieme."]],
+    chi:["PMI in crescita","Imprenditori che vogliono delegare","Aziende familiari","Studi professionali"],
+    come:[["Fotografia","Analisi di numeri e organizzazione attuali."],["Cruscotto","Scelta dei KPI e costruzione del report."],["Routine","Revisione settimanale o mensile dei numeri."],["Decisioni","Interventi su costi, prezzi e organizzazione."]],
+    ricevi:["Un cruscotto con i tuoi KPI","Un budget e una previsione di cassa","Un organigramma con deleghe chiare","Incontri periodici di revisione"]},
+  "corsi":{f:4,area:"Corsi",eyebrow:"P4 · Corsi e formazione",title:"Idee che si usano il giorno dopo.",
+    lead:"Formazione pratica per imprenditori, professionisti e team. Pochi concetti, spiegati bene, pronti da applicare.",
+    cosa:[["Fisco per imprenditori","Capire le tasse della propria impresa per decidere meglio."],["Organizzazione e KPI","Come guidare un'azienda con numeri e deleghe."],["Mercati finanziari","Metodo, gestione del rischio e approccio sistematico."],["Formazione per aziende","Percorsi su misura per il tuo team."]],
+    chi:["Imprenditori","Professionisti","Team aziendali","Chi vuole capire i numeri"],
+    come:[["Online","Lezioni da seguire dove vuoi."],["In aula","Giornate intensive in presenza."],["Masterclass","Sessioni ristrette e operative."]],
+    ricevi:["Materiali pratici e strumenti","Casi reali","Accesso alle prossime date"],
+    note:"Calendario e prezzi dei corsi saranno pubblicati qui. Lascia la tua email per essere avvisato."},
+  "human-os":{f:5,area:"Human OS",eyebrow:"P5 · Human OS®",title:"Comprendere le persone. Migliorare le performance.",
+    lead:"Human OS è il sistema operativo della persona. Le aziende hanno processi, numeri e revisioni; le persone quasi mai. Human OS porta lo stesso rigore nella crescita personale e dei team.",
+    cosa:[["Diagnosi","Obiettivi, energia, tempo: dove sei oggi."],["Abitudini","Routine misurabili, installate una alla volta."],["Revisione","KPI personali rivisti ogni settimana."],["Team","Comprendere le persone per farle rendere al meglio."]],
+    chi:["Imprenditori","Manager","Team aziendali","Chi vuole crescere con metodo"],
+    come:[["Analisi","Capire come funzioni."],["Sistema","Costruire le tue routine."],["Esecuzione","Applicarle ogni giorno."],["Miglioramento","Misurare e correggere."]],
+    ricevi:["Un sistema personale misurabile","Strumenti per te e per il tuo team","Un percorso guidato"]},
+  "holding":{f:6,area:"Holding e investimenti",eyebrow:"P6 · Holding",title:"Un centro. Tante orbite.",
+    lead:"La holding raccoglie partecipazioni, nuove iniziative e investimenti, dai mercati finanziari al real estate. Un approccio sistematico, con il rischio sempre sotto controllo.",
+    cosa:[["Partecipazioni","Quote in imprese con cui costruire valore nel tempo."],["Nuove iniziative","Progetti avviati e seguiti con metodo."],["Mercati finanziari","Investimenti con gestione del rischio rigorosa."],["Real estate","Operazioni immobiliari valutate sui numeri."]],
+    chi:["Imprenditori con un progetto","Partner industriali","Co-investitori"],
+    come:[["Valutazione","Numeri, mercato, persone."],["Struttura","La forma giusta per l'operazione."],["Gestione","Monitoraggio costante dei risultati."]],
+    ricevi:["Un interlocutore unico","Un metodo di valutazione chiaro"],
+    note:"Hai un progetto da proporre? Scrivici dal form contatti scegliendo Holding."},
+  "libri":{f:7,area:"Altro",eyebrow:"P7 · Autore",title:"Due libri. Due anime.",
+    lead:"La mente che lavora sui numeri e lo spirito che cerca un senso.",
+    cosa:[["Intelligenza Fiscale","Il fisco spiegato a chi fa impresa: capire per decidere meglio."],["Cammino verso Dio","Un percorso personale e spirituale. Segui @cammino.verso.dio."]],
+    chi:["Imprenditori","Professionisti","Chi cerca un senso"],
+    come:[["Leggi","I libri disponibili."],["Approfondisci","Corsi ed eventi collegati."]],
+    ricevi:["Idee pratiche","Una prospettiva diversa"],
+    note:"Link d'acquisto e copertine saranno inseriti qui."},
+  "elevate":{f:8,area:"Elevate",eyebrow:"P8 · Elevate",title:"L'evento che cambia il modo di fare impresa.",
+    lead:"Un teatro pieno di imprenditori, una squadra che ci ha creduto, idee da portare a casa e applicare. Elevate è il punto più alto della torre.",
+    cosa:[["Sul palco","Interventi su fisco, impresa, organizzazione e persone."],["In sala","Imprenditori e professionisti da tutta la regione."],["Networking","Incontri e relazioni che continuano dopo l'evento."],["La squadra","Lo staff dello studio al completo."]],
+    chi:["Imprenditori","Professionisti","Manager","Team"],
+    come:[["Iscriviti","Lascia i tuoi dati."],["Partecipa","Vivi la giornata."],["Applica","Porta le idee nella tua impresa."]],
+    ricevi:["Avviso in anteprima sulla prossima edizione","Accesso alle iscrizioni"],
+    note:"Lascia la tua email dal form contatti scegliendo Elevate: ti avvisiamo per la prossima edizione."}
+};
+const topbar=document.getElementById("topbar"),burger=document.getElementById("burger"),ddServ=document.getElementById("dd-serv"),ddBtn=ddServ.querySelector("button");
+const setDD=o=>{ddServ.classList.toggle("open",o);ddBtn.setAttribute("aria-expanded",o)};
+const setMenu=o=>{topbar.classList.toggle("menu-open",o);burger.setAttribute("aria-expanded",o);burger.setAttribute("aria-label",o?"Chiudi il menu":"Apri il menu");if(!o)setDD(false)};
+let hoverAt=0;
+ddBtn.addEventListener("click",e=>{e.stopPropagation();if(performance.now()-hoverAt<500)setDD(true);else setDD(!ddServ.classList.contains("open"))});
+if(matchMedia("(hover:hover) and (min-width:901px)").matches){ddServ.addEventListener("mouseenter",()=>{hoverAt=performance.now();setDD(true)});ddServ.addEventListener("mouseleave",()=>setDD(false))}
+burger.addEventListener("click",()=>setMenu(!topbar.classList.contains("menu-open")));
+document.addEventListener("click",e=>{if(!ddServ.contains(e.target))setDD(false)});
+const goFloor=i=>{const sg=SEGS.find(s=>s.type==="f"&&s.i===i);scrollToUnit(sg.start+(i===0?0:.02))};
+document.getElementById("home").addEventListener("click",e=>{e.preventDefault();setMenu(false);scrollTo({top:0,behavior:"smooth"})});
+document.querySelector('.nav a[data-floor="0"]').addEventListener("click",e=>{e.preventDefault();setMenu(false);goFloor(0)});
+["nav-contatti","nav-cta"].forEach(id=>document.getElementById(id).addEventListener("click",()=>setMenu(false)));
+
+const sheet=document.getElementById("sheet"),sheetBody=document.getElementById("sheet-body"),sheetBg=document.getElementById("sheet-bg");
+let lastFocus=null,curKey=null;
+function openSheet(key,fromHash){const d=SCHEDE[key];if(!d)return;curKey=key;lastFocus=document.activeElement;setMenu(false);
+  sheetBody.innerHTML=`<div class="hd"><div class="eyebrow">${d.eyebrow}</div><div class="pnum">P${d.f}</div><h2 id="sheet-title">${d.title}</h2><p class="lead">${d.lead}</p></div>
+  <h3>Cosa facciamo</h3><div class="cards">${d.cosa.map(([b,p])=>`<div class="card"><b>${b}</b><p>${p}</p></div>`).join("")}</div>
+  <h3>Per chi</h3><ul class="who">${d.chi.map(c=>`<li>${c}</li>`).join("")}</ul>
+  <h3>Come lavoriamo</h3><ol>${d.come.map(([b,s])=>`<li><div><b>${b}</b><span>${s}</span></div></li>`).join("")}</ol>
+  <h3>Cosa ricevi</h3><ul class="get">${d.ricevi.map(r=>`<li>${r}</li>`).join("")}</ul>
+  ${d.note?`<p class="note">${d.note}</p>`:""}
+  <div class="acts"><button type="button" class="go" data-act="contact">Richiedi un incontro</button><button type="button" class="ride" data-act="ride">Sali al piano ${d.f} in 3D</button></div>`;
+  document.body.classList.add("sheet-open");sheet.setAttribute("aria-hidden","false");document.documentElement.style.overflow="hidden";sheet.scrollTop=0;
+  if(!fromHash){try{history.replaceState(null,"","#"+key)}catch(_){}}
+  setTimeout(()=>document.getElementById("sheet-x").focus(),50)}
+function closeSheet(){if(!document.body.classList.contains("sheet-open"))return;document.body.classList.remove("sheet-open");sheet.setAttribute("aria-hidden","true");document.documentElement.style.overflow="";
+  try{history.replaceState(null,"",location.pathname+location.search)}catch(_){}if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+document.getElementById("sheet-x").addEventListener("click",closeSheet);sheetBg.addEventListener("click",closeSheet);
+addEventListener("keydown",e=>{if(e.key==="Escape"){closeSheet();setDD(false);setMenu(false)}});
+sheetBody.addEventListener("click",e=>{const b=e.target.closest("button[data-act]");if(!b)return;const d=SCHEDE[curKey];closeSheet();
+  if(b.dataset.act==="ride")setTimeout(()=>goFloor(d.f),60);
+  else{const sel=document.getElementById("c-area");if(sel){if(![...sel.options].some(o=>o.value===d.area))sel.add(new Option(d.area));sel.value=d.area}
+    setTimeout(()=>document.getElementById("contatti").scrollIntoView({behavior:"smooth"}),60)}});
+document.querySelectorAll("[data-s]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();openSheet(b.dataset.s)}));
+const fromHash=()=>{const k=location.hash.slice(1);if(SCHEDE[k])openSheet(k,true)};
+addEventListener("hashchange",fromHash);fromHash();
 
 /* ================= form contatti → /api/richiesta (Vercel + Supabase) ================= */
 (function(){const f=document.getElementById("cform"),out=document.getElementById("c-out"),btn=document.getElementById("c-send");
@@ -775,7 +992,7 @@ function frame(now){
     if(composer){rp.scene=S.scene;bloom.strength=S.bloom;composer.render()}else R.render(S.scene,cam)}
   const inFloor=seg.type==="f";
   for(const b of beats){let f=0;if(inFloor&&b.f===fi){f=b.a===0?clamp((b.z-u)/.05):Math.min(clamp((u-b.a)/.05),clamp((b.z-u)/.05))}
-    b.el.style.opacity=f.toFixed(3);b.el.style.transform=`translateY(${(1-f)*22}px)`}
+    b.el.style.opacity=f.toFixed(3);b.el.classList.toggle("on",f>.5);b.el.style.transform=`translateY(${(1-f)*22}px)`}
   if(fi===1)count.textContent=Math.round(ease(clamp((u-.86)/.07))*500)+(u>.93?"+":"");
   if(fi===5)termLines.forEach(l=>l.style.opacity=u>=+l.dataset.at?1:0);
   requestAnimationFrame(frame);
