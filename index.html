@@ -235,6 +235,8 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
 .plates{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,#0d1630,#04050a 70%)}
 .plate{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .5s}
 .plate.on{opacity:1}
+.covers{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .3s}
+.covers img{position:absolute;left:0;top:0;width:auto;max-width:none;border-radius:2px 5px 5px 2px;box-shadow:14px 18px 40px rgba(0,0,0,.65);will-change:transform}
 .plate img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;will-change:transform}
 .plate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,5,10,.55) 0%,rgba(4,5,10,.12) 30%,rgba(4,5,10,.2) 60%,rgba(4,5,10,.8) 100%)}
 #gl{pointer-events:none}
@@ -658,7 +660,7 @@ const WORDS={
   4:{phases:[[[["CORSI",1]],.06]]},
   5:{phases:[[[["HUMAN OS",1]],.36]],color:[70,194,255],cx:mob?.5:.64,cy:mob?.62:.5,w:mob?.86:.5},
   6:{phases:[[[["HOLDING",1]],.06]]},
-  7:{phases:[[[["AUTORE DI",1],["DUE LIBRI",1]],.06]]}
+  7:{phases:[[mob?[["AUTORE DI",1],["DUE LIBRI",1]]:[["AUTORE DI DUE LIBRI",1]],.04]],cy:mob?.21:.13,w:mob?.8:.62,hmax:mob?.2:.09}
 };
 const stageEl=document.querySelector(".stage"),platesEl=document.createElement("div");platesEl.className="plates";stageEl.insertBefore(platesEl,stageEl.firstChild);
 const plateEls=PLATES.map((p,i)=>{const d=document.createElement("div");d.className="plate";
@@ -677,7 +679,7 @@ function sampleText(lines,cfg){
   const maxW=Math.min(1100,W*(cfg.w||.86)),c=document.createElement("canvas"),x=c.getContext("2d");
   let fs=Math.min(150,H*.16);x.font=`${fs}px Michroma, 'Arial Black', sans-serif`;
   const wid=Math.max(...lines.map(([t,k])=>{x.font=`${fs*k}px Michroma, 'Arial Black', sans-serif`;return x.measureText(t).width}));if(wid>maxW)fs*=maxW/wid;
-  let hs=lines.map(([,k])=>fs*k*1.32),tot=hs.reduce((a,b)=>a+b,0);const maxH=H*(lines.length>1?.4:.24);if(tot>maxH){fs*=maxH/tot;hs=lines.map(([,k])=>fs*k*1.32);tot=maxH}
+  let hs=lines.map(([,k])=>fs*k*1.32),tot=hs.reduce((a,b)=>a+b,0);const maxH=H*(cfg.hmax||(lines.length>1?.4:.24));if(tot>maxH){fs*=maxH/tot;hs=lines.map(([,k])=>fs*k*1.32);tot=maxH}
   c.width=Math.ceil(maxW)+20;c.height=Math.ceil(tot)+20;
   x.fillStyle="#fff";x.textAlign="center";x.textBaseline="middle";let y=10;
   lines.forEach(([t,k],i)=>{x.font=`${fs*k}px Michroma, 'Arial Black', sans-serif`;x.fillText(t,c.width/2,y+hs[i]/2);y+=hs[i]});
@@ -712,6 +714,21 @@ function drawDots(fi,u,t){
   cx2.globalAlpha=1;
   if(seamOn>0){const g=cx2.createLinearGradient(0,0,0,H);g.addColorStop(0,"rgba(255,200,110,0)");g.addColorStop(.5,`rgba(255,215,140,${seamOn})`);g.addColorStop(1,"rgba(255,200,110,0)");cx2.fillStyle=g;cx2.fillRect(W/2-1.5,0,3,H)}
 }
+/* copertine vere sui piedistalli del P7: punti del libro nell'immagine AI (frazioni) e altezza del libro */
+const BOOKS=[{src:"img/libri/intelligenza-fiscale.jpg",alt:"Intelligenza Fiscale",px:.322,py:.49,h:.35,ry:9,ph:.36,pe:.62},
+             {src:"img/libri/cammino-verso-dio.jpg",alt:"Cammino verso Dio",px:.646,py:.5,h:.49,ry:-7,ph:.7,pe:1}];
+const coversEl=document.createElement("div");coversEl.className="covers";stageEl.insertBefore(coversEl,canvas);
+const coverEls=BOOKS.map(b=>{const im=new Image();im.src=b.src;im.alt=b.alt;im.decoding="async";coversEl.appendChild(im);return im});
+function placeCovers(fi,u,t){
+  if(fi!==7){coversEl.style.opacity=0;return}
+  const iw=2752,ih=1536,k=Math.max(W/iw,H/ih),dw=iw*k,dh=ih*k,ox=(W-dw)/2,oy=(H-dh)/2,sc=lerp(1.14,1,ease(u)),dy=(u-.5)*-1.2/100*H*sc,wide=W/H>=1.25;
+  coversEl.style.opacity=sm(clamp((u-.1)/.1)).toFixed(3);
+  BOOKS.forEach((b,i)=>{const im=coverEls[i];let x,y,h;
+    if(wide){const x0=ox+b.px*dw,y0=oy+b.py*dh;x=W/2+(x0-W/2)*sc;y=H/2+(y0-H/2)*sc+dy;h=b.h*dh*sc}
+    else{x=W*(i?.72:.28);y=H*.52;h=Math.min(H*.26,W*.6)}
+    const hi=sm(clamp((u-b.ph)/.05))*(1-sm(clamp((u-b.pe)/.05))),z=1+.06*hi,fl=Math.sin(t*.9+i*2)*h*.012;
+    im.style.height=h.toFixed(1)+"px";im.style.transform=`translate(${(x).toFixed(1)}px,${(y+fl).toFixed(1)}px) translate(-50%,-50%) perspective(900px) rotateY(${b.ry}deg) scale(${z.toFixed(3)})`;
+    im.style.filter=`brightness(${(.86+.22*hi).toFixed(3)}) drop-shadow(0 0 ${(18+30*hi).toFixed(0)}px rgba(255,190,90,${(.18+.35*hi).toFixed(2)}))`})}
 function showPlate(fi,u){plateEls.forEach((p,i)=>{const on=i===fi;p.d.classList.toggle("on",on);
   if(on){const sc=lerp(1.14,1.0,ease(u)),tr=`scale(${sc.toFixed(4)}) translateY(${((u-.5)*-1.2).toFixed(2)}%)`;p.img.style.transform=tr;
     if(p.alt){p.alt.style.transform=tr;p.alt.style.opacity=sm(clamp((u-p.at)/.08)).toFixed(3)}}})}
@@ -797,7 +814,7 @@ function frame(now){
   if(Math.abs(cur-(frame.lp||0))>.004){frame.lp=cur;Music.setProgress(cur)}
   if(sndHint&&!sndHint.hidden&&cur>.08)sndHint.classList.add('far');
   const reelOn=fi===8;reel.style.opacity=reelOn?1:0;if(reelOn)updateReel(u,t);
-  if(!reelOn){showPlate(fi,u);if(shut<.999)drawDots(fi,u,t)}else cx2.clearRect(0,0,W,H);
+  if(!reelOn){showPlate(fi,u);placeCovers(fi,u,t);if(shut<.999)drawDots(fi,u,t)}else{cx2.clearRect(0,0,W,H);coversEl.style.opacity=0}
   const inFloor=seg.type==="f";
   for(const b of beats){let f=0;if(inFloor&&b.f===fi){f=b.a===0?clamp((b.z-u)/.05):Math.min(clamp((u-b.a)/.05),clamp((b.z-u)/.05))}
     b.el.style.opacity=f.toFixed(3);b.el.classList.toggle("on",f>.5);b.el.style.transform=`translateY(${(1-f)*22}px)`}
