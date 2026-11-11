@@ -9,8 +9,8 @@ Sito di **www.studiolongobardi.it**.
 ## Struttura
 
 ```
-index.html            la pagina del sito
-img/                  immagini
+index.html            il sito: la torre a piani in 3D (three.js) + galleria Elevate + contatti
+img/                  foto di Elevate (e1…e12)
 api/richiesta.js      funzione Vercel: riceve il form e salva su Supabase
 supabase/schema.sql   tabella "richieste" da creare su Supabase
 vercel.json           impostazioni di pubblicazione
