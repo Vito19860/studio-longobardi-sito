@@ -85,7 +85,6 @@ a{color:inherit}
 @media(min-width:901px){.beat.top{top:0;bottom:0;align-items:center;justify-content:flex-start}.beat.top .glass{text-align:left;max-width:390px;margin-left:3vw}}
 .logo{font-family:var(--display);font-size:clamp(40px,9vw,104px);letter-spacing:.04em;line-height:1}
 .logo span{color:var(--gold)}
-.err{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:13px}
 
 /* dopo la salita */
 .after{position:relative;z-index:5;background:var(--bg);padding-block:110px 60px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
@@ -107,7 +106,7 @@ a{color:inherit}
 .cform .check input{width:18px;height:18px;margin-top:2px;flex:none}
 .cform button{border:0;cursor:pointer;margin-top:4px;justify-self:start}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.fmsg{margin:0;font-size:14px}.fmsg.ok{color:#5fd38d}.fmsg.err{color:#ff7a7a}
+.fmsg{margin:0;font-size:14px}.fmsg.ok{color:#5fd38d}.fmsg.bad{color:#ff7a7a}
 .ph{background:rgba(242,165,31,.14);color:var(--gold-2);border-radius:4px;padding:1px 7px;font-family:var(--mono);font-size:12px}
 .channels{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);align-self:start}
 .channels div{background:#0b0e15;padding:16px 18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -467,7 +466,7 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
       </label>
       <label for="c-msg">Messaggio<textarea id="c-msg" name="messaggio" rows="4" placeholder="Raccontaci in due righe la tua situazione"></textarea></label>
       <div class="hp" aria-hidden="true"><label for="c-sito">Sito<input id="c-sito" name="sito" tabindex="-1" autocomplete="off"></label></div>
-      <label class="check" for="c-privacy"><input id="c-privacy" name="privacy" type="checkbox" required> Ho letto l'<a href="/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per essere ricontattato.</label>
+      <label class="check" for="c-privacy"><input id="c-privacy" name="privacy" type="checkbox" required><span>Ho letto l'<a href="/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per essere ricontattato.</span></label>
       <button class="btn" type="submit" id="c-send">Invia la richiesta</button>
       <p class="fmsg" id="c-out" role="status" aria-live="polite"></p>
     </form>
@@ -564,7 +563,7 @@ const libriHTML=()=>`<div class="hd"><div class="eyebrow">P7 · Autore</div><div
     <div class="two"><label for="b-nome">Nome<input id="b-nome" name="nome" autocomplete="given-name" required></label><label for="b-cognome">Cognome<input id="b-cognome" name="cognome" autocomplete="family-name" required></label></div>
     <div class="two"><label for="b-email">Email<input id="b-email" name="email" type="email" autocomplete="email" required></label><label for="b-tel">Telefono<input id="b-tel" name="telefono" type="tel" autocomplete="tel"></label></div>
     <div class="hp" aria-hidden="true"><label for="b-sito">Sito<input id="b-sito" name="sito" tabindex="-1" autocomplete="off"></label></div>
-    <label class="check" for="b-privacy"><input id="b-privacy" name="privacy" type="checkbox" required> Ho letto l'<a href="/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per ricevere il libro.</label>
+    <label class="check" for="b-privacy"><input id="b-privacy" name="privacy" type="checkbox" required><span>Ho letto l'<a href="/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per ricevere il libro.</span></label>
     <button class="btn" type="submit" id="b-send">Scarica il libro gratis</button>
     <p class="fmsg" id="b-out" role="status" aria-live="polite"></p>
   </form>
@@ -604,7 +603,7 @@ function closeSheet(){if(!document.body.classList.contains("sheet-open"))return;
 document.getElementById("sheet-x").addEventListener("click",closeSheet);
 sheetBody.addEventListener("submit",async e=>{if(e.target.id!=="bform")return;e.preventDefault();const f=e.target,out=f.querySelector("#b-out"),btn=f.querySelector("#b-send");
   const d=Object.fromEntries(new FormData(f));d.privacy=f.privacy.checked;out.className="fmsg";
-  const bad=(m,el)=>{out.className="fmsg err";out.textContent=m;if(el)el.focus()};
+  const bad=(m,el)=>{out.className="fmsg bad";out.textContent=m;if(el)el.focus()};
   if(!d.nome.trim()||!d.cognome.trim())return bad("Inserisci nome e cognome.",f.nome);
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email))return bad("Controlla l'indirizzo email.",f.email);
   if(!d.privacy)return bad("Serve il consenso privacy per inviarti il libro.");
@@ -629,13 +628,13 @@ addEventListener("hashchange",fromHash);fromHash();
   const live=/^(www\.)?(vitolongobardi|studiolongobardi)\.it$|vercel\.app$|localhost$/.test(location.hostname);
   f.addEventListener("submit",async e=>{e.preventDefault();out.className="fmsg";out.textContent="";
     const d=Object.fromEntries(new FormData(f));d.privacy=f.privacy.checked;
-    if(!d.nome||!d.nome.trim()){out.className="fmsg err";out.textContent="Inserisci nome e cognome.";f.nome.focus();return}
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email||"")){out.className="fmsg err";out.textContent="Controlla l'indirizzo email.";f.email.focus();return}
-    if(!d.privacy){out.className="fmsg err";out.textContent="Serve il consenso privacy per poterti ricontattare.";return}
+    if(!d.nome||!d.nome.trim()){out.className="fmsg bad";out.textContent="Inserisci nome e cognome.";f.nome.focus();return}
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email||"")){out.className="fmsg bad";out.textContent="Controlla l'indirizzo email.";f.email.focus();return}
+    if(!d.privacy){out.className="fmsg bad";out.textContent="Serve il consenso privacy per poterti ricontattare.";return}
     btn.disabled=true;btn.textContent="Invio in corso…";
     try{if(!live)await new Promise(r=>setTimeout(r,700));else{const r=await fetch("/api/richiesta",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});if(!r.ok)throw 0}
       f.reset();out.className="fmsg ok";out.textContent=live?"Richiesta inviata. Lo studio ti ricontatterà a breve.":"Anteprima: nel sito online la richiesta arriverà allo studio."}
-    catch(_){out.className="fmsg err";out.textContent="Invio non riuscito. Riprova tra poco o scrivici su Instagram."}
+    catch(_){out.className="fmsg bad";out.textContent="Invio non riuscito. Riprova tra poco o scrivici su Instagram."}
     finally{btn.disabled=false;btn.textContent="Invia la richiesta"}})})();
 
 /* ================= piani fotografici + pallini di luce ================= */
