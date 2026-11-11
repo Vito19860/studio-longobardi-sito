@@ -1,6 +1,6 @@
 # Studio Longobardi · sito
 
-Sito di **www.studiolongobardi.it**.
+Sito personale di **www.vitolongobardi.it** (in futuro il marketing curerà a parte www.studiolongobardi.it).
 
 - **GitHub**: il codice e lo storico delle modifiche
 - **Vercel**: pubblica il sito; ogni modifica su `main` va online da sola
@@ -33,7 +33,7 @@ vercel.json           impostazioni di pubblicazione
 4. **Deploy**.
 
 ### 3. Dominio
-Su Vercel: **Settings → Domains → Add** `studiolongobardi.it` e `www.studiolongobardi.it`,
+Su Vercel: **Settings → Domains → Add** `vitolongobardi.it` e `www.vitolongobardi.it`,
 poi aggiorna i DNS dal tuo registrar come indicato da Vercel.
 
 ## Dove leggere le richieste

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Studio Longobardi: pianificazione fiscale, contabilità, paghe, consulenza aziendale. Vito Longobardi, Human OS, Elevate.">
-<title>Studio Longobardi</title>
+<meta name="description" content="Vito Longobardi: consulente fiscale, autore di Intelligenza Fiscale, ideatore di Elevate e Human OS. Contabilità, pianificazione fiscale, paghe, controllo di gestione, holding.">
+<title>Vito Longobardi</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -176,6 +176,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
 .pillars{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.pillars span{border:1px solid var(--line);border-radius:30px;padding:5px 12px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2)}
 .sheet .book{display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:center;margin-top:28px}
 @media(max-width:480px){.sheet .book{grid-template-columns:110px 1fr;gap:16px}}
+.bk-img{display:block;width:100%;height:auto;border-radius:3px 6px 6px 3px;box-shadow:12px 16px 40px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.08)}
 .bk-cover{aspect-ratio:2/3;border-radius:4px 8px 8px 4px;padding:14px 12px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:12px 16px 40px rgba(0,0,0,.55),inset 6px 0 0 rgba(0,0,0,.25);max-width:100%}
 .bk-cover span{font-family:var(--mono);font-size:9px;letter-spacing:.12em}.bk-cover b{font-family:var(--display);font-weight:400;font-size:15px;line-height:1.25}
 .bk1{background:linear-gradient(160deg,#14203f,#060a16);color:#f1f3f7;border:1px solid rgba(242,165,31,.4)}.bk1 b{color:#f2a51f}
@@ -241,7 +242,7 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
 
 
 <header class="topbar" id="topbar"><div class="in">
-  <a class="brand" href="#" id="home"><span class="mk"><svg viewBox="0 0 20 20" fill="none"><path d="M3 4h4.2L10 12.6 12.8 4H17l-5.3 13H8.3z" fill="#f2a51f"/></svg></span><b>STUDIO LONGOBARDI</b></a>
+  <a class="brand" href="#" id="home"><span class="mk"><svg viewBox="0 0 20 20" fill="none"><path d="M3 4h4.2L10 12.6 12.8 4H17l-5.3 13H8.3z" fill="#f2a51f"/></svg></span><b>VITO LONGOBARDI</b></a>
   <nav class="nav" id="nav" aria-label="Menu principale">
     <div class="dd" id="dd-serv">
       <button type="button" aria-expanded="false" aria-controls="drop-serv">Servizi <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4l4 4 4-4"/></svg></button>
@@ -437,7 +438,7 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
 
   <div class="contact">
     <div>
-      <div class="eyebrow">Contatti · Studio Longobardi</div>
+      <div class="eyebrow">Contatti</div>
       <h3>Qual è il tuo <span style="color:var(--gold-2)">prossimo passo?</span></h3>
       <p class="lead">Ricevo su appuntamento. Scrivi in quale area ti serve una mano e lo studio ti ricontatta per fissare l'incontro.</p>
       <div class="channels" style="margin-top:28px">
@@ -469,7 +470,7 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
       <p class="fmsg" id="c-out" role="status" aria-live="polite"></p>
     </form>
   </div>
-  <footer><span>© 2026 Studio Longobardi · P.IVA <b class="ph">da inserire</b></span><span><a href="#">Privacy policy</a> · <a href="#">Cookie policy</a></span></footer>
+  <footer><span>© 2026 Vito Longobardi · Studio Longobardi · P.IVA <b class="ph">da inserire</b></span><span><a href="#">Privacy policy</a> · <a href="#">Cookie policy</a></span></footer>
 
 </div></section>
 
@@ -553,7 +554,7 @@ const SCHEDE={
 };
 const libriHTML=()=>`<div class="hd"><div class="eyebrow">P7 · Autore</div><div class="pnum">P7</div><h2 id="sheet-title">Autore di due libri.</h2><p class="lead">Il fisco spiegato a chi fa impresa, e un cammino di fede e crescita imprenditoriale.</p></div>
   <div class="book">
-    <div class="bk-cover bk1" role="img" aria-label="Copertina di Intelligenza Fiscale"><span>VITO LONGOBARDI</span><b>INTELLIGENZA<br>FISCALE</b></div>
+    <img class="bk-img" src="img/libri/intelligenza-fiscale.jpg" alt="Copertina di Intelligenza Fiscale di Vito Longobardi" loading="lazy">
     <div><div class="badge">Best seller Amazon</div><h3 style="margin-top:12px">Intelligenza Fiscale</h3>
       <p class="lead" style="font-size:16px">Prendi la tua copia: richiedila in omaggio. Inserisci i tuoi dati e te la spediamo noi.</p></div>
   </div>
@@ -568,7 +569,7 @@ const libriHTML=()=>`<div class="hd"><div class="eyebrow">P7 · Autore</div><div
     <p class="fmsg" id="b-out" role="status" aria-live="polite"></p>
   </form>
   <div class="book" style="margin-top:38px">
-    <div class="bk-cover bk2" role="img" aria-label="Copertina di Cammino verso Dio"><span>VITO LONGOBARDI</span><b>CAMMINO<br>VERSO DIO</b></div>
+    <img class="bk-img" src="img/libri/cammino-verso-dio.jpg" alt="Copertina di Cammino verso Dio di Vito Longobardi" loading="lazy">
     <div><h3 style="margin-top:0">Cammino verso Dio</h3><p class="lead" style="font-size:16px">21 tappe di fede e imprenditoriali per crescere.</p>
       <div class="acts" style="border:0;margin-top:14px;padding-top:0"><a class="buy" href="${LINK_CAMMINO}" target="_blank" rel="noopener">Acquista il libro</a><a class="ig" href="https://www.instagram.com/cammino.verso.dio/" target="_blank" rel="noopener">@cammino.verso.dio</a></div></div>
   </div>`;
@@ -610,7 +611,7 @@ sheetBody.addEventListener("submit",async e=>{if(e.target.id!=="bform")return;e.
   if(!/^\d{5}$/.test(d.cap))return bad("Il CAP deve avere 5 cifre.",f.cap);
   if(!/^[A-Z]{2}$/.test(d.provincia))return bad("Scrivi la provincia con due lettere, es. NA.",f.provincia);
   if(!d.privacy)return bad("Serve il consenso per spedirti il libro.");
-  const live=/^(www\.)?studiolongobardi\.it$|vercel\.app$|localhost$/.test(location.hostname);
+  const live=/^(www\.)?(vitolongobardi|studiolongobardi)\.it$|vercel\.app$|localhost$/.test(location.hostname);
   btn.disabled=true;btn.textContent="Invio in corso…";
   try{if(!live)await new Promise(r=>setTimeout(r,700));else{const r=await fetch("/api/libro",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});if(!r.ok)throw 0}
     f.reset();out.className="fmsg ok";out.textContent=live?"Richiesta ricevuta. Ti spediremo la tua copia di Intelligenza Fiscale.":"Anteprima: nel sito online la richiesta arriverà allo studio per la spedizione."}
@@ -626,7 +627,7 @@ addEventListener("hashchange",fromHash);fromHash();
 
 /* ================= form contatti → /api/richiesta (Vercel + Supabase) ================= */
 (function(){const f=document.getElementById("cform"),out=document.getElementById("c-out"),btn=document.getElementById("c-send");
-  const live=/^(www\.)?studiolongobardi\.it$|vercel\.app$|localhost$/.test(location.hostname);
+  const live=/^(www\.)?(vitolongobardi|studiolongobardi)\.it$|vercel\.app$|localhost$/.test(location.hostname);
   f.addEventListener("submit",async e=>{e.preventDefault();out.className="fmsg";out.textContent="";
     const d=Object.fromEntries(new FormData(f));d.privacy=f.privacy.checked;
     if(!d.nome||!d.nome.trim()){out.className="fmsg err";out.textContent="Inserisci nome e cognome.";f.nome.focus();return}
