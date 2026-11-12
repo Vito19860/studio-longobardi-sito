@@ -314,12 +314,12 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
     <h2>Fogli, scadenze, cartelle. <em>Il caos che conosci.</em></h2>
     <button type="button" class="more" data-s="fiscale">Approfondisci →</button>
   </div></div>
-  <div class="beat" data-f="1" data-in=".44" data-out=".56"><div class="glass">
+  <div class="beat" data-f="1" data-in=".38" data-out=".54"><div class="glass">
     <div class="eyebrow">Contabilità</div>
     <h2>Ogni numero <em>al suo posto.</em></h2>
     <p>Contabilità ordinaria e semplificata, IVA e bilancio d'esercizio. La base di ogni scelta fiscale.</p>
   </div></div>
-  <div class="beat" data-f="1" data-in=".68" data-out=".8"><div class="glass">
+  <div class="beat" data-f="1" data-in=".68" data-out=".82"><div class="glass">
     <div class="eyebrow">Ottimizzazione fiscale</div>
     <p>Applichiamo le leve di riduzione della tassazione previste dalla legge. Una strategia costruita sulla tua impresa e seguita nel tempo.</p>
   </div></div>
@@ -647,7 +647,7 @@ const G="https://cdn.gamma.app/djpqzp56xyqhm6j/design-anything/";
 /* immagine AI per piano (P8 usa le foto vere di Elevate). Quando le immagini saranno nel repository, basta cambiare questi percorsi in img/piani/... */
 const PLATES=[
   {src:G+"ggdD2VOhpe5qtsCz5JDVM/306GzLDkNccr1Da7yrLq5.jpg",pos:"50% 60%"},
-  {src:G+"Ni6lt9zxbjtMpPtOTjC63/JUiZahIdjDh8K0gosITXK.jpg",pos:"50% 50%",src2:G+"ZAvDzNA345dQbGEw6KuRf/EWGBntbWiwxgR65PrqjHp.jpg",at:.48},
+  {src:G+"Ni6lt9zxbjtMpPtOTjC63/JUiZahIdjDh8K0gosITXK.jpg",pos:"50% 50%",src2:G+"ZAvDzNA345dQbGEw6KuRf/EWGBntbWiwxgR65PrqjHp.jpg",at:.56},
   {src:G+"zSclxRsCBSemiGtxF5fOp/V8_36nmfncn9Drk0V_Puy.jpg",pos:"50% 50%"},
   {src:G+"eTjIaBB9h8sVSmS7J2wc7/bWYin6fG8yJDtezO7Pnai.jpg",pos:"50% 50%"},
   {src:G+"VojkTYx650WbQNMey3wpw/oceINPcTH5Ch11LnugoCH.jpg",pos:"50% 50%"},
@@ -657,7 +657,7 @@ const PLATES=[
 ];
 /* scritte a pallini di luce: fasi [righe, inizio formazione]; cx/cy = centro (frazione dello schermo), w = larghezza massima */
 const WORDS={
-  1:{phases:[[[["CONTABILITÀ",1]],.06],[[["PIANIFICAZIONE",1],["FISCALE",1],["RIDUCI LE TASSE",.6]],.5]]},
+  1:{phases:[[mob?[["CONSULENTE",1],["FISCALE ED",1],["AZIENDALE",1]]:[["CONSULENTE FISCALE",1],["ED AZIENDALE",1]],.02],[[["CONTABILITÀ",1]],.34],[[["PIANIFICAZIONE",1],["FISCALE",1],["RIDUCI LE TASSE",.6]],.58]]},
   2:{phases:[[[["PAGHE",1],["E CONTRATTI",1]],.06]]},
   3:{phases:[[[["CONTROLLO",1],["DI GESTIONE",1]],.06]]},
   4:{phases:[[[["CORSI",1]],.06]]},
@@ -706,7 +706,7 @@ function drawDots(fi,u,t){
   cx2.globalCompositeOperation="source-over";
   const seamOn=sm(clamp((u-.86)/.1));
   for(let i=0;i<N;i++){const p=P[i];
-    const a=sm(clamp((u-ph[0][1]-p.r*.16)/.18));if(a<=0)continue;
+    const fast=ph.length>2,a=sm(clamp((u-ph[0][1]-p.r*(fast?.07:.16))/(fast?.11:.18)));if(a<=0)continue;
     // partenza: dal basso dello schermo, sparsi
     let x=lerp(p.sx*W,T[0][i][0],a),y=lerp(H*(.85+p.sy*.3),T[0][i][1],a);
     const arc=Math.sin(a*Math.PI)*(p.sx-.5)*W*.12;x+=arc*(1-a);
