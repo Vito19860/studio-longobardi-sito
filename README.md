@@ -14,7 +14,7 @@ img/                  foto di Elevate (e1…e12), og.jpg (anteprima per WhatsApp
 img/piani/            immagini dei piani in WebP (le salva l'azione GitHub "Immagini dei piani")
 sitemap.xml           elenco pagine per Google
 api/richiesta.js      funzione Vercel: form contatti → tabella "richieste"
-api/_notifica.js      avviso email (Resend) per ogni nuova richiesta
+api/_notifica.js      avviso email (casella Aruba, smtps.aruba.it:465) per ogni nuova richiesta
 api/libro.js          funzione Vercel: download gratuito di Intelligenza Fiscale → tabella "richieste_libro" + link temporaneo al PDF (Supabase Storage, bucket privato "libri")
 download/             PDF di Intelligenza Fiscale (copia di riserva se non è su Supabase Storage)
 privacy.html          informativa privacy (/privacy)
@@ -36,8 +36,8 @@ vercel.json           impostazioni di pubblicazione
 3. **Environment Variables**:
    - `SUPABASE_URL` = Project URL
    - `SUPABASE_SERVICE_ROLE_KEY` = chiave service_role
-   - `RESEND_API_KEY` = chiave di resend.com (avviso email a ogni richiesta; facoltativa)
-   - `NOTIFICA_EMAIL` = indirizzo che riceve gli avvisi (lo stesso dell'account Resend)
+   - avvisi email (facoltativi), dalla casella Aruba: `SMTP_USER` = indirizzo completo della casella che invia,
+     `SMTP_PASS` = sua password, `NOTIFICA_EMAIL` = chi riceve gli avvisi
 4. **Deploy**.
 
 ### 3. Dominio

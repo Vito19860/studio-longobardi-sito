@@ -10,10 +10,22 @@ export default async function handler(req, res) {
       SUPABASE_SERVICE_ROLE_KEY: !key ? "MANCANTE" : key.startsWith("eyJ") ? "presente (chiave legacy JWT)" : key.startsWith("sb_secret_") ? "presente (chiave secret)" : key.startsWith("sb_publishable_") ? "SBAGLIATA: è la chiave publishable, serve la secret" : "presente, tipo non riconosciuto",
     },
     avvisi_email: {
-      RESEND_API_KEY: !process.env.RESEND_API_KEY ? "MANCANTE (avvisi disattivati)" : String(process.env.RESEND_API_KEY).trim().startsWith("re_") ? "presente" : "presente, ma non sembra una chiave Resend (re_…)",
+      SMTP_USER: !process.env.SMTP_USER ? "MANCANTE (avvisi disattivati)" : /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(process.env.SMTP_USER).trim()) ? "presente" : "presente, ma non è un indirizzo email completo",
+      SMTP_PASS: process.env.SMTP_PASS ? "presente" : "MANCANTE (avvisi disattivati)",
       NOTIFICA_EMAIL: !process.env.NOTIFICA_EMAIL ? "MANCANTE (avvisi disattivati)" : /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(process.env.NOTIFICA_EMAIL).trim()) ? "presente" : "presente, ma non è un indirizzo email",
     },
   };
+  if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+    const port = Number(process.env.SMTP_PORT || 465);
+    try {
+      const { default: nodemailer } = await import("nodemailer");
+      await nodemailer.createTransport({ host: (process.env.SMTP_HOST || "smtps.aruba.it").trim(), port, secure: port === 465,
+        auth: { user: String(process.env.SMTP_USER).trim(), pass: process.env.SMTP_PASS }, connectionTimeout: 7000, greetingTimeout: 7000, socketTimeout: 9000 }).verify();
+      out.avvisi_email.accesso_aruba = "ok, la casella accetta l'invio";
+    } catch (e) {
+      out.avvisi_email.accesso_aruba = e.code === "EAUTH" ? "ERRORE: utente o password della casella non corretti" : "ERRORE: " + String(e.code || e.message || e).slice(0, 120);
+    }
+  }
   if (!url || !key) return res.status(200).json(out);
   const base = url.replace(/\/$/, "");
   const headers = { apikey: key, ...(key.startsWith("eyJ") ? { Authorization: `Bearer ${key}` } : {}) };

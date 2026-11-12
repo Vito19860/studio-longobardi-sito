@@ -4,5 +4,10 @@
   "version": "1.0.0",
   "description": "Sito www.studiolongobardi.it",
   "type": "module",
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.16"
+  }
 }
