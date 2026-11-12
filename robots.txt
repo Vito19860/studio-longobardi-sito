@@ -2,3 +2,5 @@ User-agent: *
 Allow: /api/stato
 Disallow: /download/
 Disallow: /api/
+
+Sitemap: https://www.vitolongobardi.it/sitemap.xml

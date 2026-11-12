@@ -3,8 +3,84 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Vito Longobardi: consulente fiscale, autore di Intelligenza Fiscale, ideatore di Elevate e Human OS. Contabilità, pianificazione fiscale, paghe, controllo di gestione, holding.">
-<title>Vito Longobardi</title>
+<meta name="description" content="Consulente fiscale ed aziendale a Gragnano (Napoli): contabilità, pianificazione fiscale per ridurre le tasse, paghe e contratti, controllo di gestione, holding. Autore di Intelligenza Fiscale, ideatore di Elevate e Human OS.">
+<title>Vito Longobardi · Consulente fiscale ed aziendale a Gragnano (NA)</title>
+<link rel="canonical" href="https://www.vitolongobardi.it/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2304050a'/%3E%3Ctext x='32' y='42' font-family='Arial Black,Arial' font-weight='900' font-size='27' fill='%23f2a51f' text-anchor='middle'%3EVL%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#04050a">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Vito Longobardi">
+<meta property="og:url" content="https://www.vitolongobardi.it/">
+<meta property="og:title" content="Vito Longobardi · Consulente fiscale ed aziendale">
+<meta property="og:description" content="Contabilità, pianificazione fiscale, paghe, controllo di gestione, holding. Autore di Intelligenza Fiscale, ideatore di Elevate e Human OS.">
+<meta property="og:image" content="https://www.vitolongobardi.it/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Vito Longobardi, consulente fiscale ed aziendale">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vito Longobardi · Consulente fiscale ed aziendale">
+<meta name="twitter:description" content="Contabilità, pianificazione fiscale, paghe, controllo di gestione, holding. Autore di Intelligenza Fiscale.">
+<meta name="twitter:image" content="https://www.vitolongobardi.it/img/og.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.vitolongobardi.it/#vito",
+      "name": "Vito Longobardi",
+      "jobTitle": "Consulente fiscale ed aziendale",
+      "url": "https://www.vitolongobardi.it/",
+      "image": "https://www.vitolongobardi.it/img/og.jpg",
+      "worksFor": { "@id": "https://www.vitolongobardi.it/#studio" },
+      "sameAs": ["https://www.instagram.com/ilconsulente.it/"],
+      "knowsAbout": ["Pianificazione fiscale", "Contabilità", "Consulenza del lavoro", "Controllo di gestione", "Holding"]
+    },
+    {
+      "@type": "AccountingService",
+      "@id": "https://www.vitolongobardi.it/#studio",
+      "name": "Studio Longobardi",
+      "url": "https://www.vitolongobardi.it/",
+      "image": "https://www.vitolongobardi.it/img/og.jpg",
+      "email": "vito@studiolongobardi.it",
+      "vatID": "IT06957591214",
+      "founder": { "@id": "https://www.vitolongobardi.it/#vito" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Via Castellammare 71",
+        "postalCode": "80054",
+        "addressLocality": "Gragnano",
+        "addressRegion": "NA",
+        "addressCountry": "IT"
+      },
+      "areaServed": "IT",
+      "sameAs": ["https://www.instagram.com/studiolongobardi/"],
+      "makesOffer": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Contabilità e bilanci" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pianificazione fiscale" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Paghe e contratti" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Controllo di gestione" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Costituzione e gestione di holding" } }
+      ]
+    },
+    {
+      "@type": "Book",
+      "name": "Intelligenza Fiscale",
+      "author": { "@id": "https://www.vitolongobardi.it/#vito" },
+      "inLanguage": "it",
+      "image": "https://www.vitolongobardi.it/img/libri/intelligenza-fiscale.jpg"
+    },
+    {
+      "@type": "Book",
+      "name": "Cammino verso Dio",
+      "author": { "@id": "https://www.vitolongobardi.it/#vito" },
+      "inLanguage": "it",
+      "image": "https://www.vitolongobardi.it/img/libri/cammino-verso-dio.jpg"
+    }
+  ]
+}
+</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -643,17 +719,19 @@ addEventListener("hashchange",fromHash);fromHash();
 
 /* ================= piani fotografici + pallini di luce ================= */
 const mob=innerWidth<760;
+/* immagini dei piani: copia nel sito (img/piani), con l'originale Gamma come riserva */
+const LOC=n=>"/img/piani/"+n+".webp";
 const G="https://cdn.gamma.app/djpqzp56xyqhm6j/design-anything/";
 /* immagine AI per piano (P8 usa le foto vere di Elevate). Quando le immagini saranno nel repository, basta cambiare questi percorsi in img/piani/... */
 const PLATES=[
-  {src:G+"ggdD2VOhpe5qtsCz5JDVM/306GzLDkNccr1Da7yrLq5.jpg",pos:"50% 60%"},
-  {src:G+"Ni6lt9zxbjtMpPtOTjC63/JUiZahIdjDh8K0gosITXK.jpg",pos:"50% 50%",src2:G+"ZAvDzNA345dQbGEw6KuRf/EWGBntbWiwxgR65PrqjHp.jpg",at:.56},
-  {src:G+"zSclxRsCBSemiGtxF5fOp/V8_36nmfncn9Drk0V_Puy.jpg",pos:"50% 50%"},
-  {src:G+"eTjIaBB9h8sVSmS7J2wc7/bWYin6fG8yJDtezO7Pnai.jpg",pos:"50% 50%"},
-  {src:G+"VojkTYx650WbQNMey3wpw/oceINPcTH5Ch11LnugoCH.jpg",pos:"50% 50%"},
-  {src:G+"eMqjlnDHd7u1JdC9z4wHR/XRRfjLxggReRqnZjFOBF2.jpg",pos:"55% 50%"},
-  {src:G+"z7H838ffkKcmb2sQBWkaP/njuRFDC4yR3TfOC2JDUJ_.jpg",pos:"50% 50%"},
-  {src:G+"zWKGF3Is5oyXizigAhWeb/lti8RkW6AOUGTyl7vQefL.jpg",pos:"50% 50%"}
+  {loc:"pt",src:G+"ggdD2VOhpe5qtsCz5JDVM/306GzLDkNccr1Da7yrLq5.jpg",pos:"50% 60%"},
+  {loc:"p1",src:G+"Ni6lt9zxbjtMpPtOTjC63/JUiZahIdjDh8K0gosITXK.jpg",pos:"50% 50%",loc2:"p1b",src2:G+"ZAvDzNA345dQbGEw6KuRf/EWGBntbWiwxgR65PrqjHp.jpg",at:.56},
+  {loc:"p2",src:G+"zSclxRsCBSemiGtxF5fOp/V8_36nmfncn9Drk0V_Puy.jpg",pos:"50% 50%"},
+  {loc:"p3",src:G+"eTjIaBB9h8sVSmS7J2wc7/bWYin6fG8yJDtezO7Pnai.jpg",pos:"50% 50%"},
+  {loc:"p4",src:G+"VojkTYx650WbQNMey3wpw/oceINPcTH5Ch11LnugoCH.jpg",pos:"50% 50%"},
+  {loc:"p5",src:G+"eMqjlnDHd7u1JdC9z4wHR/XRRfjLxggReRqnZjFOBF2.jpg",pos:"55% 50%"},
+  {loc:"p6",src:G+"z7H838ffkKcmb2sQBWkaP/njuRFDC4yR3TfOC2JDUJ_.jpg",pos:"50% 50%"},
+  {loc:"p7",src:G+"zWKGF3Is5oyXizigAhWeb/lti8RkW6AOUGTyl7vQefL.jpg",pos:"50% 50%"}
 ];
 /* scritte a pallini di luce: fasi [righe, inizio formazione]; cx/cy = centro (frazione dello schermo), w = larghezza massima */
 const WORDS={
@@ -667,7 +745,8 @@ const WORDS={
 };
 const stageEl=document.querySelector(".stage"),platesEl=document.createElement("div");platesEl.className="plates";stageEl.insertBefore(platesEl,stageEl.firstChild);
 const plateEls=PLATES.map((p,i)=>{const d=document.createElement("div");d.className="plate";
-  d.innerHTML=`<img alt="" decoding="async" ${i>1?'loading="lazy"':''} src="${p.src}" style="object-position:${p.pos}">`+(p.src2?`<img class="alt" alt="" decoding="async" src="${p.src2}" style="object-position:${p.pos};opacity:0">`:"");
+  d.innerHTML=`<img alt="" decoding="async" ${i>1?'loading="lazy"':''} src="${LOC(p.loc)}" data-fb="${p.src}" style="object-position:${p.pos}">`+(p.src2?`<img class="alt" alt="" decoding="async" src="${LOC(p.loc2)}" data-fb="${p.src2}" style="object-position:${p.pos};opacity:0">`:"");
+  d.querySelectorAll("img[data-fb]").forEach(im=>im.addEventListener("error",()=>{if(im.dataset.fb&&im.src!==im.dataset.fb){im.src=im.dataset.fb;im.dataset.fb=""}},{once:true}));
   platesEl.appendChild(d);return {d,img:d.querySelector("img"),alt:d.querySelector("img.alt"),at:p.at}});
 const canvas=document.getElementById("gl"),cx2=canvas.getContext("2d");
 let W=0,H=0,DPR=1;

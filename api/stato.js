@@ -9,6 +9,10 @@ export default async function handler(req, res) {
       SUPABASE_URL: url ? (/^https:\/\/[a-z0-9]+\.supabase\.co\/?$/.test(url) ? "presente, formato corretto" : (url.startsWith("sb_") ? "SBAGLIATA: contiene una chiave, non l'indirizzo https://….supabase.co" : "presente, ma non è un indirizzo https://….supabase.co")) : "MANCANTE",
       SUPABASE_SERVICE_ROLE_KEY: !key ? "MANCANTE" : key.startsWith("eyJ") ? "presente (chiave legacy JWT)" : key.startsWith("sb_secret_") ? "presente (chiave secret)" : key.startsWith("sb_publishable_") ? "SBAGLIATA: è la chiave publishable, serve la secret" : "presente, tipo non riconosciuto",
     },
+    avvisi_email: {
+      RESEND_API_KEY: !process.env.RESEND_API_KEY ? "MANCANTE (avvisi disattivati)" : String(process.env.RESEND_API_KEY).trim().startsWith("re_") ? "presente" : "presente, ma non sembra una chiave Resend (re_…)",
+      NOTIFICA_EMAIL: !process.env.NOTIFICA_EMAIL ? "MANCANTE (avvisi disattivati)" : /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(process.env.NOTIFICA_EMAIL).trim()) ? "presente" : "presente, ma non è un indirizzo email",
+    },
   };
   if (!url || !key) return res.status(200).json(out);
   const base = url.replace(/\/$/, "");

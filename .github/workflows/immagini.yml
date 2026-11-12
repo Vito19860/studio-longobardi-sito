@@ -1,0 +1,43 @@
+# Salva nel sito le immagini dei piani generate con Gamma (così non dipendono più da Gamma)
+# e le converte in WebP leggere. Parte da sola quando questo file cambia; si può rilanciare
+# a mano da GitHub → Actions → "Immagini dei piani" → Run workflow.
+name: Immagini dei piani
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".github/workflows/immagini.yml"]
+permissions:
+  contents: write
+jobs:
+  scarica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scarica e converti
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq webp >/dev/null
+          G="https://cdn.gamma.app/djpqzp56xyqhm6j/design-anything"
+          mkdir -p img/piani tmp
+          while read nome url; do
+            curl -fsSL --retry 3 "$G/$url" -o "tmp/$nome.jpg"
+            cwebp -quiet -q 80 -resize 2400 0 "tmp/$nome.jpg" -o "img/piani/$nome.webp"
+            echo "$nome: $(du -h img/piani/$nome.webp | cut -f1)"
+          done <<'LISTA'
+          pt ggdD2VOhpe5qtsCz5JDVM/306GzLDkNccr1Da7yrLq5.jpg
+          p1 Ni6lt9zxbjtMpPtOTjC63/JUiZahIdjDh8K0gosITXK.jpg
+          p1b ZAvDzNA345dQbGEw6KuRf/EWGBntbWiwxgR65PrqjHp.jpg
+          p2 zSclxRsCBSemiGtxF5fOp/V8_36nmfncn9Drk0V_Puy.jpg
+          p3 eTjIaBB9h8sVSmS7J2wc7/bWYin6fG8yJDtezO7Pnai.jpg
+          p4 VojkTYx650WbQNMey3wpw/oceINPcTH5Ch11LnugoCH.jpg
+          p5 eMqjlnDHd7u1JdC9z4wHR/XRRfjLxggReRqnZjFOBF2.jpg
+          p6 z7H838ffkKcmb2sQBWkaP/njuRFDC4yR3TfOC2JDUJ_.jpg
+          p7 zWKGF3Is5oyXizigAhWeb/lti8RkW6AOUGTyl7vQefL.jpg
+          LISTA
+          rm -rf tmp
+      - name: Salva nel repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add img/piani
+          git diff --cached --quiet && echo "Nessuna novità" || (git commit -m "Immagini dei piani salvate nel sito (WebP)" && git push)

@@ -10,8 +10,11 @@ Sito personale di **www.vitolongobardi.it** (in futuro il marketing curerà a pa
 
 ```
 index.html            il sito: la torre a piani con immagini AI fotorealistiche e scritte a pallini di luce + galleria Elevate + contatti
-img/                  foto di Elevate (e1…e12)
+img/                  foto di Elevate (e1…e12), og.jpg (anteprima per WhatsApp/LinkedIn), libri/
+img/piani/            immagini dei piani in WebP (le salva l'azione GitHub "Immagini dei piani")
+sitemap.xml           elenco pagine per Google
 api/richiesta.js      funzione Vercel: form contatti → tabella "richieste"
+api/_notifica.js      avviso email (Resend) per ogni nuova richiesta
 api/libro.js          funzione Vercel: download gratuito di Intelligenza Fiscale → tabella "richieste_libro" + link temporaneo al PDF (Supabase Storage, bucket privato "libri")
 download/             PDF di Intelligenza Fiscale (copia di riserva se non è su Supabase Storage)
 privacy.html          informativa privacy (/privacy)
@@ -33,6 +36,8 @@ vercel.json           impostazioni di pubblicazione
 3. **Environment Variables**:
    - `SUPABASE_URL` = Project URL
    - `SUPABASE_SERVICE_ROLE_KEY` = chiave service_role
+   - `RESEND_API_KEY` = chiave di resend.com (avviso email a ogni richiesta; facoltativa)
+   - `NOTIFICA_EMAIL` = indirizzo che riceve gli avvisi (lo stesso dell'account Resend)
 4. **Deploy**.
 
 ### 3. Dominio
@@ -44,7 +49,5 @@ poi aggiorna i DNS dal tuo registrar come indicato da Vercel.
 - Libri omaggio: **Table Editor → richieste_libro** (`stato`: da_spedire, spedito, annullato). Una richiesta per email.
 
 ## Da completare
-- Indirizzo, telefono, email, PEC, orari (sezione Contatti)
-- Partita IVA nel footer
-- Pagine Privacy policy e Cookie policy
-- Foto reale della copertina di Intelligenza Fiscale
+- Revisione legale di privacy e cookie policy
+- Google Search Console: verifica del dominio e invio di sitemap.xml

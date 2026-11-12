@@ -3,6 +3,8 @@
 //   SUPABASE_URL               es. https://xxxx.supabase.co
 //   SUPABASE_SERVICE_ROLE_KEY  chiave "service_role" (solo lato server, mai nel browser)
 
+import { notifica } from "./_notifica.js";
+
 const AREE = ["Pianificazione fiscale", "Contabilità e bilanci", "Paghe e consulenza del lavoro", "Controllo di gestione", "Holding", "Corsi", "Human OS", "Elevate", "Altro"];
 const clip = (v, n) => (typeof v === "string" ? v.trim().slice(0, n) : "");
 
@@ -54,6 +56,10 @@ export default async function handler(req, res) {
       console.error("Supabase", r.status, await r.text());
       return res.status(502).json({ error: "Salvataggio non riuscito" });
     }
+    await notifica(`Nuova richiesta: ${row.area} · ${row.nome}`, {
+      Nome: row.nome, Email: row.email, Telefono: row.telefono, Azienda: row.azienda,
+      Area: row.area, Messaggio: row.messaggio,
+    }, row.email);
     return res.status(200).json({ ok: true });
   } catch (e) {
     console.error(e);

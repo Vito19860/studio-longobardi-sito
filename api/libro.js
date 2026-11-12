@@ -3,6 +3,8 @@
 // 2. crea un link di download temporaneo (24 ore) al PDF custodito in Supabase Storage,
 //    bucket privato "libri", file "intelligenza-fiscale.pdf" (modificabile con LIBRO_PATH).
 
+import { notifica } from "./_notifica.js";
+
 const clip = (v, n) => (typeof v === "string" ? v.trim().slice(0, n) : "");
 const LINK_ORE = 24;
 
@@ -35,10 +37,16 @@ export default async function handler(req, res) {
   try {
     const r = await fetch(`${url}/rest/v1/richieste_libro?on_conflict=email`, {
       method: "POST",
-      headers: { ...headers, Prefer: "resolution=ignore-duplicates,return=minimal" },
+      headers: { ...headers, Prefer: "resolution=ignore-duplicates,return=representation" },
       body: JSON.stringify(row),
     });
     if (!r.ok) { const txt = await r.text(); console.error("Supabase", r.status, txt); return res.status(502).json({ error: "Salvataggio non riuscito", code: "db", detail: txt.slice(0, 200) }); }
+    // avviso solo per i nuovi contatti (chi riscarica con la stessa email non genera un secondo avviso)
+    let nuovo = true;
+    try { const j = await r.json(); nuovo = !Array.isArray(j) || j.length > 0; } catch {}
+    if (nuovo) await notifica(`Libro scaricato: ${row.nome} ${row.cognome}`, {
+      Nome: `${row.nome} ${row.cognome}`, Email: row.email, Telefono: row.telefono, Libro: row.libro,
+    }, row.email);
   } catch (e) {
     console.error(e);
     return res.status(502).json({ error: "Salvataggio non riuscito" });
