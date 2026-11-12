@@ -139,6 +139,10 @@ a{color:inherit}
 
 /* testi */
 .beat{position:absolute;z-index:20;left:max(20px,env(safe-area-inset-left,0px));right:max(20px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 6vh);display:flex;justify-content:center;pointer-events:none;opacity:0;will-change:opacity,transform}
+.nums{display:flex;justify-content:center;gap:clamp(18px,5vw,46px);margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.nums div{display:flex;flex-direction:column;align-items:center;gap:2px}
+.nums b{font-family:var(--display);font-size:clamp(22px,3.2vw,32px);color:var(--gold-2);text-shadow:0 0 18px rgba(242,165,31,.45);letter-spacing:.02em}
+.nums span{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .glass{max-width:640px;text-align:center;padding:20px 26px;border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:blur(18px) saturate(1.3)}
 .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
 .beat h2{font-family:var(--display);font-weight:400;font-size:clamp(20px,3vw,36px);line-height:1.18;margin:8px 0 0;text-wrap:balance}
@@ -379,6 +383,7 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
   <div class="beat" data-f="0" data-in=".4" data-out=".66"><div class="glass">
     <h2>Otto piani. <em>Un unico metodo.</em></h2>
     <p>Pianificazione fiscale, lavoro, impresa, formazione, investimenti e crescita personale. Ogni piano è una parte di quello che faccio.</p>
+    <div class="nums"><div><b>500+</b><span>clienti assistiti</span></div><div><b>2</b><span>libri pubblicati</span></div><div><b>Amazon</b><span>best seller</span></div></div>
   </div></div>
   <div class="beat" data-f="0" data-in=".76" data-out=".97"><div class="glass">
     <h2>Si sale. <em>Primo piano.</em></h2>
@@ -915,5 +920,8 @@ requestAnimationFrame(frame);
 
 </script>
 
+<!-- statistiche Vercel Web Analytics: anonime, senza cookie -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
