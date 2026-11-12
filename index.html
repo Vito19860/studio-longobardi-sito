@@ -44,6 +44,7 @@
       "url": "https://www.vitolongobardi.it/",
       "image": "https://www.vitolongobardi.it/img/og.jpg",
       "email": "vito@studiolongobardi.it",
+      "telephone": "+39 081 801 1388",
       "vatID": "IT06957591214",
       "founder": { "@id": "https://www.vitolongobardi.it/#vito" },
       "address": {
@@ -139,6 +140,7 @@ a{color:inherit}
 
 /* testi */
 .beat{position:absolute;z-index:20;left:max(20px,env(safe-area-inset-left,0px));right:max(20px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 6vh);display:flex;justify-content:center;pointer-events:none;opacity:0;will-change:opacity,transform}
+.glass .guest{margin-top:14px;font-size:15px}.glass .guest b{color:var(--gold-2);font-weight:600}
 .nums{display:flex;justify-content:center;gap:clamp(18px,5vw,46px);margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .nums div{display:flex;flex-direction:column;align-items:center;gap:2px}
 .nums b{font-family:var(--display);font-size:clamp(22px,3.2vw,32px);color:var(--gold-2);text-shadow:0 0 18px rgba(242,165,31,.45);letter-spacing:.02em}
@@ -278,6 +280,10 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
 .snd.on i{background:var(--gold);animation:eq .9s ease-in-out infinite}.snd.on i:nth-child(2){animation-delay:.2s}.snd.on i:nth-child(3){animation-delay:.45s}.snd.on i:nth-child(4){animation-delay:.1s}
 @keyframes eq{0%,100%{height:5px}50%{height:18px}}
 .snd:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wa-fab{position:fixed;z-index:45;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 18px);display:flex;align-items:center;gap:8px;height:48px;padding:0 18px 0 14px;border-radius:30px;background:#1fa855;color:#fff;text-decoration:none;font:600 14px/1 var(--sans,system-ui);letter-spacing:.02em;box-shadow:0 8px 28px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08) inset;transition:transform .2s,background .2s}
+.wa-fab svg{width:24px;height:24px}.wa-fab:hover{background:#25c063;transform:translateY(-2px)}.wa-fab:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media(max-width:900px){.wa-fab{bottom:calc(env(safe-area-inset-bottom,0px) + 64px);padding:0;width:52px;height:52px;justify-content:center}.wa-fab span{display:none}}
+.btn.wa-btn{background:#1fa855;color:#fff;border-color:#1fa855;margin-right:10px}.btn.wa-btn:hover{background:#25c063}
 .snd-hint{all:unset;cursor:pointer;position:fixed;z-index:44;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 18px);font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2);border:1px solid rgba(242,165,31,.5);background:rgba(10,13,21,.75);backdrop-filter:blur(10px);padding:10px 16px;border-radius:30px;animation:pulse 2.4s ease-in-out infinite}
 @keyframes pulse{50%{box-shadow:0 0 0 6px rgba(242,165,31,.12)}}
 .snd-hint.far{opacity:.0;pointer-events:none;transition:opacity .4s}
@@ -503,6 +509,8 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
   <div class="beat blue" data-f="8" data-in=".23" data-out=".32"><div class="glass">
     <h2>Un teatro pieno di <em>imprenditori.</em></h2>
     <p>Tutti lì per la stessa ragione: fare un salto di livello.</p>
+    <div class="nums"><div><b>280</b><span>partecipanti</span></div><div><b>1ª</b><span>edizione</span></div></div>
+    <p class="guest">Ospite d'eccezione: <b>Alfio Bardolla</b></p>
   </div></div>
   <div class="beat" data-f="8" data-in=".45" data-out=".54"><div class="glass">
     <h2>Numeri e persone. <em>Sullo stesso palco.</em></h2>
@@ -531,10 +539,13 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
       <p class="lead">Ricevo su appuntamento. Scrivi in quale area ti serve una mano e lo studio ti ricontatta per fissare l'incontro.</p>
       <div class="channels" style="margin-top:28px">
         <div><span>Indirizzo</span><a>Via Castellammare 71, 80054 Gragnano (NA)</a></div>
+        <div><span>WhatsApp</span><a href="https://wa.me/390818011388?text=Buongiorno%2C%20vorrei%20prenotare%20una%20consulenza%20con%20lo%20Studio%20Longobardi." target="_blank" rel="noopener">081 801 1388</a></div>
+        <div><span>Telefono</span><a href="tel:+390818011388">081 801 1388</a></div>
         <div><span>Email</span><a href="mailto:vito@studiolongobardi.it">vito@studiolongobardi.it</a></div>
         <div><span>Studio</span><a href="https://www.instagram.com/studiolongobardi/" target="_blank" rel="noopener">@studiolongobardi</a></div>
         <div><span>Vito</span><a href="https://www.instagram.com/ilconsulente.it/" target="_blank" rel="noopener">@ilconsulente.it</a></div>
       </div>
+      <a class="btn wa-btn" href="https://wa.me/390818011388?text=Buongiorno%2C%20vorrei%20prenotare%20una%20consulenza%20con%20lo%20Studio%20Longobardi." target="_blank" rel="noopener">Prenota su WhatsApp</a>
       <a class="btn ghost" href="#" id="again" style="margin-left:0">Rifai la salita</a>
     </div>
     <form class="cform" id="cform" novalidate>
@@ -631,8 +642,8 @@ const SCHEDE={
     note:"La convenienza di una holding dipende dalla situazione specifica: ogni valutazione parte dai tuoi numeri."},
   "libri":{f:7,area:"Altro",eyebrow:"P7 · Autore",custom:true},
   "elevate":{f:8,area:"Elevate",eyebrow:"P8 · Elevate",title:"L'evento che cambia il modo di fare impresa.",
-    lead:"Un teatro pieno di imprenditori, una squadra che ci ha creduto, idee da portare a casa e applicare. Elevate è il punto più alto della torre.",
-    cosa:[["Sul palco","Interventi su fisco, impresa, organizzazione e persone."],["In sala","Imprenditori e professionisti da tutta la regione."],["Networking","Incontri e relazioni che continuano dopo l'evento."],["La squadra","Lo staff dello studio al completo."]],
+    lead:"280 partecipanti alla prima edizione e un ospite d'eccezione, Alfio Bardolla. Un teatro pieno di imprenditori, una squadra che ci ha creduto, idee da portare a casa e applicare. Elevate è il punto più alto della torre.",
+    cosa:[["Sul palco","Interventi su fisco, impresa, organizzazione e persone."],["Ospite d'eccezione","Alfio Bardolla, sul palco della prima edizione."],["In sala","280 imprenditori e professionisti alla prima edizione."],["Networking","Incontri e relazioni che continuano dopo l'evento."],["La squadra","Lo staff dello studio al completo."]],
     chi:["Imprenditori","Professionisti","Manager","Team"],
     come:[["Iscriviti","Lascia i tuoi dati."],["Partecipa","Vivi la giornata."],["Applica","Porta le idee nella tua impresa."]],
     ricevi:["Avviso in anteprima sulla prossima edizione","Accesso alle iscrizioni"],
@@ -923,5 +934,6 @@ requestAnimationFrame(frame);
 <!-- statistiche Vercel Web Analytics: anonime, senza cookie -->
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<a class="wa-fab" href="https://wa.me/390818011388?text=Buongiorno%2C%20vorrei%20prenotare%20una%20consulenza%20con%20lo%20Studio%20Longobardi." target="_blank" rel="noopener" aria-label="Prenota una consulenza su WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2a13.2 13.2 0 0 0 6.6 1.7c7.2 0 13-5.7 13-12.8S23.2 3 16 3Zm0 23.4c-2.1 0-4.1-.6-5.9-1.6l-.4-.3-3.8 1.2 1.2-3.7-.3-.4a10.5 10.5 0 0 1-1.7-5.8C5.1 9.9 10 5.2 16 5.2S26.9 9.9 26.9 15.8 22 26.4 16 26.4Zm6-7.8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.9 8.9 0 0 1-4.4-3.8c-.3-.6.3-.5 1-1.8.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.7 1.2 3.1 1.4 3.3 2.3 3.6 5.7 5c2.1.9 2.9 1 4 .8.6-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.3Z"/></svg><span>Prenota</span></a>
 </body>
 </html>
