@@ -121,6 +121,7 @@ a{color:inherit}
 .shaft button.on i{transform:scaleX(1);background:var(--gold)}
 .shaft button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
 @media(max-width:900px){.shaft{display:none}}
+.shaft{transition:opacity .4s}.shaft.away{opacity:0;pointer-events:none}
 
 .track{position:relative}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--bg)}
@@ -174,7 +175,12 @@ a{color:inherit}
 
 /* dopo la salita */
 .after{position:relative;z-index:5;background:var(--bg);padding-block:110px 60px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-.after .in{max-width:1240px;margin:0 auto}
+.after .in{max-width:1240px;margin:0 auto;position:relative;z-index:1}
+.after-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.after-bg .ab-img{position:absolute;left:0;right:0;bottom:0;height:min(1300px,75%);background:url(/img/piani/pt.webp) center 30%/cover no-repeat;opacity:.26;filter:saturate(.7) brightness(.8);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 45%,#000 80%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 45%,#000 80%,transparent 100%)}
+.after-bg .ab-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 40% at 50% 100%,rgba(242,165,31,.16),transparent 70%),radial-gradient(ellipse 50% 30% at 75% 70%,rgba(242,165,31,.07),transparent 70%)}
+#dust2{position:absolute;inset:0;width:100%;height:100%}
 .after h3{font-family:var(--display);font-weight:400;font-size:clamp(26px,4vw,48px);line-height:1.12;margin:14px 0 14px;text-wrap:balance}
 .after p.lead{color:var(--muted);max-width:58ch;margin:0}
 .grid{columns:3 280px;column-gap:14px;margin-top:46px}
@@ -528,7 +534,7 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
   </div></div>
 </div></div>
 
-<section class="after" id="contatti"><div class="in">
+<section class="after" id="contatti"><div class="after-bg" aria-hidden="true"><div class="ab-img"></div><div class="ab-glow"></div><canvas id="dust2"></canvas></div><div class="in">
   <div class="eyebrow">P8 · Elevate · Galleria</div>
   <h3>Rivivi Elevate.</h3>
   <p class="lead">Il palco, la sala, la squadra e le persone.</p>
@@ -895,6 +901,24 @@ const dustC=document.getElementById("dust"),dx=dustC.getContext("2d"),motes=Arra
 function drawDust(t){const w=dustC.width=dustC.clientWidth,h=dustC.height=dustC.clientHeight;dx.globalCompositeOperation="lighter";
   for(const m of motes){m.y-=m.v;if(m.y<-.02){m.y=1.02;m.x=rnd()}const x=(m.x+Math.sin(t*.3+m.ph)*.01)*w,y=m.y*h,g=dx.createRadialGradient(x,y,0,x,y,m.r*4);
     g.addColorStop(0,`rgba(255,200,110,${m.a})`);g.addColorStop(1,"rgba(255,200,110,0)");dx.fillStyle=g;dx.fillRect(x-m.r*4,y-m.r*4,m.r*8,m.r*8)}}
+new IntersectionObserver(e=>document.getElementById("shaft").classList.toggle("away",e[0].isIntersecting),{rootMargin:"0px 0px -35% 0px"}).observe(document.querySelector(".contact"));
+/* polvere di luce che sale anche nella parte finale (galleria e contatti) */
+(()=>{const c=document.getElementById("dust2");if(!c)return;const x=c.getContext("2d"),host=c.parentElement;let on=false,ms=[],W=0,H=0,dpr=1;
+  const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const size=()=>{dpr=Math.min(devicePixelRatio||1,2);W=host.clientWidth;H=host.clientHeight;c.width=W*dpr;c.height=H*dpr;
+    const n=Math.round(Math.min(mob?220:480,W*H/(mob?6000:5000)));
+    ms=Array.from({length:n},()=>({x:Math.random(),y:Math.random(),r:.8+Math.random()*2.6,v:(.25+Math.random()*.9)/1000,a:.3+Math.random()*.6,ph:Math.random()*6}))};
+  const draw=(t)=>{x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,W,H);x.globalCompositeOperation="lighter";
+    const lo=-host.getBoundingClientRect().top-200,hi=lo+innerHeight+400;
+    for(const m of ms){if(!still){m.y-=m.v*(1+.6*Math.sin(t*.0004+m.ph))*0.9;if(m.y<-.01){m.y=1.01;m.x=Math.random()}}
+      const py=m.y*H;if(py<lo||py>hi)continue;const px=(m.x+Math.sin(t*.0003+m.ph)*.008)*W,R=m.r*4,
+      tw=.75+.25*Math.sin(t*.002+m.ph*3),g=x.createRadialGradient(px,py,0,px,py,R);
+      g.addColorStop(0,`rgba(255,205,120,${(m.a*tw).toFixed(3)})`);g.addColorStop(.35,`rgba(255,180,80,${(m.a*tw*.35).toFixed(3)})`);g.addColorStop(1,"rgba(255,170,60,0)");
+      x.fillStyle=g;x.fillRect(px-R,py-R,R*2,R*2)}};
+  const loop=(t)=>{if(!on)return;draw(t);if(!still)requestAnimationFrame(loop)};
+  size();new ResizeObserver(()=>{if(Math.abs(host.clientHeight-H)>2||Math.abs(host.clientWidth-W)>2){size();if(still)draw(0)}}).observe(host);
+  new IntersectionObserver(e=>{const v=e[0].isIntersecting;if(v&&!on){on=true;if(H!==host.clientHeight)size();requestAnimationFrame(loop)}else if(!v)on=false},{rootMargin:"200px"}).observe(host);
+})();
 function updateReel(u,t){const n=slides.length;
   slides.forEach((sl,i)=>{const a=i/n,b=(i+1)/n,o=i===0?clamp((b+.025-u)/.05):Math.min(clamp((u-a+.025)/.05),i===n-1?1:clamp((b+.025-u)/.05));
     sl.d.style.opacity=o.toFixed(3);if(o>0){const lp=clamp((u-a+.03)/(b-a+.06)),sc=sl.dir>0?lerp(1.14,1.0,lp):lerp(1.0,1.14,lp);sl.img.style.transform=`scale(${sc.toFixed(4)}) translateY(${((lp-.5)*-1.5).toFixed(2)}%)`}});
