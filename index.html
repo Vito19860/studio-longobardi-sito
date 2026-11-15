@@ -176,6 +176,33 @@ a{color:inherit}
 /* dopo la salita */
 .after{position:relative;z-index:5;background:var(--bg);padding-block:110px 60px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .after .in{max-width:1240px;margin:0 auto;position:relative;z-index:1}
+.pil{margin-top:130px}
+.pil h3 em,.pil h4 em{font-style:normal;color:var(--gold-2)}
+.pil .lead{max-width:760px}
+.pil-list{list-style:none;margin:54px 0 0;padding:0;border-top:1px solid var(--line)}
+.pil-list li{display:grid;grid-template-columns:90px minmax(0,1.05fr) minmax(0,1fr);gap:28px;align-items:baseline;padding:30px 0;border-bottom:1px solid var(--line)}
+.pil-list .n{font-family:var(--display);font-size:clamp(34px,4vw,52px);line-height:1;color:var(--gold-2);text-shadow:0 0 22px rgba(242,165,31,.5)}
+.pil-list small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.pil-list b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(21px,2.3vw,30px);line-height:1.2}
+.pil-list b em{font-style:normal;color:var(--gold-2)}
+.pil-list p{margin:0;color:var(--muted);font-size:16px;line-height:1.6}
+.path{margin-top:90px}
+.path h4{font-family:var(--display);font-weight:400;font-size:clamp(24px,3.2vw,40px);margin:12px 0 0}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:36px;counter-reset:s}
+.st{position:relative;padding:26px 22px 24px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,rgba(242,165,31,.07),rgba(255,255,255,.015));backdrop-filter:blur(6px)}
+.st span{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(242,165,31,.6);color:var(--gold-2);font-family:var(--mono);font-size:14px;box-shadow:0 0 18px rgba(242,165,31,.25)}
+.st b{display:block;margin:18px 0 8px;font-size:18px}
+.st p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
+.st:not(:last-child)::after{content:"";position:absolute;top:44px;right:-17px;width:18px;height:1px;background:rgba(242,165,31,.5)}
+.pil-acts{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:44px}
+.pil-acts .btn.btn{margin:0}
+.pil-note{margin-top:18px;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--muted)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease var(--d,0ms),transform .8s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+.rv.vis{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+@media(max-width:900px){.pil{margin-top:90px}.pil-list li{grid-template-columns:56px minmax(0,1fr);gap:8px 16px;padding:24px 0}.pil-list p{grid-column:2}
+ .steps{grid-template-columns:1fr 1fr}.st:not(:last-child)::after{display:none}}
+@media(max-width:560px){.steps{grid-template-columns:1fr}.pil-acts .btn{flex:1 1 100%;text-align:center}}
 .after-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
 .after-bg .ab-img{position:absolute;left:0;right:0;bottom:0;height:min(1300px,75%);background:url(/img/piani/pt.webp) center 30%/cover no-repeat;opacity:.26;filter:saturate(.7) brightness(.8);
   -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 45%,#000 80%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 45%,#000 80%,transparent 100%)}
@@ -458,7 +485,7 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
     <div class="eyebrow">P5 · Human OS® · Test per imprenditori</div>
     <h2>Il test psico&shy;attitudinale <em>per chi guida un'impresa.</em></h2>
     <p>Capire l'attitudine delle persone: la tua e quella del tuo team.</p>
-    <button type="button" class="more" data-s="human-os">Scopri il test →</button>
+    <button type="button" class="more" data-s="human-os">Scopri il test →</button> <a class="more" href="https://www.humanostest.it" target="_blank" rel="noopener">humanostest.it ↗</a>
   </div></div>
   <div class="beat top hos" data-f="5" data-in=".62" data-out=".8"><div class="glass">
     <div class="eyebrow">Human OS®</div>
@@ -539,6 +566,35 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
   <h3>Rivivi Elevate.</h3>
   <p class="lead">Il palco, la sala, la squadra e le persone.</p>
   <div class="grid" id="grid"></div>
+
+  <div class="pil" id="pilastri">
+    <div class="eyebrow">Elevate · Il metodo</div>
+    <h3>I pilastri della <em>tua impresa.</em></h3>
+    <p class="lead">Lavori tanto. Quanto resta davvero? Il valore di un'impresa dipende da come gestisce margini, fiscalità, patrimonio e collaboratori. Al centro ci sei tu, con la tua capacità di guidarla.</p>
+    <ol class="pil-list">
+      <li class="rv" style="--d:0ms"><span class="n">01</span><div class="t"><small>Margini e controllo di gestione</small><b>Conosci i margini. <em>Governa le decisioni.</em></b></div><p>Capire quali attività, servizi e clienti portano risultato. Pianificare la liquidità. Controllare la rotta con budget e indicatori essenziali.</p></li>
+      <li class="rv" style="--d:90ms"><span class="n">02</span><div class="t"><small>Pianificazione fiscale e leve di risparmio</small><b>Dai una direzione <em>alla fiscalità.</em></b></div><p>Oltre 15 leve di risparmio d'imposta da valutare sulla tua impresa: compensi degli amministratori, TFM, welfare, premi di risultato, Patent Box, costi e investimenti.</p></li>
+      <li class="rv" style="--d:180ms"><span class="n">03</span><div class="t"><small>Protezione del patrimonio</small><b>Dai una struttura <em>al tuo patrimonio.</em></b></div><p>Oltre 10 leve da costruire in anticipo: holding, trust, assetti societari e immobiliari, continuità e passaggio generazionale.</p></li>
+      <li class="rv" style="--d:270ms"><span class="n">04</span><div class="t"><small>Trattenere i collaboratori</small><b>Fai crescere le persone. <em>Rafforza l'impresa.</em></b></div><p>Ruoli chiari, incentivi ben disegnati, sviluppo del team, anche con la lettura dei profili di HUMAN OS.</p></li>
+      <li class="rv" style="--d:360ms"><span class="n">05</span><div class="t"><small>Tu</small><b>L'impresa cresce. <em>Tu la guidi.</em></b></div><p>Visione, capacità di scegliere e delegare, leadership: la direzione che tiene insieme gli altri quattro pilastri.</p></li>
+    </ol>
+    <div class="path">
+      <div class="eyebrow">Il percorso</div>
+      <h4>Dall'analisi <em>all'azione.</em></h4>
+      <div class="steps">
+        <div class="st rv" style="--d:0ms"><span>1</span><b>Analisi</b><p>Raccogliamo i dati e leggiamo la situazione fiscale, organizzativa, economica e patrimoniale.</p></div>
+        <div class="st rv" style="--d:120ms"><span>2</span><b>Priorità</b><p>Individuiamo dove intervenire, distinguendo urgenze, opportunità e obiettivi.</p></div>
+        <div class="st rv" style="--d:240ms"><span>3</span><b>Piano operativo</b><p>Attività, responsabilità e tempi coerenti con le risorse della tua impresa.</p></div>
+        <div class="st rv" style="--d:360ms"><span>4</span><b>Affiancamento</b><p>Ti accompagniamo nell'attuazione e verifichiamo insieme l'avanzamento.</p></div>
+      </div>
+    </div>
+    <div class="pil-acts">
+      <a class="btn" href="/brochure/elevate-i-pilastri-della-tua-impresa.pdf" target="_blank" rel="noopener">Scarica la brochure · PDF</a>
+      <a class="btn ghost" href="#contatti-form" id="pil-go">Richiedi un confronto</a>
+      <a class="btn ghost" href="https://www.elevatevent.it" target="_blank" rel="noopener">elevatevent.it ↗</a>
+    </div>
+    <p class="pil-note">Strumenti e applicabilità si definiscono sull'analisi del caso concreto.</p>
+  </div>
 
   <div class="contact">
     <div>
@@ -634,7 +690,7 @@ const SCHEDE={
     come:[["Online","Lezioni da seguire dove vuoi."],["In aula","Giornate intensive in presenza."],["Masterclass","Sessioni ristrette e operative."]],
     ricevi:["Materiali pratici e strumenti","Casi reali","Accesso alle prossime date"],
     note:"Calendario e prezzi dei corsi saranno pubblicati qui. Lascia la tua email dal form contatti per essere avvisato."},
-  "human-os":{f:5,area:"Human OS",eyebrow:"P5 · Human OS® · Test psicoattitudinale",title:"Il test psicoattitudinale per imprenditori.",
+  "human-os":{f:5,links:[["Fai il test su humanostest.it ↗","https://www.humanostest.it"]],area:"Human OS",eyebrow:"P5 · Human OS® · Test psicoattitudinale",title:"Il test psicoattitudinale per imprenditori.",
     lead:"Human OS è un test psicoattitudinale pensato per chi guida un'impresa. Serve a capire l'attitudine delle persone: la tua, quella dei tuoi collaboratori e di chi stai per assumere. Comprendere le persone, migliorare le performance.",
     cosa:[["Attitudini","Come una persona affronta lavoro, responsabilità e pressione."],["Stile decisionale","Come prende decisioni e gestisce il rischio."],["Motivazioni","Cosa la spinge davvero e cosa la frena."],["Ruolo ideale","In quale posizione rende al meglio dentro l'azienda."],["Lettura del team","Come si combinano le persone tra loro."],["Assunzioni","Uno strumento in più per scegliere i candidati giusti."]],
     chi:["Imprenditori","Soci","Manager","Collaboratori","Candidati da assumere"],
@@ -649,7 +705,7 @@ const SCHEDE={
     ricevi:["Una risposta chiara: la holding conviene o no","Una simulazione dei numeri","Il progetto della struttura","Assistenza nella costituzione e nella gestione"],
     note:"La convenienza di una holding dipende dalla situazione specifica: ogni valutazione parte dai tuoi numeri."},
   "libri":{f:7,area:"Altro",eyebrow:"P7 · Autore",custom:true},
-  "elevate":{f:8,area:"Elevate",eyebrow:"P8 · Elevate",title:"L'evento che cambia il modo di fare impresa.",
+  "elevate":{f:8,links:[["Scarica la brochure · PDF","/brochure/elevate-i-pilastri-della-tua-impresa.pdf"],["elevatevent.it ↗","https://www.elevatevent.it"]],area:"Elevate",eyebrow:"P8 · Elevate",title:"L'evento che cambia il modo di fare impresa.",
     lead:"280 partecipanti alla prima edizione e un ospite d'eccezione, Alfio Bardolla. Un teatro pieno di imprenditori, una squadra che ci ha creduto, idee da portare a casa e applicare. Elevate è il punto più alto della torre.",
     cosa:[["Sul palco","Interventi su fisco, impresa, organizzazione e persone."],["Ospite d'eccezione","Alfio Bardolla, sul palco della prima edizione."],["In sala","280 imprenditori e professionisti alla prima edizione."],["Networking","Incontri e relazioni che continuano dopo l'evento."],["La squadra","Lo staff dello studio al completo."]],
     chi:["Imprenditori","Professionisti","Manager","Team"],
@@ -698,7 +754,7 @@ function openSheet(key,fromHash){const d=SCHEDE[key];if(!d)return;curKey=key;las
   <h3>Come lavoriamo</h3><ol>${d.come.map(([b,s])=>`<li><div><b>${b}</b><span>${s}</span></div></li>`).join("")}</ol>
   <h3>Cosa ricevi</h3><ul class="get">${d.ricevi.map(r=>`<li>${r}</li>`).join("")}</ul>
   ${d.note?`<p class="note">${d.note}</p>`:""}
-  <div class="acts"><button type="button" class="go" data-act="contact">Richiedi un incontro</button><button type="button" class="ride" data-act="ride">Sali al piano ${d.f} in 3D</button></div>`;
+  <div class="acts"><button type="button" class="go" data-act="contact">Richiedi un incontro</button>${(d.links||[]).map(([t,h])=>`<a class="ig" href="${h}" target="_blank" rel="noopener">${t}</a>`).join("")}<button type="button" class="ride" data-act="ride">Sali al piano ${d.f} in 3D</button></div>`;
   document.body.classList.add("sheet-open");sheet.setAttribute("aria-hidden","false");document.documentElement.style.overflow="hidden";sheet.scrollTop=0;
   if(!fromHash){try{history.replaceState(null,"","#"+key)}catch(_){}}
   setTimeout(()=>document.getElementById("sheet-x").focus(),50)}
@@ -901,7 +957,12 @@ const dustC=document.getElementById("dust"),dx=dustC.getContext("2d"),motes=Arra
 function drawDust(t){const w=dustC.width=dustC.clientWidth,h=dustC.height=dustC.clientHeight;dx.globalCompositeOperation="lighter";
   for(const m of motes){m.y-=m.v;if(m.y<-.02){m.y=1.02;m.x=rnd()}const x=(m.x+Math.sin(t*.3+m.ph)*.01)*w,y=m.y*h,g=dx.createRadialGradient(x,y,0,x,y,m.r*4);
     g.addColorStop(0,`rgba(255,200,110,${m.a})`);g.addColorStop(1,"rgba(255,200,110,0)");dx.fillStyle=g;dx.fillRect(x-m.r*4,y-m.r*4,m.r*8,m.r*8)}}
-new IntersectionObserver(e=>document.getElementById("shaft").classList.toggle("away",e[0].isIntersecting),{rootMargin:"0px 0px -35% 0px"}).observe(document.querySelector(".contact"));
+(()=>{const on=new Set(),sh=document.getElementById("shaft");const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?on.add(e.target):on.delete(e.target));sh.classList.toggle("away",on.size>0)},{rootMargin:"0px 0px -35% 0px"});
+  [".pil",".contact"].forEach(q=>{const el=document.querySelector(q);if(el)io.observe(el)})})();
+(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("vis");io.unobserve(e.target)}}),{rootMargin:"0px 0px -12% 0px"});
+  document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+  const go=document.getElementById("pil-go");if(go)go.addEventListener("click",e=>{e.preventDefault();const sel=document.getElementById("c-area");if(sel)sel.value="Elevate";
+    document.querySelector(".contact").scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>{const n=document.getElementById("c-nome");if(n)n.focus({preventScroll:true})},700)})})();
 /* polvere di luce che sale anche nella parte finale (galleria e contatti) */
 (()=>{const c=document.getElementById("dust2");if(!c)return;const x=c.getContext("2d"),host=c.parentElement;let on=false,ms=[],W=0,H=0,dpr=1;
   const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
