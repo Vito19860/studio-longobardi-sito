@@ -15,6 +15,7 @@ img/piani/            immagini dei piani in WebP (le salva l'azione GitHub "Imma
 sitemap.xml           elenco pagine per Google
 api/richiesta.js      funzione Vercel: form contatti → tabella "richieste"
 api/_notifica.js      avviso email (casella Aruba, smtps.aruba.it:465) per ogni nuova richiesta
+api/brochure.js       funzione Vercel: download delle brochure in cambio dei dati → tabella "richieste" (area "Brochure") + avviso email
 api/libro.js          funzione Vercel: download gratuito di Intelligenza Fiscale → tabella "richieste_libro" + link temporaneo al PDF (Supabase Storage, bucket privato "libri")
 download/             PDF di Intelligenza Fiscale (copia di riserva se non è su Supabase Storage)
 privacy.html          informativa privacy (/privacy)

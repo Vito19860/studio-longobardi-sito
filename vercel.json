@@ -39,6 +39,19 @@
           "value": "attachment; filename=\"Intelligenza-Fiscale-Vito-Longobardi.pdf\""
         }
       ]
+    },
+    {
+      "source": "/brochure/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
     }
   ],
   "rewrites": [

@@ -313,6 +313,14 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
 .snd.on i{background:var(--gold);animation:eq .9s ease-in-out infinite}.snd.on i:nth-child(2){animation-delay:.2s}.snd.on i:nth-child(3){animation-delay:.45s}.snd.on i:nth-child(4){animation-delay:.1s}
 @keyframes eq{0%,100%{height:5px}50%{height:18px}}
 .snd:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.bro-dlg{width:min(560px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:30px 28px 26px;border:1px solid rgba(242,165,31,.35);border-radius:18px;background:#0a0d14;color:var(--fg);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(242,165,31,.08)}
+.bro-dlg::backdrop{background:rgba(3,4,8,.72);backdrop-filter:blur(6px)}
+.bro-dlg h3{font-family:var(--display);font-weight:400;font-size:clamp(22px,3vw,30px);margin:10px 0 6px;line-height:1.2}
+.bro-dlg .bro-sub{margin:0 0 18px;color:var(--muted)}
+.bro-dlg .cform{padding:0;border:0;background:none}
+.bro-dlg .bro-x{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);font-size:22px;line-height:1;cursor:pointer}
+.bro-dlg .bro-x:hover{border-color:var(--gold)}
+@media(max-width:560px){.bro-dlg .two{grid-template-columns:1fr}}
 .wa-fab{position:fixed;z-index:45;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 18px);display:flex;align-items:center;gap:8px;height:48px;padding:0 18px 0 14px;border-radius:30px;background:#1fa855;color:#fff;text-decoration:none;font:600 14px/1 var(--sans,system-ui);letter-spacing:.02em;box-shadow:0 8px 28px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08) inset;transition:transform .2s,background .2s}
 .wa-fab svg{width:24px;height:24px}.wa-fab:hover{background:#25c063;transform:translateY(-2px)}.wa-fab:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .wa-top{display:none}
@@ -963,6 +971,29 @@ function drawDust(t){const w=dustC.width=dustC.clientWidth,h=dustC.height=dustC.
   document.querySelectorAll(".rv").forEach(el=>io.observe(el));
   const go=document.getElementById("pil-go");if(go)go.addEventListener("click",e=>{e.preventDefault();const sel=document.getElementById("c-area");if(sel)sel.value="Elevate";
     document.querySelector(".contact").scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>{const n=document.getElementById("c-nome");if(n)n.focus({preventScroll:true})},700)})})();
+/* brochure: download in cambio dei dati di contatto */
+const initBrochure=()=>{const dlg=document.getElementById("bro-dlg");if(!dlg)return;const f=document.getElementById("bro-form"),out=document.getElementById("br-out"),btn=document.getElementById("br-send"),ttl=document.getElementById("bro-title");
+  const NOMI={"elevate-i-pilastri-della-tua-impresa":"I pilastri della tua impresa","elevate-pianificazione-fiscale":"Pianificazione fiscale","elevate-collaboratori-e-incentivi":"Collaboratori e incentivi","elevate-margini-e-controllo-di-gestione":"Margini e controllo di gestione","elevate-formazione-imprenditoriale":"Formazione imprenditoriale","elevate-holding-e-protezione-patrimoniale":"Holding e protezione patrimoniale","human-os-il-test-per-imprenditori":"Human OS · Il test per imprenditori"};
+  const scarica=u=>{const a=document.createElement("a");a.href=u;a.download="";a.dataset.direct="1";document.body.appendChild(a);a.click();a.remove()};
+  document.addEventListener("click",e=>{const a=e.target.closest('a[href^="/brochure/"]');if(!a||a.dataset.direct||a.closest("#bro-dlg"))return;e.preventDefault();
+    const slug=a.getAttribute("href").replace(/^\/brochure\//,"").replace(/\.pdf$/,"");document.getElementById("bro-slug").value=slug;
+    ttl.textContent="Brochure · "+(NOMI[slug]||"Studio Longobardi");out.className="fmsg";out.textContent="";btn.disabled=false;btn.textContent="Scarica la brochure";
+    if(typeof dlg.showModal==="function")dlg.showModal();else dlg.setAttribute("open","");setTimeout(()=>document.getElementById("br-nome").focus(),50)},true);
+  document.getElementById("bro-x").addEventListener("click",()=>dlg.close());
+  dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+  f.addEventListener("submit",async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(f));d.privacy=f.privacy.checked;out.className="fmsg";
+    const bad=(m,el)=>{out.className="fmsg bad";out.textContent=m;if(el)el.focus()};
+    if(!d.nome.trim()||!d.cognome.trim())return bad("Inserisci nome e cognome.",f.nome);
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email))return bad("Controlla l'indirizzo email.",f.email);
+    if(!d.privacy)return bad("Serve il consenso privacy per inviarti la brochure.");
+    const live=/^(www\.)?(vitolongobardi|studiolongobardi)\.it$|vercel\.app$|localhost$/.test(location.hostname);
+    btn.disabled=true;btn.textContent="Invio in corso…";
+    try{let link="/brochure/"+d.brochure+".pdf";
+      if(live){const r=await fetch("/api/brochure",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});const j=await r.json().catch(()=>({}));if(!r.ok)throw 0;link=j.url||link}
+      else await new Promise(r=>setTimeout(r,500));
+      scarica(link);out.className="fmsg ok";out.innerHTML='Grazie! Il download è partito. Se non parte, <a href="'+link+'" download style="color:var(--gold-2)">scarica qui</a>.';btn.textContent="Scaricata ✓";
+    }catch(_){btn.disabled=false;btn.textContent="Scarica la brochure";bad("Non siamo riusciti a registrare la richiesta. Riprova tra poco o scrivici su WhatsApp.")}})};
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initBrochure);else initBrochure();
 /* polvere di luce che sale anche nella parte finale (galleria e contatti) */
 (()=>{const c=document.getElementById("dust2");if(!c)return;const x=c.getContext("2d"),host=c.parentElement;let on=false,ms=[],W=0,H=0,dpr=1;
   const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1021,6 +1052,21 @@ requestAnimationFrame(frame);
 <!-- statistiche Vercel Web Analytics: anonime, senza cookie -->
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<dialog class="bro-dlg" id="bro-dlg" aria-labelledby="bro-title">
+  <button type="button" class="bro-x" id="bro-x" aria-label="Chiudi">×</button>
+  <div class="eyebrow">Brochure gratuita · PDF</div>
+  <h3 id="bro-title">Scarica la brochure</h3>
+  <p class="bro-sub">Lascia i tuoi dati: il download parte subito.</p>
+  <form class="cform" id="bro-form" novalidate>
+    <input type="hidden" name="brochure" id="bro-slug">
+    <div class="two"><label for="br-nome">Nome<input id="br-nome" name="nome" autocomplete="given-name" required></label><label for="br-cognome">Cognome<input id="br-cognome" name="cognome" autocomplete="family-name" required></label></div>
+    <div class="two"><label for="br-email">Email<input id="br-email" name="email" type="email" autocomplete="email" required></label><label for="br-tel">Telefono<input id="br-tel" name="telefono" type="tel" autocomplete="tel"></label></div>
+    <div class="hp" aria-hidden="true"><label for="br-sito">Sito<input id="br-sito" name="sito" tabindex="-1" autocomplete="off"></label></div>
+    <label class="check" for="br-privacy"><input id="br-privacy" name="privacy" type="checkbox" required><span>Ho letto l'<a href="/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per ricevere la brochure ed essere ricontattato dallo studio.</span></label>
+    <button class="btn" type="submit" id="br-send">Scarica la brochure</button>
+    <p class="fmsg" id="br-out" role="status" aria-live="polite"></p>
+  </form>
+</dialog>
 <a class="wa-fab" href="https://wa.me/390818011388?text=Buongiorno%2C%20vorrei%20prenotare%20una%20consulenza%20con%20lo%20Studio%20Longobardi." target="_blank" rel="noopener" aria-label="Prenota una consulenza su WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2a13.2 13.2 0 0 0 6.6 1.7c7.2 0 13-5.7 13-12.8S23.2 3 16 3Zm0 23.4c-2.1 0-4.1-.6-5.9-1.6l-.4-.3-3.8 1.2 1.2-3.7-.3-.4a10.5 10.5 0 0 1-1.7-5.8C5.1 9.9 10 5.2 16 5.2S26.9 9.9 26.9 15.8 22 26.4 16 26.4Zm6-7.8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.9 8.9 0 0 1-4.4-3.8c-.3-.6.3-.5 1-1.8.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.7 1.2 3.1 1.4 3.3 2.3 3.6 5.7 5c2.1.9 2.9 1 4 .8.6-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.3Z"/></svg><span>Prenota</span></a>
 </body>
 </html>
