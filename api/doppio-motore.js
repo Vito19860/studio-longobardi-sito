@@ -26,7 +26,8 @@ export default async function handler(req, res) {
 
   const s = b.simulazione && typeof b.simulazione === "object" ? b.simulazione : {};
   const forma = clip(s.forma, 60) || "–";
-  const leve = Array.isArray(s.leve) ? s.leve.filter((x) => typeof x === "string").map((x) => x.slice(0, 20)).slice(0, 15).join(", ") : "";
+  const NOMI_LEVE = { comp: "compenso amministratore", tfm: "TFM", km: "rimborsi chilometrici", tras: "trasferte", roy: "royalties", buoni: "buoni pasto", fringe: "fringe benefit", prev: "previdenza complementare", iper: "iperammortamento", maxi: "maxi deduzione assunti", gar: "garanzie del socio" };
+  const leve = Array.isArray(s.leve) ? s.leve.filter((x) => NOMI_LEVE[x]).map((x) => NOMI_LEVE[x]).join(", ") : "";
   const sintesi = `Simulazione Doppio Motore: fatturato ${eur(s.fatturato)}, costi ${eur(s.costi)}, collaboratori ${eur(s.collaboratori)}. ` +
     `Forma più leggera: ${forma}. Risparmio stimato: ${eur(s.risparmio)} l'anno.` + (leve ? ` Leve attive: ${leve}.` : "");
 
