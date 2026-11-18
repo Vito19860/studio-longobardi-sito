@@ -24,12 +24,16 @@ export default async function handler(req, res) {
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return res.status(400).json({ error: "Email non valida" });
   if (b.privacy !== true) return res.status(400).json({ error: "Consenso privacy mancante" });
 
-  const s = b.simulazione && typeof b.simulazione === "object" ? b.simulazione : {};
-  const forma = clip(s.forma, 60) || "–";
+  const RISORSE = { cruscotto: "Cruscotto del Patrimonio", esempio: "Cruscotto del Patrimonio · Esempio", piano: "Piano finanziario e controllo di gestione" };
+  const risorsa = RISORSE[b.risorsa] || "";
+  const s = b.simulazione && typeof b.simulazione === "object" ? b.simulazione : null;
+  if (!s && !risorsa) return res.status(400).json({ error: "Richiesta non valida" });
+  const forma = s ? clip(s.forma, 60) || "–" : "";
   const NOMI_LEVE = { comp: "compenso amministratore", tfm: "TFM", km: "rimborsi chilometrici", tras: "trasferte", roy: "royalties", buoni: "buoni pasto", fringe: "fringe benefit", prev: "previdenza complementare", iper: "iperammortamento", maxi: "maxi deduzione assunti", gar: "garanzie del socio" };
-  const leve = Array.isArray(s.leve) ? s.leve.filter((x) => NOMI_LEVE[x]).map((x) => NOMI_LEVE[x]).join(", ") : "";
-  const sintesi = `Simulazione Doppio Motore: fatturato ${eur(s.fatturato)}, costi ${eur(s.costi)}, collaboratori ${eur(s.collaboratori)}. ` +
-    `Forma più leggera: ${forma}. Risparmio stimato: ${eur(s.risparmio)} l'anno.` + (leve ? ` Leve attive: ${leve}.` : "");
+  const leve = s && Array.isArray(s.leve) ? s.leve.filter((x) => NOMI_LEVE[x]).map((x) => NOMI_LEVE[x]).join(", ") : "";
+  const sintesi = (risorsa ? `Ha scaricato la risorsa "${risorsa}" dalla pagina Doppio Motore.` : "") +
+    (s ? `${risorsa ? " " : ""}Simulazione Doppio Motore: fatturato ${eur(s.fatturato)}, costi ${eur(s.costi)}, collaboratori ${eur(s.collaboratori)}. ` +
+      `Forma più leggera: ${forma}. Risparmio stimato: ${eur(s.risparmio)} l'anno.` + (leve ? ` Leve attive: ${leve}.` : "") : "");
 
   let salvato = false;
   const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -38,17 +42,17 @@ export default async function handler(req, res) {
       const r = await fetch(`${url}/rest/v1/richieste`, {
         method: "POST",
         headers: { apikey: key, ...(key.startsWith("eyJ") ? { Authorization: `Bearer ${key}` } : {}), "Content-Type": "application/json", Prefer: "return=minimal" },
-        body: JSON.stringify({ nome, email, telefono, area: "Doppio Motore", messaggio: sintesi, consenso_privacy: true, origine: "doppio-motore: simulatore" }),
+        body: JSON.stringify({ nome, email, telefono, area: "Doppio Motore", messaggio: sintesi, consenso_privacy: true, origine: risorsa ? "doppio-motore: risorse" : "doppio-motore: simulatore" }),
       });
       salvato = r.ok;
       if (!r.ok) console.error("Supabase", r.status, (await r.text()).slice(0, 300));
     } catch (e) { console.error(e); }
   }
 
-  const avvisato = await notifica(`Doppio Motore: ${nome} · risparmio stimato ${eur(s.risparmio)}`, {
-    Nome: nome, Email: email, Telefono: telefono,
-    Fatturato: eur(s.fatturato), Costi: eur(s.costi), Collaboratori: eur(s.collaboratori),
-    "Forma più leggera": forma, "Risparmio stimato": `${eur(s.risparmio)} l'anno`, "Leve attive": leve,
+  const avvisato = await notifica(risorsa ? `Doppio Motore: ${nome} ha scaricato "${risorsa}"` : `Doppio Motore: ${nome} · risparmio stimato ${eur(s.risparmio)}`, {
+    Nome: nome, Email: email, Telefono: telefono, Risorsa: risorsa,
+    ...(s ? { Fatturato: eur(s.fatturato), Costi: eur(s.costi), Collaboratori: eur(s.collaboratori),
+      "Forma più leggera": forma, "Risparmio stimato": `${eur(s.risparmio)} l'anno`, "Leve attive": leve } : {}),
   }, email);
 
   if (!salvato && !avvisato) return res.status(502).json({ error: "Salvataggio non riuscito" });

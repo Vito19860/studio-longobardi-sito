@@ -19,7 +19,8 @@ api/brochure.js       funzione Vercel: download delle brochure in cambio dei dat
 api/libro.js          funzione Vercel: download gratuito di Intelligenza Fiscale → tabella "richieste_libro" + link temporaneo al PDF (Supabase Storage, bucket privato "libri")
 download/             PDF di Intelligenza Fiscale (copia di riserva se non è su Supabase Storage)
 doppio-motore.html    pagina del libro Doppio Motore con il simulatore di detassazione 2026 (/doppio-motore)
-api/doppio-motore.js  funzione Vercel: contatti del simulatore → tabella "richieste" (area "Doppio Motore") + avviso email
+risorse/              modelli Excel del libro Doppio Motore (si scaricano dalla pagina dopo nome ed email)
+api/doppio-motore.js  funzione Vercel: contatti del simulatore e delle risorse → tabella "richieste" (area "Doppio Motore") + avviso email
 privacy.html          informativa privacy (/privacy)
 cookie.html           cookie policy (/cookie)
 supabase/schema.sql   tabella "richieste" da creare su Supabase

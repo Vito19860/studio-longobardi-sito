@@ -135,6 +135,33 @@ tr.best td{font-weight:700;background:rgba(242,165,31,.1);color:var(--gold-2)}
 .cta p{margin:0 0 16px;font-size:15px;color:var(--muted)}
 .cta .btn{margin:0 8px 8px 0}
 
+.res{border-top:1px solid var(--line);padding:80px 20px 90px;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(242,165,31,.07),transparent 70%)}
+.res-in{max-width:1180px;margin:0 auto}
+.res h2{font-family:var(--display);font-weight:400;font-size:clamp(26px,4vw,42px);margin:0 0 12px;line-height:1.15}
+.res-lead{color:var(--muted);max-width:720px;margin:0;font-size:17px}
+.res-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:36px}
+@media(max-width:980px){.res-grid{grid-template-columns:minmax(0,1fr)}}
+.res-card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 24px;transition:border-color .25s,transform .25s}
+.res-card:hover{border-color:rgba(242,165,31,.55);transform:translateY(-3px)}
+.res-card .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;border:1px solid rgba(79,209,139,.5);color:var(--green);background:rgba(79,209,139,.08)}
+.res-card .ic svg{width:24px;height:24px}
+.res-card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:18px 0 6px}
+.res-card h3{font-size:20px;margin:0 0 10px;line-height:1.25}
+.res-card p:not(.tag){color:var(--muted);font-size:15px;margin:0 0 22px;flex:1}
+.res-card .btn{align-self:flex-start}
+.res-note{margin-top:22px;font-size:13px;color:var(--muted)}
+.res-dlg{width:min(480px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:28px 26px 24px;border:1px solid rgba(242,165,31,.4);border-radius:18px;background:#0a0d14;color:var(--fg);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.res-dlg::backdrop{background:rgba(3,4,8,.72);backdrop-filter:blur(6px)}
+.res-dlg h3{font-family:var(--display);font-weight:400;font-size:20px;line-height:1.3;margin:6px 0 6px}
+.res-dlg .res-sub{margin:0 0 16px;color:var(--muted);font-size:14.5px}
+.res-dlg form{display:grid;gap:12px}
+.res-dlg label{display:grid;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.res-dlg input:not([type=checkbox]){width:100%;font:inherit;font-family:var(--body);font-size:15px;letter-spacing:0;text-transform:none;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel-2);color:var(--fg)}
+.res-dlg input:focus{outline:none;border-color:var(--gold)}
+.res-dlg .check{display:flex;gap:10px;align-items:flex-start;font-family:var(--body);font-size:13.5px;letter-spacing:0;text-transform:none}
+.res-dlg .check input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--gold)}
+.res-dlg .btn{justify-self:start}
+.res-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);font-size:22px;line-height:1;cursor:pointer}
 .mbar{display:none}
 @media(max-width:900px){.mbar{position:fixed;z-index:25;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-radius:14px;background:rgba(10,13,20,.94);border:1px solid rgba(242,165,31,.5);backdrop-filter:blur(12px);color:var(--fg);text-decoration:none;font-size:14px;box-shadow:0 12px 30px rgba(0,0,0,.5);transition:opacity .3s,transform .3s}
 .mbar b{color:var(--gold-2);font-size:16px;margin-left:4px}.mbar i{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
@@ -150,6 +177,7 @@ footer a{color:var(--muted)}
   <a class="brand" href="/"><i>V</i><span>VITO LONGOBARDI</span></a>
   <nav>
     <a href="#simulatore" class="hide-m">Il simulatore</a>
+    <a href="#risorse" class="hide-m">Risorse</a>
     <a href="/" class="hide-m">Torna al sito</a>
     <a class="wa" href="https://wa.me/390818011388?text=Buongiorno%2C%20ho%20letto%20Doppio%20Motore%20e%20vorrei%20prenotare%20una%20consulenza." target="_blank" rel="noopener">WhatsApp</a>
   </nav>
@@ -161,7 +189,7 @@ footer a{color:var(--muted)}
     <p class="eyebrow">Il nuovo libro di Vito Longobardi</p>
     <h1>Doppio <em>Motore</em></h1>
     <p class="lead">Lo spazio riservato ai lettori. Qui trovi il simulatore di detassazione 2026: inserisci i numeri della tua attività, scegli le leve e scopri quanto puoi risparmiare cambiando forma giuridica.</p>
-    <div class="acts"><a class="btn" href="#simulatore">Fai la simulazione</a><a class="btn ghost" href="/#contatti">Parla con lo studio</a></div>
+    <div class="acts"><a class="btn" href="#simulatore">Fai la simulazione</a><a class="btn ghost" href="#risorse">Scarica le risorse</a></div>
   </div>
 </section>
 
@@ -259,6 +287,36 @@ footer a{color:var(--muted)}
 </section>
 </div></main>
 
+
+<section class="res" id="risorse">
+  <div class="res-in">
+    <p class="eyebrow">Risorse del libro</p>
+    <h2>Gli strumenti di <em>Doppio Motore.</em></h2>
+    <p class="res-lead">I modelli Excel usati nel libro, pronti da compilare con i tuoi numeri. Celle gialle per i dati, tutto il resto si calcola da solo.</p>
+    <div class="res-grid">
+      <article class="res-card"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M6 2.75h8.5L19.25 7.5v13.75H6z M14.5 2.75V7.5h4.75 M9 11.5l5 6 M14 11.5l-5 6"/></svg></div><p class="tag">Excel · secondo motore</p><h3>Cruscotto del Patrimonio</h3><p>Sei indicatori con semaforo per il patrimonio fuori dall'azienda: patrimonio netto, tasso di accumulo, mesi di sicurezza, peso dei satelliti, leva e indice di libertà. Trenta minuti al mese.</p><a class="btn" href="/risorse/cruscotto-patrimonio-doppio-motore.xlsx" data-res="cruscotto">Scarica il modello</a></article>
+      <article class="res-card"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M6 2.75h8.5L19.25 7.5v13.75H6z M14.5 2.75V7.5h4.75 M9 11.5l5 6 M14 11.5l-5 6"/></svg></div><p class="tag">Excel · esempio compilato</p><h3>Cruscotto del Patrimonio · Esempio</h3><p>Lo stesso cruscotto già compilato con un caso di esempio: per vedere come si inseriscono i dati e come si leggono le spie prima di usare il tuo.</p><a class="btn" href="/risorse/cruscotto-patrimonio-doppio-motore-esempio.xlsx" data-res="esempio">Scarica l'esempio</a></article>
+      <article class="res-card"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M6 2.75h8.5L19.25 7.5v13.75H6z M14.5 2.75V7.5h4.75 M9 11.5l5 6 M14 11.5l-5 6"/></svg></div><p class="tag">Excel · primo motore</p><h3>Piano finanziario e controllo di gestione</h3><p>Conto economico, punto di pareggio e rendiconto di cassa mese per mese, budget e scostamenti su 36 mesi, indicatori con semaforo e schede di marginalità per prodotto o servizio.</p><a class="btn" href="/risorse/piano-finanziario-studio-longobardi.xlsx" data-res="piano">Scarica il piano</a></article>
+    </div>
+    <p class="res-note">Modelli di lavoro a scopo informativo: i risultati dipendono dai dati inseriti e non sostituiscono la consulenza sul caso concreto.</p>
+  </div>
+</section>
+
+<dialog class="res-dlg" id="res-dlg" aria-labelledby="res-title">
+  <button type="button" class="res-x" id="res-x" aria-label="Chiudi">×</button>
+  <p class="eyebrow">Risorse del libro</p>
+  <h3 id="res-title">Scarica la risorsa</h3>
+  <p class="res-sub">Lascia nome ed email una volta sola: sblocchi tutte le risorse e il risultato completo del simulatore.</p>
+  <form id="rform" novalidate>
+    <label for="r-nome">Nome e cognome<input id="r-nome" name="nome" autocomplete="name" required></label>
+    <label for="r-email">Email<input id="r-email" name="email" type="email" autocomplete="email" required></label>
+    <label for="r-tel">Telefono (facoltativo)<input id="r-tel" name="telefono" type="tel" autocomplete="tel"></label>
+    <div class="hp" aria-hidden="true"><label for="r-sito">Sito<input id="r-sito" name="sito" tabindex="-1" autocomplete="off"></label></div>
+    <label class="check" for="r-privacy"><input id="r-privacy" name="privacy" type="checkbox" required><span>Ho letto l'<a href="/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per ricevere le risorse ed essere ricontattato dallo studio.</span></label>
+    <button class="btn" type="submit" id="r-send">Scarica</button>
+    <p class="fmsg" id="r-out" role="status" aria-live="polite"></p>
+  </form>
+</dialog>
 <a class="mbar" id="mbar" href="#risultato"><span>Risparmio stimato <b id="mbar-v">–</b></span><i>Vedi il risultato ↓</i></a>
 <footer><div class="in">
   <span>© 2026 Vito Longobardi · Studio Longobardi · Via Castellammare 71, 80054 Gragnano (NA) · P.IVA 06957591214</span>
@@ -374,6 +432,33 @@ aggiorna();
     }catch(_){btn.disabled=false;btn.textContent='Mostra il risultato';bad('Non siamo riusciti a registrare la richiesta. Riprova tra poco.')}});
 })();
 
+/* risorse del libro: download dopo nome ed email (gli stessi dati sbloccano anche il simulatore) */
+(()=>{const dlg=document.getElementById('res-dlg'),f=document.getElementById('rform'),out=document.getElementById('r-out'),btn=document.getElementById('r-send'),ttl=document.getElementById('res-title');
+  const KEY='sl-dm-ok';const sbloccato=()=>{try{return localStorage.getItem(KEY)==='1'}catch(_){return !document.getElementById('lockwrap').classList.contains('locked')}};
+  const scarica=u=>{const a=document.createElement('a');a.href=u;a.download='';a.dataset.direct='1';document.body.appendChild(a);a.click();a.remove()};
+  let pend=null;
+  document.addEventListener('click',e=>{const a=e.target.closest('a[data-res]');if(!a)return;e.preventDefault();
+    if(sbloccato()||!document.getElementById('lockwrap').classList.contains('locked')){scarica(a.getAttribute('href'));return}
+    pend=a;ttl.textContent=a.closest('.res-card').querySelector('h3').textContent;out.className='fmsg';out.textContent='';btn.disabled=false;btn.textContent='Scarica';
+    if(typeof dlg.showModal==='function')dlg.showModal();else dlg.setAttribute('open','');setTimeout(()=>document.getElementById('r-nome').focus(),50)});
+  document.getElementById('res-x').addEventListener('click',()=>dlg.close());
+  dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+  f.addEventListener('submit',async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(f));d.privacy=f.privacy.checked;out.className='fmsg';
+    const bad=(m,el)=>{out.className='fmsg bad';out.textContent=m;if(el)el.focus()};
+    if(!d.nome.trim())return bad('Inserisci nome e cognome.',f.nome);
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email))return bad("Controlla l'indirizzo email.",f.email);
+    if(!d.privacy)return bad('Serve il consenso privacy per scaricare le risorse.');
+    d.risorsa=pend?pend.dataset.res:'';
+    const live=/^(www\.)?(vitolongobardi|studiolongobardi)\.it$|vercel\.app$|localhost$/.test(location.hostname);
+    btn.disabled=true;btn.textContent='Un attimo…';
+    try{if(live){const r=await fetch('/api/doppio-motore',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});if(!r.ok)throw 0}
+      try{localStorage.setItem(KEY,'1')}catch(_){}
+      document.getElementById('lockwrap').classList.remove('locked');
+      if(pend)scarica(pend.getAttribute('href'));
+      out.className='fmsg ok';out.textContent='Grazie! Il download è partito. Ora puoi scaricare anche le altre risorse e vedere il risultato completo del simulatore.';btn.textContent='Fatto ✓';
+      setTimeout(()=>{if(dlg.open)dlg.close()},2600);
+    }catch(_){btn.disabled=false;btn.textContent='Scarica';bad('Non siamo riusciti a registrare la richiesta. Riprova tra poco.')}});
+})();
 /* barretta del risultato sul telefono */
 (()=>{const bar=document.getElementById('mbar'),v=document.getElementById('mbar-v'),src=document.getElementById('risparmio'),res=document.getElementById('risultato'),hero=document.querySelector('.hero');
   const sync=()=>{v.textContent=src.textContent};sync();new MutationObserver(sync).observe(src,{childList:true,characterData:true,subtree:true});

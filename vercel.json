@@ -52,6 +52,19 @@
           "value": "public, max-age=3600"
         }
       ]
+    },
+    {
+      "source": "/risorse/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        }
+      ]
     }
   ],
   "rewrites": [
