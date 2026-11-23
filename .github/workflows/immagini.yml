@@ -33,6 +33,7 @@ jobs:
           p5 eMqjlnDHd7u1JdC9z4wHR/XRRfjLxggReRqnZjFOBF2.jpg
           p6 z7H838ffkKcmb2sQBWkaP/njuRFDC4yR3TfOC2JDUJ_.jpg
           p7 zWKGF3Is5oyXizigAhWeb/lti8RkW6AOUGTyl7vQefL.jpg
+          p7-tre ufCUNSOxinW3EypZbP0yX/wRrObqibP8UWaErLaqE3-.jpg
           LISTA
           rm -rf tmp
       - name: Salva nel repository
