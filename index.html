@@ -367,6 +367,13 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
 .plate{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .5s}
 .plate.on{opacity:1}
 .covers{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .3s}
+.covers img{position:absolute}
+.covers .cv-badge{z-index:3;position:absolute;left:0;top:0;padding:5px 12px;border-radius:30px;background:var(--gold);color:#120c02;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 0 24px rgba(242,165,31,.55);white-space:nowrap}
+.beat.low{bottom:calc(env(safe-area-inset-bottom,0px) + 2.5vh)}
+@media(max-width:760px){.beat.low{bottom:calc(env(safe-area-inset-bottom,0px) + 1.2vh)}.beat.low .glass{padding:12px 16px 14px}}
+.beat.low .glass{padding:14px 24px 16px}
+.beat.low h2{font-size:clamp(19px,2.4vw,30px)}
+.beat .more+.more{margin-left:8px}
 .covers img{position:absolute;left:0;top:0;width:auto;max-width:none;border-radius:2px 5px 5px 2px;box-shadow:14px 18px 40px rgba(0,0,0,.65);will-change:transform}
 .plate img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;will-change:transform}
 .plate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,5,10,.55) 0%,rgba(4,5,10,.12) 30%,rgba(4,5,10,.2) 60%,rgba(4,5,10,.8) 100%)}
@@ -432,7 +439,7 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
   <div class="beat" data-f="0" data-in=".4" data-out=".66"><div class="glass">
     <h2>Otto piani. <em>Un unico metodo.</em></h2>
     <p>Pianificazione fiscale, lavoro, impresa, formazione, investimenti e crescita personale. Ogni piano è una parte di quello che faccio.</p>
-    <div class="nums"><div><b>500+</b><span>clienti assistiti</span></div><div><b>2</b><span>libri pubblicati</span></div><div><b>200+</b><span>imprenditori pagano meno tasse</span></div></div>
+    <div class="nums"><div><b>500+</b><span>clienti assistiti</span></div><div><b>3</b><span>libri pubblicati</span></div><div><b>200+</b><span>imprenditori pagano meno tasse</span></div></div>
   </div></div>
   <div class="beat" data-f="0" data-in=".76" data-out=".97"><div class="glass">
     <h2>Si sale. <em>Primo piano.</em></h2>
@@ -526,16 +533,21 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
   </div></div>
 
   <!-- P7 Libri -->
-  <div class="beat" data-f="7" data-in=".04" data-out=".3"><div class="glass">
+  <div class="beat low" data-f="7" data-in=".04" data-out=".24"><div class="glass">
     <div class="eyebrow">P7 · Autore</div>
-    <h2>Autore di <em>due libri.</em></h2>
+    <h2>Autore di <em>tre libri.</em></h2>
   </div></div>
-  <div class="beat" data-f="7" data-in=".36" data-out=".6"><div class="glass">
+  <div class="beat low" data-f="7" data-in=".28" data-out=".5"><div class="glass">
+    <div class="eyebrow">Novità · Doppio Motore</div>
+    <h2>L'azienda è il primo motore. <em>Il patrimonio è il secondo.</em></h2>
+    <a class="more" href="/doppio-motore">Simulatore e risorse →</a><a class="more" href="#amazon-doppio-motore" target="_blank" rel="noopener">Acquista su Amazon →</a>
+  </div></div>
+  <div class="beat low" data-f="7" data-in=".54" data-out=".75"><div class="glass">
     <div class="eyebrow">Intelligenza Fiscale · Best seller Amazon</div>
     <h2>Scarica la tua copia. <em>In omaggio.</em></h2>
     <button type="button" class="more" data-s="libri">Scaricalo gratis →</button>
   </div></div>
-  <div class="beat" data-f="7" data-in=".7" data-out=".97"><div class="glass">
+  <div class="beat low" data-f="7" data-in=".79" data-out=".97"><div class="glass">
     <div class="eyebrow">Cammino verso Dio</div>
     <h2>21 tappe di fede e imprenditoriali <em>per crescere.</em></h2>
     <a class="more" href="https://link.amazon/B0c6dFw5w" target="_blank" rel="noopener">Acquista su Amazon →</a>
@@ -666,7 +678,7 @@ const grid=document.getElementById("grid");
 
 // ruoli che si scrivono
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-const roles=["consulente fiscale","consulente del lavoro","consulente aziendale","formatore","fondatore di una holding","creatore di Human OS","autore di due libri","speaker di Elevate"];
+const roles=["consulente fiscale","consulente del lavoro","consulente aziendale","formatore","fondatore di una holding","creatore di Human OS","autore di tre libri","speaker di Elevate"];
 const roleEl=document.getElementById("role");let ri=0;
 if(!reduce)setInterval(()=>{ri=(ri+1)%roles.length;const t=roles[ri];let i=0;const tk=setInterval(()=>{roleEl.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(tk)},36)},2800);
 
@@ -721,8 +733,14 @@ const SCHEDE={
     ricevi:["Avviso in anteprima sulla prossima edizione","Accesso alle iscrizioni"],
     note:"Lascia la tua email dal form contatti scegliendo Elevate: ti avvisiamo per la prossima edizione."}
 };
-const libriHTML=()=>`<div class="hd"><div class="eyebrow">P7 · Autore</div><div class="pnum">P7</div><h2 id="sheet-title">Autore di due libri.</h2><p class="lead">Il fisco spiegato a chi fa impresa, e un cammino di fede e crescita imprenditoriale.</p></div>
+const libriHTML=()=>`<div class="hd"><div class="eyebrow">P7 · Autore</div><div class="pnum">P7</div><h2 id="sheet-title">Autore di tre libri.</h2><p class="lead">Il fisco spiegato a chi fa impresa, i due motori che fanno crescere azienda e patrimonio, e un cammino di fede e crescita imprenditoriale.</p></div>
   <div class="book">
+    <img class="bk-img" src="img/libri/doppio-motore.jpg" alt="Copertina di Doppio Motore di Vito Longobardi" loading="lazy">
+    <div><div class="badge">Novità</div><h3 style="margin-top:12px">Doppio Motore</h3>
+      <p class="lead" style="font-size:16px">L'azienda è il primo motore, il patrimonio è il secondo. Nel sito trovi il simulatore di detassazione 2026 e i modelli Excel del libro.</p>
+      <div class="acts" style="margin-top:14px"><a class="go" href="/doppio-motore" style="text-decoration:none">Simulatore e risorse</a><a class="ig" href="#amazon-doppio-motore" target="_blank" rel="noopener">Acquista su Amazon</a></div></div>
+  </div>
+  <div class="book" style="margin-top:38px">
     <img class="bk-img" src="img/libri/intelligenza-fiscale.jpg" alt="Copertina di Intelligenza Fiscale di Vito Longobardi" loading="lazy">
     <div><div class="badge">Best seller Amazon</div><h3 style="margin-top:12px">Intelligenza Fiscale</h3>
       <p class="lead" style="font-size:16px">Scarica gratis la tua copia in PDF: inserisci i tuoi dati e il download parte subito.</p></div>
@@ -819,7 +837,7 @@ const PLATES=[
   {loc:"p4",src:G+"VojkTYx650WbQNMey3wpw/oceINPcTH5Ch11LnugoCH.jpg",pos:"50% 50%"},
   {loc:"p5",src:G+"eMqjlnDHd7u1JdC9z4wHR/XRRfjLxggReRqnZjFOBF2.jpg",pos:"55% 50%"},
   {loc:"p6",src:G+"z7H838ffkKcmb2sQBWkaP/njuRFDC4yR3TfOC2JDUJ_.jpg",pos:"50% 50%"},
-  {loc:"p7",src:G+"zWKGF3Is5oyXizigAhWeb/lti8RkW6AOUGTyl7vQefL.jpg",pos:"50% 50%"}
+  {loc:"p7-tre",src:G+"ufCUNSOxinW3EypZbP0yX/wRrObqibP8UWaErLaqE3-.jpg",pos:"50% 50%"}
 ];
 /* scritte a pallini di luce: fasi [righe, inizio formazione]; cx/cy = centro (frazione dello schermo), w = larghezza massima */
 const WORDS={
@@ -829,7 +847,7 @@ const WORDS={
   4:{phases:[[[["CORSI",1]],.06]]},
   5:{phases:[[[["HUMAN OS",1]],.36]],color:[70,194,255],cx:mob?.5:.64,cy:mob?.62:.5,w:mob?.86:.5},
   6:{phases:[[[["HOLDING",1]],.06]]},
-  7:{phases:[[mob?[["AUTORE DI",1],["DUE LIBRI",1]]:[["AUTORE DI DUE LIBRI",1]],.04]],cy:mob?.21:.13,w:mob?.8:.62,hmax:mob?.2:.09}
+  7:{phases:[[mob?[["AUTORE DI",1],["TRE LIBRI",1]]:[["AUTORE DI TRE LIBRI",1]],.04]],cy:mob?.2:.12,w:mob?.8:.62,hmax:mob?.17:.085}
 };
 const stageEl=document.querySelector(".stage"),platesEl=document.createElement("div");platesEl.className="plates";stageEl.insertBefore(platesEl,stageEl.firstChild);
 const plateEls=PLATES.map((p,i)=>{const d=document.createElement("div");d.className="plate";
@@ -891,20 +909,25 @@ function drawDots(fi,u,t){
   if(seamOn>0){const g=cx2.createLinearGradient(0,0,0,H);g.addColorStop(0,"rgba(255,200,110,0)");g.addColorStop(.5,`rgba(255,215,140,${seamOn})`);g.addColorStop(1,"rgba(255,200,110,0)");cx2.fillStyle=g;cx2.fillRect(W/2-1.5,0,3,H)}
 }
 /* copertine vere sui piedistalli del P7: punti del libro nell'immagine AI (frazioni) e altezza del libro */
-const BOOKS=[{src:"img/libri/intelligenza-fiscale.jpg",alt:"Intelligenza Fiscale",px:.322,py:.49,h:.35,ry:9,ph:.36,pe:.62},
-             {src:"img/libri/cammino-verso-dio.jpg",alt:"Cammino verso Dio",px:.646,py:.5,h:.49,ry:-7,ph:.7,pe:1}];
+const BOOKS=[{src:"img/libri/intelligenza-fiscale.jpg",alt:"Intelligenza Fiscale",px:.274,py:.693,h:.265,ry:2,ph:.53,pe:.75,mx:.16,my:.63,mh:.14,mr:-7},
+             {src:"img/libri/doppio-motore.jpg",alt:"Doppio Motore",px:.502,py:.563,h:.356,ry:0,ph:.27,pe:.49,mfit:1,badge:"Nuovo"},
+             {src:"img/libri/cammino-verso-dio.jpg",alt:"Cammino verso Dio",px:.727,py:.695,h:.258,ry:-2,ph:.79,pe:1,mx:.83,my:.63,mh:.14,mr:7}];
 const coversEl=document.createElement("div");coversEl.className="covers";stageEl.insertBefore(coversEl,canvas);
 const coverEls=BOOKS.map(b=>{const im=new Image();im.src=b.src;im.alt=b.alt;im.decoding="async";coversEl.appendChild(im);return im});
+const badgeEls=BOOKS.map(b=>{if(!b.badge)return null;const e=document.createElement("span");e.className="cv-badge";e.textContent=b.badge;coversEl.appendChild(e);return e});
 function placeCovers(fi,u,t){
   if(fi!==7){coversEl.style.opacity=0;return}
   const iw=2752,ih=1536,k=Math.max(W/iw,H/ih),dw=iw*k,dh=ih*k,ox=(W-dw)/2,oy=(H-dh)/2,sc=lerp(1.14,1,ease(u)),dy=(u-.5)*-1.2/100*H*sc,wide=W/H>=1.25;
   coversEl.style.opacity=sm(clamp((u-.1)/.1)).toFixed(3);
   BOOKS.forEach((b,i)=>{const im=coverEls[i];let x,y,h;
-    if(wide){const x0=ox+b.px*dw,y0=oy+b.py*dh;x=W/2+(x0-W/2)*sc;y=H/2+(y0-H/2)*sc+dy;h=b.h*dh*sc}
-    else{x=W*(i?.72:.28);y=H*.52;h=Math.min(H*.26,W*.6)}
+    let rz=0;
+    if(wide||b.mfit){const x0=ox+b.px*dw,y0=oy+b.py*dh;x=W/2+(x0-W/2)*sc;y=H/2+(y0-H/2)*sc+dy;h=b.h*dh*sc}
+    else{x=W*b.mx;y=H*b.my;h=Math.min(H*b.mh,W*b.mh*2.1);rz=b.mr||0}
+    im.style.zIndex=wide?1:(b.mfit?1:2);
     const hi=sm(clamp((u-b.ph)/.05))*(1-sm(clamp((u-b.pe)/.05))),z=1+.06*hi,fl=Math.sin(t*.9+i*2)*h*.012;
-    im.style.height=h.toFixed(1)+"px";im.style.transform=`translate(${(x).toFixed(1)}px,${(y+fl).toFixed(1)}px) translate(-50%,-50%) perspective(900px) rotateY(${b.ry}deg) scale(${z.toFixed(3)})`;
-    im.style.filter=`brightness(${(.86+.22*hi).toFixed(3)}) drop-shadow(0 0 ${(18+30*hi).toFixed(0)}px rgba(255,190,90,${(.18+.35*hi).toFixed(2)}))`})}
+    im.style.height=h.toFixed(1)+"px";im.style.transform=`translate(${(x).toFixed(1)}px,${(y+fl).toFixed(1)}px) translate(-50%,-50%) perspective(900px) rotateY(${b.ry}deg) rotate(${rz}deg) scale(${z.toFixed(3)})`;
+    im.style.filter=`brightness(${(.86+.22*hi).toFixed(3)}) drop-shadow(0 0 ${(18+30*hi).toFixed(0)}px rgba(255,190,90,${(.18+.35*hi).toFixed(2)}))`;
+    const bd=badgeEls[i];if(bd)bd.style.transform=`translate(${x.toFixed(1)}px,${(y+fl-h*z/2-6).toFixed(1)}px) translate(-50%,-100%)`})}
 function showPlate(fi,u){plateEls.forEach((p,i)=>{const on=i===fi;p.d.classList.toggle("on",on);
   if(on){const sc=lerp(1.14,1.0,ease(u)),tr=`scale(${sc.toFixed(4)}) translateY(${((u-.5)*-1.2).toFixed(2)}%)`;p.img.style.transform=tr;
     if(p.alt){p.alt.style.transform=tr;p.alt.style.opacity=sm(clamp((u-p.at)/.08)).toFixed(3)}}})}
