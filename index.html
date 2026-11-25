@@ -74,6 +74,16 @@
     },
     {
       "@type": "Book",
+      "name": "Doppio Motore",
+      "alternativeHeadline": "Come trasformare gli utili della tua azienda in un patrimonio che cresce",
+      "author": { "@id": "https://www.vitolongobardi.it/#vito" },
+      "inLanguage": "it",
+      "isbn": "9798145307535",
+      "image": "https://www.vitolongobardi.it/img/libri/doppio-motore.jpg",
+      "url": "https://www.vitolongobardi.it/doppio-motore"
+    },
+    {
+      "@type": "Book",
       "name": "Cammino verso Dio",
       "author": { "@id": "https://www.vitolongobardi.it/#vito" },
       "inLanguage": "it",
@@ -539,7 +549,7 @@ body.sheet-open .sheet{transform:none}body.sheet-open .sheet-bg{opacity:1;visibi
   </div></div>
   <div class="beat low" data-f="7" data-in=".28" data-out=".5"><div class="glass">
     <div class="eyebrow">Novità · Doppio Motore</div>
-    <h2>L'azienda è il primo motore. <em>Il patrimonio è il secondo.</em></h2>
+    <h2>Il tuo lavoro produce utili. <em>Il tuo patrimonio cresce?</em></h2>
     <a class="more" href="/doppio-motore">Simulatore e risorse →</a><a class="more" href="#amazon-doppio-motore" target="_blank" rel="noopener">Acquista su Amazon →</a>
   </div></div>
   <div class="beat low" data-f="7" data-in=".54" data-out=".75"><div class="glass">
@@ -733,11 +743,11 @@ const SCHEDE={
     ricevi:["Avviso in anteprima sulla prossima edizione","Accesso alle iscrizioni"],
     note:"Lascia la tua email dal form contatti scegliendo Elevate: ti avvisiamo per la prossima edizione."}
 };
-const libriHTML=()=>`<div class="hd"><div class="eyebrow">P7 · Autore</div><div class="pnum">P7</div><h2 id="sheet-title">Autore di tre libri.</h2><p class="lead">Il fisco spiegato a chi fa impresa, i due motori che fanno crescere azienda e patrimonio, e un cammino di fede e crescita imprenditoriale.</p></div>
+const libriHTML=()=>`<div class="hd"><div class="eyebrow">P7 · Autore</div><div class="pnum">P7</div><h2 id="sheet-title">Autore di tre libri.</h2><p class="lead">Il fisco spiegato a chi fa impresa, come trasformare gli utili in patrimonio, e un cammino di fede e crescita imprenditoriale.</p></div>
   <div class="book">
     <img class="bk-img" src="img/libri/doppio-motore.jpg" alt="Copertina di Doppio Motore di Vito Longobardi" loading="lazy">
     <div><div class="badge">Novità</div><h3 style="margin-top:12px">Doppio Motore</h3>
-      <p class="lead" style="font-size:16px">L'azienda è il primo motore, il patrimonio è il secondo. Nel sito trovi il simulatore di detassazione 2026 e i modelli Excel del libro.</p>
+      <p class="lead" style="font-size:16px">Come trasformare gli utili della tua azienda in un patrimonio che cresce. Sul sito trovi il simulatore di detassazione 2026 e i modelli Excel del libro.</p>
       <div class="acts" style="margin-top:14px"><a class="go" href="/doppio-motore" style="text-decoration:none">Simulatore e risorse</a><a class="ig" href="#amazon-doppio-motore" target="_blank" rel="noopener">Acquista su Amazon</a></div></div>
   </div>
   <div class="book" style="margin-top:38px">
@@ -910,7 +920,7 @@ function drawDots(fi,u,t){
 }
 /* copertine vere sui piedistalli del P7: punti del libro nell'immagine AI (frazioni) e altezza del libro */
 const BOOKS=[{src:"img/libri/intelligenza-fiscale.jpg",alt:"Intelligenza Fiscale",px:.274,py:.693,h:.265,ry:2,ph:.53,pe:.75,mx:.16,my:.63,mh:.14,mr:-7},
-             {src:"img/libri/doppio-motore.jpg",alt:"Doppio Motore",px:.502,py:.563,h:.356,ry:0,ph:.27,pe:.49,mfit:1,badge:"Nuovo"},
+             {src:"img/libri/doppio-motore.jpg",alt:"Doppio Motore",px:.502,py:.563,h:.342,ry:0,ph:.27,pe:.49,mfit:1,badge:"Nuovo"},
              {src:"img/libri/cammino-verso-dio.jpg",alt:"Cammino verso Dio",px:.727,py:.695,h:.258,ry:-2,ph:.79,pe:1,mx:.83,my:.63,mh:.14,mr:7}];
 const coversEl=document.createElement("div");coversEl.className="covers";stageEl.insertBefore(coversEl,canvas);
 const coverEls=BOOKS.map(b=>{const im=new Image();im.src=b.src;im.alt=b.alt;im.decoding="async";coversEl.appendChild(im);return im});
