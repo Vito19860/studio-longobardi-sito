@@ -20,6 +20,8 @@ api/libro.js          funzione Vercel: download gratuito di Intelligenza Fiscale
 download/             PDF di Intelligenza Fiscale (copia di riserva se non è su Supabase Storage)
 doppio-motore.html    pagina del libro Doppio Motore con il simulatore di detassazione 2026 (/doppio-motore)
 risorse/              modelli Excel del libro Doppio Motore (si scaricano dalla pagina dopo nome ed email)
+js/cookie.js          avviso cookie (informativo, alla prima visita)
+fonts/                caratteri del sito salvati in locale (azione GitHub "Caratteri")
 api/doppio-motore.js  funzione Vercel: contatti del simulatore e delle risorse → tabella "richieste" (area "Doppio Motore") + avviso email
 privacy.html          informativa privacy (/privacy)
 cookie.html           cookie policy (/cookie)

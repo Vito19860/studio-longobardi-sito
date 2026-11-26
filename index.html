@@ -83,8 +83,7 @@
 }
 </script>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 /* Layout: un unico piano sequenza in WebGL guidato dallo scroll. Arrivo alla torre → 8 piani collegati da un ascensore → Elevate in cima → galleria e contatti in HTML */
 :root{
@@ -254,6 +253,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin
 .brand .mk{width:32px;height:32px;border-radius:7px;background:#0d1b3a;border:1px solid rgba(242,165,31,.45);display:grid;place-items:center}
 .brand .mk svg{width:17px;height:17px}
 .brand b{font-family:var(--display);font-weight:400;font-size:12px;letter-spacing:.18em}
+@media(max-width:430px){.brand{gap:9px}.brand b{font-size:10.5px;letter-spacing:.12em;white-space:nowrap}}
 .nav{display:flex;align-items:center;gap:6px}
 .nav>a,.nav>.dd>button{all:unset;cursor:pointer;font-size:15px;color:#cfd5e0;padding:9px 13px;border-radius:8px;display:flex;align-items:center;gap:7px;transition:background .2s,color .2s}
 .nav>a:hover,.nav>.dd>button:hover,.nav>.dd.open>button{background:rgba(255,255,255,.07);color:#fff}
@@ -1068,5 +1068,6 @@ requestAnimationFrame(frame);
   </form>
 </dialog>
 <a class="wa-fab" href="https://wa.me/390818011388?text=Buongiorno%2C%20vorrei%20prenotare%20una%20consulenza%20con%20lo%20Studio%20Longobardi." target="_blank" rel="noopener" aria-label="Prenota una consulenza su WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2a13.2 13.2 0 0 0 6.6 1.7c7.2 0 13-5.7 13-12.8S23.2 3 16 3Zm0 23.4c-2.1 0-4.1-.6-5.9-1.6l-.4-.3-3.8 1.2 1.2-3.7-.3-.4a10.5 10.5 0 0 1-1.7-5.8C5.1 9.9 10 5.2 16 5.2S26.9 9.9 26.9 15.8 22 26.4 16 26.4Zm6-7.8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.9 8.9 0 0 1-4.4-3.8c-.3-.6.3-.5 1-1.8.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.7 1.2 3.1 1.4 3.3 2.3 3.6 5.7 5c2.1.9 2.9 1 4 .8.6-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.3Z"/></svg><span>Prenota</span></a>
+<script src="/js/cookie.js" defer></script>
 </body>
 </html>
