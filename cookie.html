@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cookie policy · Vito Longobardi</title>
 <meta name="robots" content="noindex">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=Instrument+Sans:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root{--bg:#05060b;--fg:#e9ecf2;--muted:#9aa3b5;--line:rgba(190,195,215,.16);--gold:#f2a51f;--gold-2:#ffd27a;color-scheme:dark}
 *{box-sizing:border-box}
@@ -41,12 +40,13 @@ footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-si
 <tr><th>Nome</th><th>Tipo</th><th>A cosa serve</th><th>Durata</th></tr>
 <tr><td><code>sl-music</code></td><td>Memoria locale del browser (localStorage), tecnica</td><td>Ricorda se hai attivato la musica di sottofondo</td><td>Finché non la cancelli dal browser</td></tr>
 <tr><td><code>sl-dm-ok</code></td><td>Memoria locale del browser (localStorage), tecnica</td><td>Pagina /doppio-motore: ricorda che hai già sbloccato il risultato completo del simulatore, così non ti chiediamo di nuovo i dati. Non contiene dati personali.</td><td>Finché non la cancelli dal browser</td></tr>
+<tr><td><code>sl-cookie-ok</code></td><td>Memoria locale del browser (localStorage), tecnica</td><td>Ricorda che hai chiuso l'avviso sui cookie, così non te lo mostriamo a ogni visita</td><td>Finché non la cancelli dal browser</td></tr>
 </table></div>
 <p>Per contare le visite in forma anonima usiamo <b>Vercel Web Analytics</b>, che <b>non installa cookie</b> e non salva nulla sul tuo dispositivo: misura pagine viste e provenienza in forma aggregata, senza identificarti.</p>
 <p>Si tratta di uno strumento tecnico necessario a fornire una funzione da te richiesta: secondo l'art. 122 del D.Lgs. 196/2003 e le Linee guida del Garante del 10 giugno 2021 non richiede il consenso.</p>
 
 <h2>3. Risorse di terze parti</h2>
-<p>Per mostrare i caratteri tipografici e alcune immagini, il tuo browser si collega ai server di <b>Google Fonts</b> e di <b>Gamma</b>, che ricevono il tuo indirizzo IP. Il sito non chiede a questi servizi di installare cookie. Puoi trovare i dettagli nella <a href="/privacy">privacy policy</a>.</p>
+<p>Caratteri tipografici e immagini sono ospitati sul sito stesso: alla normale visita il tuo browser non si collega a servizi di terze parti. Solo se un'immagine dei piani non fosse disponibile, verrebbe caricata la copia di riserva dai server di <b>Gamma</b>, che riceverebbero il tuo indirizzo IP senza installare cookie. Puoi trovare i dettagli nella <a href="/privacy">privacy policy</a>.</p>
 
 <h2>4. Come gestire cookie e memoria locale</h2>
 <p>Puoi cancellare in qualsiasi momento i dati salvati dal sito dalle impostazioni del tuo browser, alla voce cookie e dati dei siti.</p>
@@ -54,4 +54,5 @@ footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-si
 <h2>5. Modifiche</h2>
 <p>Se in futuro il sito userà strumenti di statistica o di marketing, questa pagina sarà aggiornata e ti verrà chiesto il consenso prima di attivarli.</p>
 <footer>© 2026 Vito Longobardi · Studio Longobardi · Via Castellammare 71, 80054 Gragnano (NA) · P.IVA 06957591214 · <a href="/privacy">Privacy policy</a> · <a href="/cookie">Cookie policy</a></footer>
-</main></body></html>
+</main><script src="/js/cookie.js" defer></script>
+</body></html>

@@ -1,0 +1,46 @@
+# Salva nel sito i caratteri usati (prima venivano caricati da Google Fonts a ogni visita).
+# Parte da sola quando questo file cambia; si può rilanciare da GitHub → Actions → "Caratteri".
+name: Caratteri
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".github/workflows/caratteri.yml"]
+permissions:
+  contents: write
+jobs:
+  scarica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scarica i caratteri da Google Fonts
+        run: |
+          python3 - <<'PY'
+          import re, os, urllib.request
+          URL = "https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+          UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+          get = lambda u: urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": UA})).read()
+          css = get(URL).decode()
+          blocks = re.findall(r"/\* ([\w-]+) \*/\s*(@font-face \{.*?\})", css, re.S)
+          os.makedirs("fonts", exist_ok=True)
+          out = ["/* Caratteri del sito, salvati in locale (Michroma, Montserrat, Instrument Sans, JetBrains Mono: licenza SIL Open Font License) */"]
+          for subset, block in blocks:
+              if subset not in ("latin", "latin-ext"):
+                  continue
+              fam = re.search(r"font-family: '([^']+)'", block).group(1)
+              w = re.search(r"font-weight: (\d+)", block).group(1)
+              src = re.search(r"url\((https://[^)]+\.woff2)\)", block).group(1)
+              name = f"{fam.lower().replace(' ', '-')}-{w}-{subset}.woff2"
+              with open(f"fonts/{name}", "wb") as f:
+                  f.write(get(src))
+              out.append(f"/* {subset} */\n" + block.replace(src, f"/fonts/{name}"))
+          open("fonts/fonts.css", "w").write("\n".join(out) + "\n")
+          print(len(out) - 1, "blocchi salvati")
+          PY
+          ls -la fonts
+      - name: Salva nel repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fonts
+          git diff --cached --quiet && echo "Nessuna novità" || (git commit -m "Caratteri salvati nel sito" && git push)
